@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quasar Data Reduction — Junsheng He</title>
+  <meta name="description" content="Near-infrared quasar imaging, reduction, calibration, PSF modelling, and residual analysis by Junsheng He.">
+  <meta name="theme-color" content="#0e142b">
+  <link rel="icon" href="/assets/img/junsheng-he.png" type="image/png">
+  <meta property="og:type" content="article"><meta property="og:url" content="https://hjs12345678900.github.io/research/quasar-reduction/">
+  <meta property="og:title" content="Quasar Data Reduction — Junsheng He"><meta property="og:description" content="Near-infrared calibration, image combination, empirical PSFs, and residual diagnostics.">
+  <meta name="twitter:card" content="summary"><meta name="twitter:title" content="Quasar Data Reduction — Junsheng He"><meta name="twitter:description" content="Near-infrared calibration, image combination, empirical PSFs, and residual diagnostics.">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&amp;family=Manrope:wght@400;500;600&amp;family=Newsreader:opsz,wght@6..72,300;6..72,400&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/site.css"><script src="/assets/js/site.js" defer></script>
+</head>
+<body class="detail-page detail-quasar">
+  <canvas class="sky-canvas" aria-hidden="true"></canvas><a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header"><a class="wordmark" href="/"><span class="wordmark-dot"></span><span>JSH<span class="wordmark-slash">/</span>ASTRO</span></a><button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button><nav class="site-nav" id="site-nav"><a href="/#work">Research</a><a href="/astrophotography/">Photography</a><a href="/cv/">CV</a><a class="nav-contact" href="https://github.com/hjs12345678900" target="_blank" rel="noreferrer">GitHub ↗</a></nav></header>
+  <main id="main">
+    <section class="detail-hero shell">
+      <div data-reveal><a class="back-link" href="/#work">← All directions</a><p class="eyebrow"><span>02</span> Observational pipeline</p><h1>Quasar data<br><em>reduction.</em></h1><p class="detail-lede">A detector records photons and systematics together. Reduction is the work of telling them apart—carefully enough that the faint structure remains believable.</p></div>
+      <div class="detector-visual" data-reveal aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+    </section>
+    <section class="detail-intro shell" data-reveal><p class="section-index">The work</p><div><h2>From raw near-infrared frames to calibrated science images.</h2><p>I work with quasar imaging data and reproducible reduction workflows, including detector calibration, sky subtraction, registration, combination, and quality control. For compact sources, the point-spread function is part of the science: comparison-star modelling and shifted, brightness-scaled subtraction help expose unresolved or extended residuals.</p></div></section>
+    <section class="pipeline shell" aria-label="Reduction pipeline">
+      <div class="pipeline-line" aria-hidden="true"></div>
+      <article data-reveal><span>01</span><h3>Calibrate</h3><p>Dark, flat, bad-pixel, and detector-level corrections.</p></article>
+      <article data-reveal><span>02</span><h3>Subtract</h3><p>Near-IR sky estimation without erasing faint structure.</p></article>
+      <article data-reveal><span>03</span><h3>Register</h3><p>Astrometric alignment and robust image combination.</p></article>
+      <article data-reveal><span>04</span><h3>Interrogate</h3><p>PSF subtraction, residual maps, profiles, and diagnostics.</p></article>
+    </section>
+    <section class="data-note shell" data-reveal><div class="data-grid" aria-hidden="true"><span></span><span></span><span></span><span></span><i></i></div><div><p class="section-index">Current emphasis</p><h2>Residuals are evidence only when the subtraction is understood.</h2><p>My analysis treats centring, brightness scaling, comparison-star choice, and the radial behaviour of the residual as a coupled problem. The aim is not merely a clean image, but a transparent chain from raw data to astrophysical interpretation.</p><div class="tag-row"><span>ERIS / NIX</span><span>FITS</span><span>Empirical PSF</span><span>2D shift scans</span><span>Radial profiles</span></div></div></section>
+    <nav class="next-project shell"><span>Next direction</span><a href="/research/occultations/">Occultations <b>↗</b></a></nav>
+  </main>
+  <footer class="site-footer shell"><span>© <span data-year></span> Junsheng He</span><span>Quasar reduction</span><a href="#main">Back to top ↑</a></footer>
+</body>
+</html>
