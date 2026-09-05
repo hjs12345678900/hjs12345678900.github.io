@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Asteroid Hunters — Melbourne</title>
+  <meta name="description" content="Asteroid Hunters is a Melbourne-based collaboration for asteroid occultation observing, analysis and reporting.">
+  <meta name="theme-color" content="#0b2b50">
+  <link rel="icon" href="../../assets/img/junsheng-he.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&amp;family=Manrope:wght@400;500;600&amp;family=Newsreader:opsz,wght@6..72,300;6..72,400&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/site.css">
+  <link rel="stylesheet" href="../../assets/css/occultation-group.css?v=6">
+  <script src="../../assets/js/site.js" defer></script>
+</head>
+<body class="detail-page occultation-group-page">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header group-site-header">
+    <a class="group-wordmark" href="./" aria-label="Asteroid Hunters — page top">
+      <span class="group-wordmark-mark" aria-hidden="true">AH</span>
+      <span class="group-wordmark-copy"><strong>Asteroid Hunters</strong></span>
+    </a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav class="site-nav" id="site-nav" aria-label="Group page navigation">
+      <a href="#science">Science</a>
+      <a href="#events">Events</a>
+      <a href="#people">People</a>
+      <a href="guide/">Group guide</a>
+      <a class="nav-contact" href="#join">Join the group</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="group-hero">
+      <div class="shell group-hero-grid">
+        <div class="group-hero-copy" data-reveal>
+          <p class="eyebrow">UNIMELB BASED</p>
+          <h1>Asteroid Hunters</h1>
+          <p class="group-hero-lede">A star disappears for seconds. We turn its shadow into a measurement of an asteroid.</p>
+          <div class="group-hero-actions">
+            <a class="group-button group-button-primary" href="#join">Join the group</a>
+            <a class="group-text-link" href="guide/">Read the group guide <span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+
+        <figure class="group-hero-figure group-hero-event" data-reveal>
+          <img src="../../assets/media/occultation-group/pizarro-star-disappearance.gif" alt="Animated Pizarro observation showing the marked star disappear during an asteroid occultation">
+        </figure>
+      </div>
+    </section>
+
+    <section class="group-intro shell" id="science" aria-labelledby="group-science-title">
+      <header class="academic-section-heading" data-reveal>
+        <p class="section-index">The measurement</p>
+        <div>
+          <h2 id="group-science-title">What is an asteroid occultation?</h2>
+        </div>
+      </header>
+      <figure class="occultation-system-figure group-occultation-animation" data-reveal>
+        <div class="figure-label">Occultation geometry and light curve</div>
+        <svg viewBox="0 0 1200 780" role="img" aria-labelledby="group-system-title group-system-desc">
+          <title id="group-system-title">Animated asteroid occultation geometry with a corresponding light curve</title>
+          <desc id="group-system-desc">An asteroid crosses the line of sight from a distant star and casts a moving shadow on Earth. A synchronized light curve shows the temporary loss of stellar flux.</desc>
+          <defs>
+            <radialGradient id="group-star-core" cx="38%" cy="34%"><stop offset="0" stop-color="#fffbe5"></stop><stop offset=".35" stop-color="#ffd77b"></stop><stop offset="1" stop-color="#d88925"></stop></radialGradient>
+            <radialGradient id="group-asteroid-rock" cx="32%" cy="24%"><stop offset="0" stop-color="#d6d9d8"></stop><stop offset=".38" stop-color="#8e969a"></stop><stop offset="1" stop-color="#343b42"></stop></radialGradient>
+            <radialGradient id="group-earth-ocean" cx="32%" cy="27%"><stop offset="0" stop-color="#acd5ec"></stop><stop offset=".45" stop-color="#4c91bd"></stop><stop offset=".82" stop-color="#24577f"></stop><stop offset="1" stop-color="#102a43"></stop></radialGradient>
+            <linearGradient id="group-shadow-cone" x1="0" x2="1"><stop offset="0" stop-color="#02060c" stop-opacity=".9"></stop><stop offset="1" stop-color="#02060c" stop-opacity=".52"></stop></linearGradient>
+            <filter id="group-star-glow" x="-200%" y="-200%" width="400%" height="400%"><feGaussianBlur stdDeviation="15"></feGaussianBlur></filter>
+            <filter id="group-object-shadow" x="-70%" y="-70%" width="240%" height="240%"><feDropShadow dx="8" dy="11" stdDeviation="8" flood-color="#000" flood-opacity=".62"></feDropShadow></filter>
+            <clipPath id="group-earth-clip"><circle cx="1010" cy="248" r="158"></circle></clipPath>
+            <path id="group-asteroid-silhouette" d="M-33-31L-5-45L31-33L47-3L38 29L10 45L-24 33L-44 5Z"></path>
+          </defs>
+          <g class="system-space-dots" aria-hidden="true"><circle cx="241" cy="78" r="2"></circle><circle cx="343" cy="380" r="1.5"></circle><circle cx="680" cy="92" r="2"></circle><circle cx="745" cy="414" r="1.5"></circle><circle cx="890" cy="56" r="1.5"></circle></g>
+          <g class="system-parallel-rays" aria-hidden="true"><path d="M180 166H968"></path><path d="M180 206H968"></path><path d="M180 246H968"></path><path d="M180 286H968"></path><path d="M180 326H968"></path></g>
+          <line class="system-sightline" x1="180" y1="246" x2="1010" y2="246"></line>
+          <g class="system-star"><circle class="system-star-glow" cx="132" cy="246" r="51"></circle><circle cx="132" cy="246" r="23"></circle><path d="M132 199V217M132 275V293M85 246H103M161 246H179M99 213L112 226M152 266L165 279M99 279L112 266M152 226L165 213"></path></g>
+          <path class="system-motion-path" d="M510 58V432"></path>
+          <g class="system-earth" filter="url(#group-object-shadow)"><circle cx="1010" cy="248" r="158"></circle><g clip-path="url(#group-earth-clip)"><ellipse cx="1010" cy="248" rx="75" ry="158"></ellipse><ellipse cx="1010" cy="248" rx="130" ry="158"></ellipse><path d="M852 248H1168M868 184Q1010 225 1152 184M868 312Q1010 271 1152 312"></path></g></g>
+          <g class="system-shadow-motion"><path class="system-shadow-body" d="M510 31H968V121H510Z"></path><path class="system-shadow-edge" d="M510 45H968M510 109H968"></path></g>
+          <g class="system-asteroid-track"><g class="system-asteroid" filter="url(#group-object-shadow)"><use href="#group-asteroid-silhouette" transform="translate(510 76)"></use><ellipse cx="497" cy="62" rx="10" ry="7"></ellipse><ellipse cx="530" cy="91" rx="7" ry="5"></ellipse></g></g>
+          <g class="system-shadow-on-earth" clip-path="url(#group-earth-clip)"><g class="system-shadow-motion"><use class="system-shadow-silhouette" href="#group-asteroid-silhouette" transform="translate(968 76) rotate(-8) scale(1.05)"></use></g></g>
+          <g class="system-site"><circle cx="968" cy="246" r="7"></circle><circle cx="968" cy="246" r="16"></circle></g>
+          <g class="system-labels"><text x="132" y="335" text-anchor="middle">Distant star</text><text x="332" y="145" text-anchor="middle">Parallel starlight</text><text x="510" y="458" text-anchor="middle">Asteroid motion</text><text x="720" y="191">Asteroid-shaped shadow</text><text x="1010" y="445" text-anchor="middle">Earth and observing site</text><text class="system-scale-note" x="1120" y="54" text-anchor="end">Not to scale</text></g>
+          <line class="system-divider" x1="58" y1="492" x2="1142" y2="492"></line>
+          <text class="system-panel-title" x="88" y="535">Corresponding light curve</text>
+          <g class="system-curve-grid" aria-hidden="true"><path d="M112 566H1104M112 628H1104M112 690H1104"></path><path d="M112 548V710M360 548V710M608 548V710M856 548V710M1104 548V710"></path></g>
+          <rect class="system-event-band" x="444" y="548" width="238" height="162"></rect>
+          <path class="system-curve-model" d="M112 574H412Q444 574 444 606V684H682V606Q682 574 714 574H1104"></path>
+          <line class="system-curve-cursor" x1="112" y1="548" x2="112" y2="710"></line>
+          <g class="system-curve-labels"><text x="92" y="580" text-anchor="end">1.0</text><text x="92" y="695" text-anchor="end">0.0</text><text x="608" y="735" text-anchor="middle">occultation</text><text x="1104" y="735" text-anchor="end">time</text><text x="40" y="635" transform="rotate(-90 40 635)" text-anchor="middle">normalised flux</text></g>
+        </svg>
+        <figcaption>Parallel starlight is blocked by the asteroid. The shadow crosses an observing site and produces a timed drop in stellar flux.</figcaption>
+      </figure>
+    </section>
+
+    <section class="group-equipment shell" id="equipment" aria-labelledby="group-equipment-title">
+      <header class="academic-section-heading" data-reveal>
+        <p class="section-index">Group equipment</p>
+        <div>
+          <h2 id="group-equipment-title">Shared equipment. Real campaigns.</h2>
+          <p>You do not need to own a telescope.</p>
+        </div>
+      </header>
+      <div class="group-equipment-grid">
+        <article class="group-equipment-card" data-reveal>
+          <figure><img class="group-equipment-image-meade" src="https://cdn.store-assets.com/s/16684/f/4386061.png" alt="Meade 12-inch LX200 ACF telescope" loading="lazy"></figure>
+          <div><span>12-inch aperture</span><h3>Meade</h3></div>
+        </article>
+        <article class="group-equipment-card" data-reveal>
+          <figure><img src="https://www.celestron.com/cdn/shop/products/12092_NexStar_Evolution_9_3.jpg?v=1727901821" alt="Celestron NexStar Evolution 9.25-inch telescope" loading="lazy"></figure>
+          <div><span>9.25-inch aperture</span><h3>Celestron Evolution</h3></div>
+        </article>
+      </div>
+      <p class="group-image-credit">Equipment images: <a href="https://www.opticaluniversescientificinstrument.com/products/meade-8-lx200-acf-telescope--1" target="_blank" rel="noreferrer">Meade 12″ LX200 ACF ↗</a> · <a href="https://www.celestron.com/products/nexstar-evolution-925-telescope" target="_blank" rel="noreferrer">Celestron ↗</a></p>
+      <a class="group-section-link" href="guide/#equipment">Equipment and observing setup <span aria-hidden="true">→</span></a>
+    </section>
+
+    <section class="group-field" id="field-trips" aria-labelledby="group-field-title">
+      <div class="shell group-field-content">
+        <figure class="group-field-photo" data-reveal>
+          <img src="../../assets/media/occultation-group/kallichore-esa-campaign.jpg?v=2" alt="Kallichore occultation campaign team in Cobar, New South Wales">
+          <figcaption>ESA-funded Kallichore campaign · Cobar, NSW</figcaption>
+        </figure>
+        <div class="group-field-copy" data-reveal>
+          <p class="section-index">Wider collaboration</p>
+          <h2 id="group-field-title">Campaigns beyond Melbourne.</h2>
+          <p>High-priority events can create opportunities to collaborate with larger observing teams, including NASA- and ESA-connected campaigns.</p>
+          <p class="group-field-note">The trip to Cobar, New South Wales, for the Kallichore occultation campaign was funded by ESA.</p>
+          <a class="group-section-link group-section-link-light" href="guide/#fieldwork">What a field campaign involves <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="group-events" id="events" aria-labelledby="group-events-title">
+      <div class="shell">
+        <header class="academic-section-heading academic-section-heading-dark" data-reveal>
+          <p class="section-index">Observation record</p>
+          <div><h2 id="group-events-title">Successful events</h2></div>
+        </header>
+        <div class="group-event-highlights">
+          <figure data-reveal>
+            <img src="../../assets/media/occultation-group/pizarro-event-site.gif?v=2" alt="Pizarro target-star frames synchronized with the measured light curve" loading="lazy">
+            <figcaption><span class="event-status event-status-positive">Positive</span><strong>(4609) Pizarro</strong><time datetime="2026-04-26">26 Apr 2026</time></figcaption>
+          </figure>
+          <figure data-reveal>
+            <img src="../../assets/media/occultation-group/fy22-event-site.gif?v=2" alt="1993 FY22 target-star FITS frames synchronized with the measured light curve" loading="lazy">
+            <figcaption><span class="event-status event-status-positive">Positive</span><strong>1993 FY22</strong><time datetime="2026-05-12">12 May 2026</time></figcaption>
+          </figure>
+        </div>
+        <a class="group-button group-button-primary group-events-button" href="events/">See all events <span aria-hidden="true">→</span></a>
+      </div>
+    </section>
+
+    <section class="group-people shell" id="people" aria-labelledby="group-people-title">
+      <header class="academic-section-heading" data-reveal>
+        <p class="section-index">People</p>
+        <div><h2 id="group-people-title">Our team</h2></div>
+      </header>
+      <div class="group-people-lead" data-reveal>
+        <strong>Junsheng He</strong><span>University of Melbourne</span>
+      </div>
+      <div class="group-people-grid">
+        <article class="group-person" data-reveal>
+          <img src="../../assets/media/occultation-group/people/alex.png" alt="Portrait of Alex" loading="lazy">
+          <div>
+            <h3>Alex</h3>
+            <p>Alex is a first-year PhD student studying the cosmic microwave background and the early Universe. What draws Alex to asteroid occultations is the full observing process: setting up, waiting, and seeing a real event unfold in the sky.</p>
+          </div>
+        </article>
+        <article class="group-person" data-reveal>
+          <img src="../../assets/media/occultation-group/people/daria-li.png" alt="Portrait of Daria Li" loading="lazy">
+          <div>
+            <h3>Daria Li</h3>
+            <p>Daria Li is a Melbourne-based therapist and researcher interested in what becomes visible through darkness, distance and obscuration. Drawing connections between inner experience and the night sky, she is curious about how encounters with astronomical scale can shift our sense of self, relationship and belonging.</p>
+          </div>
+        </article>
+        <article class="group-person" data-reveal>
+          <img src="../../assets/media/occultation-group/people/stephen-catsamas.png" alt="Portrait of Stephen Catsamas" loading="lazy">
+          <div>
+            <h3>Stephen Catsamas</h3>
+            <p>Stephen Catsamas is a PhD student in the School of Physics at the University of Melbourne. His research explores new capabilities for monitoring satellites in Earth orbit through first-principles physical modelling and analysis.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="group-join shell" id="join" aria-labelledby="group-join-title">
+      <div data-reveal>
+        <p class="section-index">Join the group</p>
+        <h2 id="group-join-title">Start with curiosity.</h2>
+      </div>
+      <div class="group-join-copy" data-reveal>
+        <p class="group-join-lede">No telescope. No prior experience. Start with us.</p>
+        <p>We will help you learn setup, analysis and reporting. Expect a steep but fruitful learning curve.</p>
+        <div class="group-join-actions">
+          <span class="group-button group-button-primary group-button-placeholder">Contact email coming soon</span>
+          <a class="group-section-link group-section-link-light" href="guide/">Read the group guide <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer shell">
+    <p>© <span data-year></span> Junsheng He · Asteroid Hunters</p>
+    <a href="#main">Back to top ↑</a>
+  </footer>
+</body>
+</html>

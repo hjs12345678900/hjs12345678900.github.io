@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 520" role="img" aria-labelledby="title desc">
+  <title id="title">Asteroid occultation measured from several observing stations</title>
+  <desc id="desc">Starlight is blocked by an asteroid. Its shadow crosses several observing stations, producing chords across the asteroid silhouette and a timed drop in stellar flux.</desc>
+  <defs>
+    <radialGradient id="star" cx="35%" cy="32%"><stop offset="0" stop-color="#fff9d2"/><stop offset=".4" stop-color="#ffc760"/><stop offset="1" stop-color="#d87b22"/></radialGradient>
+    <linearGradient id="shadow" x1="0" x2="1"><stop offset="0" stop-color="#e7edf2" stop-opacity=".06"/><stop offset="1" stop-color="#e7edf2" stop-opacity=".28"/></linearGradient>
+    <clipPath id="body-clip"><path d="M424 144L473 119L521 139L548 181L534 231L491 258L443 244L413 202Z"/></clipPath>
+  </defs>
+  <g fill="none" stroke="#f3f0e7" stroke-opacity=".22"><path d="M112 143H396"/><path d="M112 173H396"/><path d="M112 203H396"/><path d="M112 233H396"/></g>
+  <g><circle cx="76" cy="188" r="23" fill="url(#star)"/><path d="M76 145V164M76 212V231M33 188H52M100 188H119M46 158L59 171M93 205L106 218M46 218L59 205M93 171L106 158" fill="none" stroke="#ffc760" stroke-width="2"/></g>
+  <path d="M396 137L596 99V279L396 239Z" fill="url(#shadow)"/>
+  <path d="M354 135L390 117L424 132L444 163L434 199L402 219L368 209L346 179Z" fill="#9099a1" stroke="#dbe1e3" stroke-width="1.5"/>
+  <path d="M424 144L473 119L521 139L548 181L534 231L491 258L443 244L413 202Z" fill="#080f19" stroke="#f3f0e7" stroke-opacity=".5" stroke-width="1.5"/>
+  <g stroke="#86d8e8" stroke-opacity=".22" stroke-width="1.5" stroke-dasharray="6 6"><path d="M380 158H580"/><path d="M380 181H580"/><path d="M380 204H580"/><path d="M380 227H580"/></g>
+  <g clip-path="url(#body-clip)" stroke="#86d8e8" stroke-width="3"><path d="M380 158H580"/><path d="M380 181H580"/><path d="M380 204H580"/><path d="M380 227H580"/></g>
+  <g fill="#ff5b4f" stroke="#f3f0e7" stroke-width="1.5"><circle cx="580" cy="158" r="5"/><circle cx="580" cy="181" r="5"/><circle cx="580" cy="204" r="5"/><circle cx="580" cy="227" r="5"/></g>
+  <path d="M48 322H592" stroke="#f3f0e7" stroke-opacity=".14"/>
+  <g fill="none"><path d="M68 362H572M68 413H572M68 464H572" stroke="#f3f0e7" stroke-opacity=".1"/><path d="M68 365H229Q250 365 250 386V453H393V386Q393 365 414 365H572" stroke="#f3f0e7" stroke-width="3"/><path d="M322 344V478" stroke="#ff5b4f" stroke-width="2"/></g>
+  <g fill="#f3f0e7" fill-opacity=".58" font-family="DM Mono, monospace" font-size="12" letter-spacing=".02em"><text x="68" y="344">normalised stellar flux</text><text x="572" y="495" text-anchor="end">UTC time</text><text x="322" y="306" text-anchor="middle">one shadow · several observing chords</text></g>
+</svg>

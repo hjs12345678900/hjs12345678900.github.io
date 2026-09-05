@@ -22,6 +22,7 @@ Then open `http://127.0.0.1:4173/`.
 - `research/smbh-evolution/` — PhD research
 - `research/quasar-reduction/` — reduction workflow
 - `research/occultations/` — observing and SatOccult
+- `research/occultation-group/` — Asteroid Hunters, a Melbourne-based asteroid occultation collaboration
 - `astrophotography/` — image archive structure
 - `cv/` — web CV
 - `assets/css/site.css` — visual system and responsive layouts
