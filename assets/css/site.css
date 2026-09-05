@@ -1174,3 +1174,466 @@ button { font: inherit; }
   .photo-tile, .photo-tile:nth-child(2), .photo-tile:nth-child(3) { min-height: 480px; }
   .cv-list article { grid-template-columns: 1fr; }
 }
+
+/* Occultations: field practice, timing evidence, and case records. */
+.occultation-page {
+  --occult-paper: #e8e5dc;
+  --occult-paper-bright: #f4f1e9;
+  --occult-night: #0a111c;
+  --occult-night-soft: #111b2a;
+  --occult-amber: #d9912e;
+  background: var(--occult-paper);
+}
+.occultation-page .site-header { border-bottom: 1px solid rgba(7,17,31,.11); }
+.occultation-page .back-link { margin-bottom: clamp(3rem, 7vw, 6rem); }
+.occultation-page .back-link,
+.occultation-page .eyebrow,
+.occultation-page .section-index,
+.occultation-page .button,
+.occultation-page .next-project > span { font-size: .75rem; }
+.occult-hero {
+  min-height: calc(100svh - 82px);
+  display: grid;
+  grid-template-columns: minmax(0, .9fr) minmax(420px, 1.1fr);
+  gap: clamp(3rem, 7vw, 8rem);
+  align-items: center;
+  padding-block: clamp(4rem, 9vw, 8rem);
+}
+.occult-hero h1 {
+  margin: 0;
+  font: 300 clamp(3.6rem, 6.5vw, 7rem)/.87 "Newsreader", serif;
+  letter-spacing: -.055em;
+}
+.occult-hero h1 em { color: #9a6015; font-weight: 300; }
+.occult-hero .detail-lede { max-width: 42rem; }
+.occult-signal {
+  margin: 0;
+  overflow: hidden;
+  color: #dfe7f3;
+  background: var(--occult-night);
+  border: 1px solid rgba(7,17,31,.18);
+  box-shadow: 0 28px 70px rgba(7,17,31,.18);
+}
+.signal-topline {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.2rem;
+  border-bottom: 1px solid rgba(223,231,243,.14);
+  color: rgba(223,231,243,.65);
+  font: 400 .75rem/1.3 "DM Mono", monospace;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+.occult-signal svg { display: block; width: 100%; height: auto; }
+.occult-signal svg text { fill: rgba(223,231,243,.65); font: 400 12px "DM Mono", monospace; }
+.signal-grid path { fill: none; stroke: rgba(223,231,243,.1); stroke-width: 1; }
+.signal-event-window { fill: rgba(217,145,46,.09); }
+.signal-line { fill: none; stroke: #f2eee3; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.signal-points { fill: #f2eee3; }
+.signal-contact { stroke-width: 1.5; stroke-dasharray: 5 4; }
+.signal-contact-d { stroke: #ff7166; }
+.signal-contact-r { stroke: #6fd2ad; }
+.occult-signal figcaption {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid rgba(223,231,243,.14);
+}
+.occult-signal figcaption span {
+  padding: 1.15rem;
+  border-right: 1px solid rgba(223,231,243,.14);
+  color: rgba(223,231,243,.58);
+  font: 400 .75rem/1.5 "DM Mono", monospace;
+}
+.occult-signal figcaption span:last-child { border-right: 0; }
+.occult-signal figcaption strong { display: block; color: #f2eee3; font-size: 1rem; font-weight: 400; }
+
+.occult-principle {
+  display: grid;
+  grid-template-columns: minmax(180px, .5fr) minmax(0, 1.5fr);
+  gap: clamp(2rem, 6vw, 7rem);
+  padding-block: clamp(7rem, 12vw, 11rem);
+  border-top: 1px solid var(--line);
+}
+.occult-principle .section-index { margin-top: .5rem; }
+.occult-principle h2,
+.outcomes-heading h2,
+.record-layout h2 {
+  margin: 0;
+  max-width: 56rem;
+  font: 300 clamp(2.5rem, 4.7vw, 5rem)/.98 "Newsreader", serif;
+  letter-spacing: -.045em;
+}
+.occult-principle div > p {
+  max-width: 52rem;
+  margin: 2rem 0 0;
+  color: var(--paper-dim);
+  font-size: clamp(1.05rem, 1.35vw, 1.22rem);
+}
+.occult-workflow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding-bottom: clamp(7rem, 12vw, 11rem);
+}
+.occult-workflow article {
+  min-height: 18rem;
+  padding: 1.55rem;
+  border: 1px solid var(--line);
+  border-right: 0;
+}
+.occult-workflow article:last-child { border-right: 1px solid var(--line); }
+.workflow-number { color: #9a6015; font: 400 .75rem "DM Mono", monospace; }
+.occult-workflow h3 { margin: 5rem 0 .8rem; font: 300 2rem/1 "Newsreader", serif; }
+.occult-workflow p { margin: 0; color: var(--paper-dim); font-size: .94rem; }
+
+.pizarro-story {
+  padding-block: clamp(7rem, 12vw, 11rem);
+  color: #edf0f4;
+  background: var(--occult-night);
+}
+.pizarro-story .section-index { color: #e9aa55; }
+.story-heading {
+  display: grid;
+  grid-template-columns: minmax(180px, .52fr) minmax(0, 1.48fr);
+  gap: clamp(2rem, 6vw, 7rem);
+  align-items: end;
+  margin-bottom: clamp(4rem, 8vw, 7rem);
+}
+.story-date { margin: .7rem 0 0; color: rgba(237,240,244,.48); font: 400 .75rem/1.5 "DM Mono", monospace; text-transform: uppercase; }
+.story-heading h2 {
+  margin: 0;
+  font: 300 clamp(3rem, 5.6vw, 6rem)/.9 "Newsreader", serif;
+  letter-spacing: -.05em;
+}
+.story-heading h2 em { color: #e4a34d; font-weight: 300; }
+.pizarro-lead {
+  display: grid;
+  grid-template-columns: minmax(280px, .82fr) minmax(0, 1.18fr);
+  gap: clamp(3rem, 8vw, 9rem);
+  align-items: center;
+}
+.field-portrait { margin: 0; }
+.field-portrait img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; object-position: center 48%; }
+.field-portrait figcaption,
+.lightcurve-figure figcaption {
+  padding-top: .8rem;
+  color: rgba(237,240,244,.48);
+  font: 400 .75rem/1.5 "DM Mono", monospace;
+}
+.result-mark { margin: 0 0 2.5rem; color: #e9aa55; font: 400 .75rem "DM Mono", monospace; text-transform: uppercase; letter-spacing: .08em; }
+.result-quote { margin: 0; max-width: 46rem; font: 300 clamp(2.15rem, 4vw, 4.1rem)/1.02 "Newsreader", serif; letter-spacing: -.035em; }
+.pizarro-result dl { display: grid; grid-template-columns: 1fr 1fr; margin: 4rem 0 0; border-top: 1px solid rgba(237,240,244,.17); }
+.pizarro-result dl div { padding: 1.25rem 1rem 1.35rem 0; border-bottom: 1px solid rgba(237,240,244,.17); }
+.pizarro-result dl div:nth-child(odd) { border-right: 1px solid rgba(237,240,244,.17); }
+.pizarro-result dl div:nth-child(even) { padding-left: 1.25rem; }
+.pizarro-result dt { margin-bottom: .45rem; color: rgba(237,240,244,.46); font: 400 .75rem "DM Mono", monospace; text-transform: uppercase; }
+.pizarro-result dd { margin: 0; font-size: .95rem; line-height: 1.55; }
+.result-note { margin: 2rem 0 0; max-width: 43rem; color: rgba(237,240,244,.58); font-size: .88rem; }
+.star-sequence { margin: clamp(6rem, 10vw, 10rem) 0 0; }
+.star-sequence img { width: 100%; border: 1px solid rgba(237,240,244,.16); }
+.star-sequence figcaption { display: grid; grid-template-columns: repeat(3, 1fr); color: #e9aa55; font: 400 .75rem "DM Mono", monospace; text-transform: uppercase; }
+.star-sequence figcaption span { padding: .75rem 1rem; border: 1px solid rgba(237,240,244,.16); border-top: 0; border-right: 0; }
+.star-sequence figcaption span:last-child { border-right: 1px solid rgba(237,240,244,.16); }
+.lightcurve-figure { margin: clamp(4rem, 8vw, 7rem) 0 0; }
+.lightcurve-figure img { width: 100%; background: #fff; }
+
+.outcomes { padding-block: clamp(7rem, 12vw, 11rem); }
+.outcomes-heading {
+  display: grid;
+  grid-template-columns: minmax(180px, .5fr) minmax(0, 1.5fr);
+  gap: clamp(2rem, 6vw, 7rem);
+  align-items: start;
+  margin-bottom: clamp(4rem, 7vw, 7rem);
+}
+.outcome-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); border: 1px solid var(--line); }
+.outcome-card { display: grid; grid-template-rows: auto 1fr; border-right: 1px solid var(--line); }
+.outcome-card:last-child { border-right: 0; }
+.outcome-card figure { display: grid; place-items: center; min-height: 30rem; margin: 0; padding: clamp(2rem, 4vw, 4rem); background: var(--occult-paper-bright); border-bottom: 1px solid var(--line); }
+.outcome-card figure img { width: 100%; max-height: 26rem; object-fit: contain; }
+.outcome-card-weather figure { background: #17202c; }
+.outcome-copy { display: flex; flex-direction: column; padding: clamp(1.6rem, 3vw, 2.6rem); }
+.outcome-meta { margin: 0; color: #9a6015; font: 400 .75rem "DM Mono", monospace; text-transform: uppercase; letter-spacing: .04em; }
+.outcome-copy h3 { margin: 2.8rem 0 1rem; font: 300 clamp(1.9rem, 3vw, 3rem)/1 "Newsreader", serif; letter-spacing: -.035em; }
+.outcome-copy > p:not(.outcome-meta) { margin: 0; color: var(--paper-dim); }
+.outcome-label { margin-top: auto; padding-top: 3rem; color: rgba(7,17,31,.46); font: 400 .75rem "DM Mono", monospace; text-transform: uppercase; }
+
+.observing-record { padding-block: clamp(6rem, 10vw, 9rem); color: #edf0f4; background: #151d27; }
+.record-layout { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(340px, .9fr); gap: clamp(3rem, 8vw, 9rem); align-items: start; }
+.observing-record .section-index { color: #e9aa55; }
+.record-facts { border-top: 1px solid rgba(237,240,244,.18); }
+.record-facts p { display: grid; grid-template-columns: minmax(8rem, .7fr) 1.3fr; gap: 1rem; align-items: baseline; margin: 0; padding: 1.35rem 0; border-bottom: 1px solid rgba(237,240,244,.18); }
+.record-facts strong { color: #f3c27c; font: 300 clamp(1.55rem, 2.4vw, 2.4rem) "Newsreader", serif; }
+.record-facts span { color: rgba(237,240,244,.58); font-size: .9rem; }
+
+.satoccult-panel {
+  display: grid;
+  grid-template-columns: minmax(300px, .8fr) minmax(0, 1.2fr);
+  gap: clamp(3rem, 8vw, 9rem);
+  align-items: start;
+  padding-block: clamp(7rem, 12vw, 11rem);
+}
+.satoccult-identity { position: sticky; top: 2rem; }
+.satoccult-identity img { width: min(100%, 25rem); aspect-ratio: 1; object-fit: cover; margin-bottom: 2rem; box-shadow: 0 24px 65px rgba(7,17,31,.18); }
+.satoccult-identity h2 { margin: .4rem 0 0; font: 300 clamp(3rem, 5vw, 5rem)/.9 "Newsreader", serif; letter-spacing: -.05em; }
+.satoccult-copy { padding-top: clamp(0rem, 6vw, 7rem); }
+.satoccult-copy h3 { margin: 0; max-width: 44rem; font: 300 clamp(2.15rem, 4vw, 4rem)/1 "Newsreader", serif; letter-spacing: -.04em; }
+.satoccult-copy > p { max-width: 47rem; color: var(--paper-dim); font-size: 1.03rem; }
+.satoccult-copy > p:first-of-type { margin-top: 2rem; }
+.satoccult-caveat { padding: 1.25rem 1.35rem; border-left: 2px solid #a3691e; background: rgba(255,255,255,.3); }
+.satoccult-tags { display: flex; flex-wrap: wrap; gap: .55rem; margin: 2rem 0 0; padding: 0; list-style: none; }
+.satoccult-tags li { padding: .45rem .7rem; border: 1px solid var(--line); font: 400 .75rem "DM Mono", monospace; text-transform: uppercase; }
+.satoccult-links { display: flex; flex-wrap: wrap; gap: 1.2rem; align-items: center; margin-top: 2rem; }
+.satoccult-links > a:not(.button) { color: #5f471f; font: 500 .78rem "DM Mono", monospace; text-decoration-thickness: 1px; text-underline-offset: .28rem; }
+.satoccult-attribution { margin-top: 2rem; font-size: .78rem !important; }
+
+@media (max-width: 1050px) {
+  .occult-hero { grid-template-columns: 1fr; min-height: auto; }
+  .occult-signal { width: min(100%, 48rem); }
+  .occult-workflow { grid-template-columns: repeat(2, 1fr); }
+  .occult-workflow article:nth-child(2) { border-right: 1px solid var(--line); }
+  .occult-workflow article:nth-child(n+3) { border-top: 0; }
+  .outcome-card figure { min-height: 24rem; }
+}
+
+@media (max-width: 760px) {
+  .occult-principle,
+  .story-heading,
+  .outcomes-heading,
+  .record-layout,
+  .satoccult-panel { grid-template-columns: 1fr; }
+  .occult-principle,
+  .outcomes-heading { gap: 1.25rem; }
+  .pizarro-lead { grid-template-columns: 1fr; }
+  .field-portrait { width: min(100%, 30rem); }
+  .outcome-grid { grid-template-columns: 1fr; }
+  .outcome-card { border-right: 0; border-bottom: 1px solid var(--line); }
+  .outcome-card:last-child { border-bottom: 0; }
+  .satoccult-identity { position: relative; top: auto; display: grid; grid-template-columns: 8rem 1fr; gap: 1.5rem; align-items: end; }
+  .satoccult-identity img { margin: 0; }
+  .satoccult-copy { padding-top: 0; }
+}
+
+@media (max-width: 560px) {
+  .occultation-page .back-link { margin-bottom: 2.5rem; }
+  .occult-hero { padding-top: 3rem; }
+  .occult-hero h1 { font-size: clamp(3.1rem, 16vw, 4.5rem); }
+  .signal-topline { align-items: flex-start; flex-direction: column; }
+  .occult-signal figcaption { grid-template-columns: 1fr; }
+  .occult-signal figcaption span { border-right: 0; border-bottom: 1px solid rgba(223,231,243,.14); }
+  .occult-signal figcaption span:last-child { border-bottom: 0; }
+  .occult-workflow { grid-template-columns: 1fr; }
+  .occult-workflow article,
+  .occult-workflow article:nth-child(2) { min-height: auto; border-right: 1px solid var(--line); border-top: 0; }
+  .occult-workflow article:first-child { border-top: 1px solid var(--line); }
+  .occult-workflow h3 { margin-top: 3rem; }
+  .pizarro-result dl { grid-template-columns: 1fr; }
+  .pizarro-result dl div:nth-child(odd) { border-right: 0; }
+  .pizarro-result dl div:nth-child(even) { padding-left: 0; }
+  .star-sequence { overflow: hidden; }
+  .star-sequence img { width: 300%; max-width: none; transform: translateX(-33.333%); }
+  .outcome-card figure { min-height: 19rem; padding: 1.5rem; }
+  .record-facts p { grid-template-columns: 1fr; gap: .25rem; }
+  .satoccult-identity { grid-template-columns: 6.5rem 1fr; }
+  .satoccult-identity h2 { font-size: 2.8rem; }
+}
+
+/* Occultations: academic explainer, positive events, and collaboration. */
+.occultation-page .occult-hero-simple {
+  min-height: auto;
+  display: block;
+  padding-block: clamp(4rem, 7vw, 7rem);
+}
+.occultation-page .occult-hero-simple .back-link { margin-bottom: clamp(3rem, 6vw, 5rem); }
+.occultation-page .occult-hero-simple h1 {
+  max-width: 58rem;
+  font-size: clamp(3.2rem, 5.6vw, 5.4rem);
+  line-height: .98;
+  letter-spacing: -.04em;
+}
+.occultation-page .occult-hero-simple .detail-lede {
+  max-width: 50rem;
+  margin-top: 2rem;
+  font-size: clamp(1.05rem, 1.4vw, 1.22rem);
+}
+.occult-explainer,
+.discovery-section,
+.collaboration-section { padding-block: clamp(6rem, 10vw, 9rem); border-top: 1px solid var(--line); }
+.academic-section-heading {
+  display: grid;
+  grid-template-columns: minmax(160px, .4fr) minmax(0, 1.6fr);
+  gap: clamp(2rem, 6vw, 7rem);
+  margin-bottom: clamp(3rem, 6vw, 5rem);
+}
+.academic-section-heading h2 {
+  margin: 0;
+  font: 300 clamp(2.4rem, 4.5vw, 4.5rem)/1 "Newsreader", serif;
+  letter-spacing: -.04em;
+}
+.academic-section-heading div > p { max-width: 50rem; margin: 1.4rem 0 0; color: var(--paper-dim); }
+.occultation-system-figure { margin: 0; color: #e7edf5; background: #0b1420; border: 1px solid rgba(7,17,31,.22); }
+.figure-label {
+  padding: .9rem 1.1rem;
+  border-bottom: 1px solid rgba(231,237,245,.15);
+  color: rgba(231,237,245,.62);
+  font: 500 .75rem/1.4 "DM Mono", monospace;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+.occultation-system-figure svg { display: block; width: 100%; height: auto; overflow: visible; }
+.occultation-system-figure figcaption {
+  padding: 1.25rem clamp(1.2rem, 3vw, 2rem);
+  border-top: 1px solid rgba(231,237,245,.15);
+  color: rgba(231,237,245,.72);
+  font-size: .92rem;
+  line-height: 1.7;
+}
+.system-space-dots { fill: rgba(231,237,245,.5); }
+.system-parallel-rays path { fill: none; stroke: rgba(242,198,110,.22); stroke-width: 1.5; stroke-dasharray: 10 10; }
+.system-sightline { stroke: rgba(242,198,110,.58); stroke-width: 1.5; stroke-dasharray: 7 9; }
+.system-star-glow { fill: #f2c66e; opacity: .24; filter: url(#star-glow); }
+.system-star > circle:not(.system-star-glow) { fill: url(#star-core); }
+.system-star path { fill: none; stroke: #f6d58f; stroke-width: 3; stroke-linecap: round; }
+.system-motion-path { fill: none; stroke: rgba(231,237,245,.28); stroke-width: 1.5; stroke-dasharray: 7 9; }
+.system-asteroid,
+.system-shadow-motion { animation: occult-system-asteroid 8s linear infinite; }
+.system-asteroid use { fill: url(#asteroid-rock); stroke: rgba(225,231,235,.46); stroke-width: 1.5; }
+.system-asteroid ellipse { fill: rgba(39,45,51,.55); }
+.system-shadow-body { fill: url(#shadow-cone); }
+.system-shadow-edge { fill: none; stroke: rgba(2,6,12,.8); stroke-width: 2; }
+.system-shadow-silhouette { fill: rgba(1,5,10,.9); stroke: rgba(242,198,110,.82); stroke-width: 2.5; }
+.system-earth > circle { fill: url(#earth-ocean); stroke: rgba(195,226,243,.76); stroke-width: 2; }
+.system-earth g { fill: none; stroke: rgba(207,235,247,.25); stroke-width: 1.5; }
+.system-site circle:first-child { fill: #f2c66e; }
+.system-site circle:last-child { fill: none; stroke: #f2c66e; stroke-width: 2; opacity: .62; }
+.system-labels,
+.system-curve-labels { fill: rgba(231,237,245,.72); font: 500 15px "DM Mono", monospace; }
+.system-scale-note { fill: rgba(231,237,245,.42); font-size: 13px; text-transform: uppercase; }
+.system-divider { stroke: rgba(231,237,245,.16); stroke-width: 1; }
+.system-panel-title { fill: rgba(231,237,245,.88); font: 500 17px "DM Mono", monospace; }
+.system-curve-grid path { fill: none; stroke: rgba(231,237,245,.09); stroke-width: 1; }
+.system-event-band { fill: rgba(217,145,46,.12); }
+.system-curve-model { fill: none; stroke: #e7edf5; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+.system-curve-cursor { stroke: #f2c66e; stroke-width: 2.5; animation: occult-system-cursor 8s linear infinite; }
+@keyframes occult-system-asteroid {
+  from { transform: translateY(0); }
+  to { transform: translateY(374px); }
+}
+@keyframes occult-system-cursor {
+  from { transform: translateX(0); }
+  to { transform: translateX(992px); }
+}
+
+.scientific-significance { margin-top: clamp(4rem, 7vw, 6.5rem); }
+.significance-intro { display: grid; grid-template-columns: minmax(160px, .4fr) minmax(0, 1.6fr); gap: clamp(2rem, 6vw, 7rem); margin-bottom: 2rem; }
+.significance-intro h3 { margin: 0; font: 300 clamp(2.1rem, 3.7vw, 3.6rem)/1 "Newsreader", serif; letter-spacing: -.035em; }
+.significance-grid { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--line); }
+.significance-grid article { padding: clamp(1.5rem, 3vw, 2.4rem); border-right: 1px solid var(--line); }
+.significance-grid article:last-child { border-right: 0; }
+.significance-grid span { color: #8a5918; font: 500 .75rem "DM Mono", monospace; }
+.significance-visual { margin: 1.8rem 0 0; }
+.significance-visual svg { display: block; width: 100%; height: auto; background: rgba(255,255,255,.2); border: 1px solid var(--line); }
+.significance-visual > img { width: 100%; aspect-ratio: 360 / 210; object-fit: contain; background: #000; border: 1px solid var(--line); }
+.significance-visual svg text { fill: rgba(7,17,31,.58); font: 500 11px "DM Mono", monospace; }
+.significance-visual figcaption { margin-top: .65rem; color: var(--paper-dim); font: 400 .68rem/1.5 "DM Mono", monospace; }
+.significance-visual figcaption a { color: #6f4b17; text-underline-offset: .2rem; }
+.significance-orbit-old { fill: none; stroke: rgba(7,17,31,.28); stroke-width: 2; stroke-dasharray: 6 7; }
+.significance-orbit-new { fill: none; stroke: var(--ink); stroke-width: 2.5; }
+.significance-sun { fill: #d9912e; }
+.significance-position circle:first-child { fill: rgba(217,145,46,.18); stroke: #9a5e14; stroke-width: 2; }
+.significance-position path { fill: none; stroke: #9a5e14; stroke-width: 1.5; }
+.significance-prediction { fill: none; stroke: rgba(7,17,31,.48); stroke-width: 2; stroke-dasharray: 3 3; }
+.significance-offset { fill: none; stroke: #9a5e14; stroke-width: 2; }
+.significance-ring { fill: none; stroke: #9a5e14; stroke-width: 3; }
+.significance-ring-body { fill: var(--ink); }
+.significance-ring-curve { fill: none; stroke: var(--ink); stroke-width: 3; stroke-linejoin: round; }
+.significance-grid h4 { margin: 1.5rem 0 .8rem; font: 400 1.25rem/1.25 "Manrope", sans-serif; }
+.significance-grid p { margin: 0; color: var(--paper-dim); font-size: .94rem; }
+
+.discovery-card { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(260px, .55fr); border: 1px solid var(--line); }
+.discovery-result { padding: clamp(2rem, 4vw, 4rem); }
+.discovery-kicker { margin: 0; color: #8a5918; font: 500 .75rem/1.5 "DM Mono", monospace; text-transform: uppercase; letter-spacing: .04em; }
+.discovery-result h3 { max-width: 46rem; margin: 1.1rem 0 1.8rem; font: 300 clamp(2.2rem, 4vw, 4rem)/1 "Newsreader", serif; letter-spacing: -.035em; }
+.discovery-result > p:not(.discovery-kicker) { max-width: 55rem; margin: 0; color: var(--paper-dim); }
+.discovery-result > p + p { margin-top: 1.2rem; }
+.manuscript-status { display: flex; flex-direction: column; padding: clamp(2rem, 3vw, 3rem); color: #edf0f4; background: #152131; }
+.manuscript-status > span { color: #e4a34d; font: 500 .75rem "DM Mono", monospace; text-transform: uppercase; }
+.manuscript-status strong { margin-top: auto; padding-top: 4rem; font: 400 clamp(1.5rem, 2.4vw, 2.2rem)/1.15 "Newsreader", serif; }
+.manuscript-status p { margin: 1rem 0 0; color: rgba(237,240,244,.6); font-size: .82rem; }
+.manuscript-status a { color: rgba(237,240,244,.84); text-underline-offset: .25rem; }
+
+.positive-events { padding-block: clamp(6rem, 10vw, 9rem); color: #edf0f4; background: #0b1420; }
+.academic-section-heading-dark .section-index { color: #e4a34d; }
+.academic-section-heading-dark div > p { color: rgba(237,240,244,.65); }
+.positive-event-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border: 1px solid rgba(237,240,244,.18); }
+.positive-event { min-width: 0; padding: clamp(1.6rem, 3vw, 2.5rem); border-right: 1px solid rgba(237,240,244,.18); }
+.positive-event:last-child { border-right: 0; }
+.event-heading { margin-bottom: 2rem; }
+.event-heading h3 { margin: 0; font: 300 clamp(2.4rem, 4vw, 4rem)/.95 "Newsreader", serif; letter-spacing: -.04em; }
+.event-animation { margin: 0; }
+.event-animation img { display: block; width: min(100%, 32rem); height: auto; margin-inline: auto; aspect-ratio: 4 / 5; object-fit: contain; background: #080d15; }
+
+.network-grid { display: grid; grid-template-columns: repeat(2, 1fr); border: 1px solid var(--line); }
+.network-card { display: flex; flex-direction: column; min-height: 23rem; padding: clamp(1.7rem, 3vw, 2.6rem); color: var(--ink); text-decoration: none; border-right: 1px solid var(--line); }
+.network-card:last-child { border-right: 0; }
+.network-card > span { color: #8a5918; font: 500 .78rem "DM Mono", monospace; }
+.network-card h3 { margin: 3.5rem 0 1rem; max-width: 27rem; font: 400 clamp(1.55rem, 2.5vw, 2.4rem)/1.1 "Newsreader", serif; }
+.network-card p { margin: 0; max-width: 33rem; color: var(--paper-dim); }
+.network-card b { margin-top: auto; padding-top: 2rem; font: 500 .78rem "DM Mono", monospace; text-decoration: underline; text-underline-offset: .3rem; }
+.network-card:hover,
+.network-card:focus-visible { background: rgba(255,255,255,.32); }
+.team-callout { display: grid; grid-template-columns: minmax(220px, .6fr) minmax(0, 1.4fr); gap: clamp(2rem, 6vw, 7rem); margin-top: 1.5rem; padding: clamp(2rem, 4vw, 3.5rem); color: #edf0f4; background: #152131; }
+.team-callout .section-index { color: #e4a34d; }
+.team-callout h3 { margin: .8rem 0 0; font: 300 clamp(2rem, 3.5vw, 3.5rem)/1 "Newsreader", serif; }
+.team-callout p { margin: 0; color: rgba(237,240,244,.78); }
+.team-callout .team-status { margin-top: 1.2rem; color: rgba(237,240,244,.55); font-size: .9rem; }
+
+.software-note {
+  display: grid;
+  grid-template-columns: minmax(180px, .42fr) minmax(0, 1.58fr);
+  gap: clamp(2rem, 7vw, 8rem);
+  align-items: start;
+  padding-block: clamp(6rem, 10vw, 9rem);
+  border-top: 1px solid var(--line);
+}
+.software-note > img { width: min(100%, 18rem); }
+.software-note h2 { margin: .5rem 0 1.5rem; font: 300 clamp(2.6rem, 4.5vw, 4.5rem)/1 "Newsreader", serif; letter-spacing: -.04em; }
+.software-note div > p { max-width: 52rem; color: var(--paper-dim); }
+.software-links { display: flex; flex-wrap: wrap; gap: 1rem 1.5rem; align-items: center; margin-top: 2rem; }
+.software-links > a:not(.button) { color: #5f471f; font: 500 .78rem "DM Mono", monospace; text-underline-offset: .3rem; }
+.software-note .software-attribution { margin-top: 1.5rem; font-size: .8rem; }
+
+@media (max-width: 900px) {
+  .academic-section-heading,
+  .significance-intro,
+  .discovery-card,
+  .team-callout,
+  .software-note { grid-template-columns: 1fr; }
+  .network-card { min-height: 21rem; }
+  .software-note > img { width: 9rem; }
+}
+
+@media (max-width: 620px) {
+  .occultation-page .occult-hero-simple h1 { font-size: clamp(3rem, 15vw, 4.6rem); }
+  .academic-section-heading { gap: 1.2rem; }
+  .occultation-system-figure figcaption { font-size: .86rem; }
+  .system-labels,
+  .system-curve-labels { font-size: 28px; }
+  .system-panel-title { font-size: 28px; }
+  .significance-grid { grid-template-columns: 1fr; }
+  .significance-grid article { border-right: 0; border-bottom: 1px solid var(--line); }
+  .significance-grid article:last-child { border-bottom: 0; }
+  .significance-grid h4 { margin-top: 1.7rem; }
+  .positive-event-list,
+  .network-grid { grid-template-columns: 1fr; }
+  .positive-event { border-right: 0; border-bottom: 1px solid rgba(237,240,244,.18); }
+  .positive-event:last-child { border-bottom: 0; }
+  .network-card { min-height: auto; border-right: 0; border-bottom: 1px solid var(--line); }
+  .network-card:last-child { border-bottom: 0; }
+  .network-card b { margin-top: 2rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .system-asteroid,
+  .system-shadow-motion { animation: none; transform: translateY(187px); }
+  .system-curve-cursor { animation: none; transform: translateX(496px); }
+}

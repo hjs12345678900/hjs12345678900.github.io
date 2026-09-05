@@ -1,33 +1,247 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Occultations — Junsheng He</title>
-  <meta name="description" content="Occultation prediction, field observing, high-speed photometry, and the SatOccult planning tool by Junsheng He.">
+  <meta name="description" content="Junsheng He's asteroid and satellite occultation work: field observing, precision UTC timing, light-curve analysis, reporting, and SatOccult.">
   <meta name="theme-color" content="#e8e5dc">
-  <link rel="icon" href="/assets/img/junsheng-he.png" type="image/png">
-  <meta property="og:type" content="article"><meta property="og:url" content="https://hjs12345678900.github.io/research/occultations/">
-  <meta property="og:title" content="Occultations — Junsheng He"><meta property="og:description" content="Event prediction, field observing, precision timing, and the SatOccult planning tool.">
-  <meta name="twitter:card" content="summary"><meta name="twitter:title" content="Occultations — Junsheng He"><meta name="twitter:description" content="Event prediction, field observing, precision timing, and the SatOccult planning tool.">
-  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="icon" href="../../assets/img/junsheng-he.png" type="image/png">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://hjs12345678900.github.io/research/occultations/">
+  <meta property="og:title" content="Occultations — Junsheng He">
+  <meta property="og:description" content="Field observing, precision UTC timing, light-curve analysis, reporting, and SatOccult.">
+  <meta property="og:image" content="https://hjs12345678900.github.io/assets/media/occultations/pizarro-lightcurve.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Occultations — Junsheng He">
+  <meta name="twitter:description" content="Field observing, precision UTC timing, light-curve analysis, reporting, and SatOccult.">
+  <meta name="twitter:image" content="https://hjs12345678900.github.io/assets/media/occultations/pizarro-lightcurve.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&amp;family=Manrope:wght@400;500;600&amp;family=Newsreader:opsz,wght@6..72,300;6..72,400&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/css/site.css"><script src="/assets/js/site.js" defer></script>
+  <link rel="stylesheet" href="../../assets/css/site.css">
+  <script src="../../assets/js/site.js" defer></script>
 </head>
-<body class="detail-page detail-occultation light-detail">
+<body class="detail-page occultation-page light-detail">
   <a class="skip-link" href="#main">Skip to content</a>
-  <header class="site-header"><a class="wordmark" href="/"><span class="wordmark-dot"></span><span>JSH<span class="wordmark-slash">/</span>ASTRO</span></a><button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button><nav class="site-nav" id="site-nav"><a href="/#work">Research</a><a href="/astrophotography/">Photography</a><a href="/cv/">CV</a><a class="nav-contact" href="https://github.com/hjs12345678900" target="_blank" rel="noreferrer">GitHub ↗</a></nav></header>
+
+  <header class="site-header">
+    <a class="wordmark" href="../../index.html" aria-label="Junsheng He — home">
+      <span class="wordmark-dot" aria-hidden="true"></span>
+      <span>JSH<span class="wordmark-slash">/</span>ASTRO</span>
+    </a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav class="site-nav" id="site-nav" aria-label="Primary navigation">
+      <a href="../smbh-evolution/index.html">Research</a>
+      <a href="../../astrophotography/index.html">Photography</a>
+      <a href="../../cv/index.html">CV</a>
+      <a class="nav-contact" href="https://github.com/hjs12345678900" target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+    </nav>
+  </header>
+
   <main id="main">
-    <section class="detail-hero shell">
-      <div data-reveal><a class="back-link" href="/#work">← All directions</a><p class="eyebrow"><span>03</span> Fast astronomy</p><h1>Occultations.<br><em>Timing the shadow.</em></h1><p class="detail-lede">An occultation can last seconds—or less. It turns a carefully predicted alignment into a direct measurement of size, shape, position, and atmosphere.</p></div>
-      <div class="shadow-visual" data-reveal aria-hidden="true"><span class="shadow-star">✦</span><span class="shadow-line"></span><span class="shadow-object"></span><span class="shadow-cone"></span></div>
+    <section class="occult-hero occult-hero-simple shell">
+      <div class="occult-hero-copy" data-reveal>
+        <a class="back-link" href="../../index.html">← All directions</a>
+        <p class="eyebrow"><span>03</span> Stellar occultations</p>
+        <h1>Occultation observations</h1>
+        <p class="detail-lede">I observe asteroid occultations using high-cadence imaging and UTC-referenced timing. A measured drop in stellar flux provides the event timing and duration at one observing site.</p>
+      </div>
     </section>
-    <section class="detail-intro shell" data-reveal><p class="section-index">At the telescope</p><div><h2>Preparation is most of the observation.</h2><p>My occultation work spans event assessment, path and field planning, equipment setup, high-speed acquisition, and light-curve analysis. The same discipline applies to asteroid and artificial-satellite events: know the geometry, keep the timing honest, and document every assumption before the shadow arrives.</p></div></section>
-    <section class="occult-stats shell" data-reveal><article><strong>Predict</strong><span>Path · field · cadence</span></article><article><strong>Observe</strong><span>Timing · tracking · redundancy</span></article><article><strong>Measure</strong><span>Light curve · contacts · uncertainty</span></article></section>
-    <section class="satoccult-feature shell" data-reveal>
-      <img src="/assets/img/satoccult-icon.png" alt="SatOccult icon showing a satellite track across a star field">
-      <div><p class="section-index">Open-source project</p><h2>SatOccult</h2><p>An independently maintained planning and search tool for satellite occultations. It identifies close approaches to catalogue stars, refines contact times, supports ground-site planning, and exports observing-ready event results.</p><div class="tag-row"><span>SGP4</span><span>Star catalogues</span><span>Contact geometry</span><span>Python + JavaScript</span></div><a class="button button-dark" href="https://github.com/hjs12345678900/SatOccult" target="_blank" rel="noreferrer">View repository <span>↗</span></a></div>
+
+    <section class="occult-explainer shell" aria-labelledby="explainer-title">
+      <header class="academic-section-heading" data-reveal>
+        <p class="section-index">Measurement principle</p>
+        <div><h2 id="explainer-title">How a stellar occultation is measured</h2><p>The star is sufficiently distant that its light reaches the asteroid as parallel rays. The asteroid blocks those rays and projects its silhouette towards Earth. The diagram is not to scale.</p></div>
+      </header>
+      <figure class="occultation-system-figure" data-reveal>
+        <div class="figure-label">Occultation geometry and light curve</div>
+        <svg viewBox="0 0 1200 780" role="img" aria-labelledby="system-title system-desc">
+          <title id="system-title">Three-dimensional occultation geometry with a corresponding light curve</title>
+          <desc id="system-desc">An asteroid crosses the line of sight from a distant star and casts a moving shadow on Earth. A synchronized light curve below shows the temporary loss of stellar flux.</desc>
+          <defs>
+            <radialGradient id="star-core" cx="38%" cy="34%"><stop offset="0" stop-color="#fffbe5"></stop><stop offset=".35" stop-color="#ffd77b"></stop><stop offset="1" stop-color="#d88925"></stop></radialGradient>
+            <radialGradient id="asteroid-rock" cx="32%" cy="24%"><stop offset="0" stop-color="#d6d9d8"></stop><stop offset=".38" stop-color="#8e969a"></stop><stop offset="1" stop-color="#343b42"></stop></radialGradient>
+            <radialGradient id="earth-ocean" cx="32%" cy="27%"><stop offset="0" stop-color="#acd5ec"></stop><stop offset=".45" stop-color="#4c91bd"></stop><stop offset=".82" stop-color="#24577f"></stop><stop offset="1" stop-color="#102a43"></stop></radialGradient>
+            <linearGradient id="shadow-cone" x1="0" x2="1"><stop offset="0" stop-color="#02060c" stop-opacity=".9"></stop><stop offset="1" stop-color="#02060c" stop-opacity=".52"></stop></linearGradient>
+            <filter id="star-glow" x="-200%" y="-200%" width="400%" height="400%"><feGaussianBlur stdDeviation="15"></feGaussianBlur></filter>
+            <filter id="object-shadow" x="-70%" y="-70%" width="240%" height="240%"><feDropShadow dx="8" dy="11" stdDeviation="8" flood-color="#000" flood-opacity=".62"></feDropShadow></filter>
+            <clipPath id="earth-clip"><circle cx="1010" cy="248" r="158"></circle></clipPath>
+            <path id="asteroid-silhouette" d="M-33-31L-5-45L31-33L47-3L38 29L10 45L-24 33L-44 5Z"></path>
+          </defs>
+
+          <g class="system-space-dots" aria-hidden="true"><circle cx="241" cy="78" r="2"></circle><circle cx="343" cy="380" r="1.5"></circle><circle cx="680" cy="92" r="2"></circle><circle cx="745" cy="414" r="1.5"></circle><circle cx="890" cy="56" r="1.5"></circle></g>
+          <g class="system-parallel-rays" aria-hidden="true">
+            <path d="M180 166H968"></path><path d="M180 206H968"></path><path d="M180 246H968"></path><path d="M180 286H968"></path><path d="M180 326H968"></path>
+          </g>
+          <line class="system-sightline" x1="180" y1="246" x2="1010" y2="246"></line>
+
+          <g class="system-star">
+            <circle class="system-star-glow" cx="132" cy="246" r="51"></circle>
+            <circle cx="132" cy="246" r="23"></circle>
+            <path d="M132 199V217M132 275V293M85 246H103M161 246H179M99 213L112 226M152 266L165 279M99 279L112 266M152 226L165 213"></path>
+          </g>
+
+          <path class="system-motion-path" d="M510 58V432"></path>
+          <g class="system-shadow-motion">
+            <path class="system-shadow-body" d="M510 31H968V121H510Z"></path>
+            <path class="system-shadow-edge" d="M510 45H968M510 109H968"></path>
+          </g>
+          <g class="system-asteroid-track">
+            <g class="system-asteroid" filter="url(#object-shadow)">
+              <use href="#asteroid-silhouette" transform="translate(510 76)"></use>
+              <ellipse cx="497" cy="62" rx="10" ry="7"></ellipse>
+              <ellipse cx="530" cy="91" rx="7" ry="5"></ellipse>
+            </g>
+          </g>
+
+          <g class="system-earth" filter="url(#object-shadow)">
+            <circle cx="1010" cy="248" r="158"></circle>
+            <g clip-path="url(#earth-clip)">
+              <ellipse cx="1010" cy="248" rx="75" ry="158"></ellipse>
+              <ellipse cx="1010" cy="248" rx="130" ry="158"></ellipse>
+              <path d="M852 248H1168M868 184Q1010 225 1152 184M868 312Q1010 271 1152 312"></path>
+            </g>
+          </g>
+          <g class="system-shadow-on-earth" clip-path="url(#earth-clip)">
+            <g class="system-shadow-motion">
+              <use class="system-shadow-silhouette" href="#asteroid-silhouette" transform="translate(968 76) rotate(-8) scale(1.05)"></use>
+            </g>
+          </g>
+          <g class="system-site"><circle cx="968" cy="246" r="7"></circle><circle cx="968" cy="246" r="16"></circle></g>
+
+          <g class="system-labels">
+            <text x="132" y="335" text-anchor="middle">Distant star</text>
+            <text x="332" y="145" text-anchor="middle">Parallel starlight</text>
+            <text x="510" y="458" text-anchor="middle">Asteroid motion</text>
+            <text x="720" y="191">Asteroid-shaped shadow</text>
+            <text x="1010" y="445" text-anchor="middle">Earth and observing site</text>
+            <text class="system-scale-note" x="1120" y="54" text-anchor="end">Not to scale</text>
+          </g>
+
+          <line class="system-divider" x1="58" y1="492" x2="1142" y2="492"></line>
+          <text class="system-panel-title" x="88" y="535">Corresponding light curve</text>
+          <g class="system-curve-grid" aria-hidden="true">
+            <path d="M112 566H1104M112 628H1104M112 690H1104"></path>
+            <path d="M112 548V710M360 548V710M608 548V710M856 548V710M1104 548V710"></path>
+          </g>
+          <rect class="system-event-band" x="444" y="548" width="238" height="162"></rect>
+          <path class="system-curve-model" d="M112 574H412Q444 574 444 606V684H682V606Q682 574 714 574H1104"></path>
+          <line class="system-curve-cursor" x1="112" y1="548" x2="112" y2="710"></line>
+          <g class="system-curve-labels">
+            <text x="92" y="580" text-anchor="end">1.0</text><text x="92" y="695" text-anchor="end">0.0</text>
+            <text x="608" y="735" text-anchor="middle">occultation</text><text x="1104" y="735" text-anchor="end">time</text>
+            <text x="40" y="635" transform="rotate(-90 40 635)" text-anchor="middle">normalised flux</text>
+          </g>
+        </svg>
+        <figcaption>Parallel starlight is blocked by the asteroid, producing a shadow with the same projected silhouette. The light curve below shows the flux recorded as that shadow crosses the observing site.</figcaption>
+      </figure>
+
+      <section class="scientific-significance" aria-labelledby="significance-title">
+        <div class="significance-intro" data-reveal><p class="section-index">Scientific significance</p><h3 id="significance-title">What the timing tells us</h3></div>
+        <div class="significance-grid">
+          <article data-reveal>
+            <span>01</span>
+            <figure class="significance-visual">
+              <img src="../../assets/media/occultations/antiope-profile-2.jpg" alt="Observed profile of the binary asteroid (90) Antiope reconstructed from many coloured occultation chords" loading="lazy">
+              <figcaption>Image: <a href="https://occultations.org/occultations/why-observe-occultations/" target="_blank" rel="noreferrer">IOTA, profile of (90) Antiope ↗</a><br>Reference: <a href="https://academic.oup.com/mnras/article/499/3/4570/5918397" target="_blank" rel="noreferrer">Herald et al. (2020), MNRAS ↗</a></figcaption>
+            </figure>
+            <h4>Size and shape</h4>
+            <p>Each observing site measures one chord across the asteroid. Chords from several sites can constrain its size and projected shape.</p>
+          </article>
+          <article data-reveal>
+            <span>02</span>
+            <figure class="significance-visual">
+              <svg viewBox="0 0 360 210" role="img" aria-labelledby="orbit-title orbit-desc">
+                <title id="orbit-title">An occultation position updating an asteroid orbit</title>
+                <desc id="orbit-desc">A measured sky position is compared with a predicted position and feeds into an updated orbital path.</desc>
+                <ellipse class="significance-orbit-old" cx="177" cy="104" rx="126" ry="63" transform="rotate(-13 177 104)"></ellipse>
+                <ellipse class="significance-orbit-new" cx="181" cy="101" rx="126" ry="63" transform="rotate(-9 181 101)"></ellipse>
+                <circle class="significance-sun" cx="71" cy="129" r="13"></circle>
+                <g class="significance-position"><circle cx="260" cy="54" r="10"></circle><path d="M260 31V77M237 54H283"></path></g>
+                <circle class="significance-prediction" cx="278" cy="68" r="7"></circle>
+                <path class="significance-offset" d="M274 64L265 57"></path>
+                <text x="325" y="187" text-anchor="end">measured position → orbit update</text>
+              </svg>
+              <figcaption>Source: <a href="https://doi.org/10.1051/0004-6361/202141753" target="_blank" rel="noreferrer">Ferreira et al. (2022), A&amp;A ↗</a></figcaption>
+            </figure>
+            <h4>Position and orbit</h4>
+            <p>Accurate event times give a precise sky position for the asteroid and can improve its predicted orbit.</p>
+          </article>
+          <article data-reveal>
+            <span>03</span>
+            <figure class="significance-visual">
+              <svg viewBox="0 0 360 210" role="img" aria-labelledby="ring-title ring-desc">
+                <title id="ring-title">A ringed small body and its occultation light curve</title>
+                <desc id="ring-desc">A small body is surrounded by two rings. Its light curve contains shallow ring events around the deeper main-body event.</desc>
+                <ellipse class="significance-ring" cx="180" cy="79" rx="104" ry="31"></ellipse><ellipse class="significance-ring" cx="180" cy="79" rx="87" ry="24"></ellipse>
+                <path class="significance-ring-body" d="M153 48L181 39L210 50L222 76L209 104L179 116L150 103L138 75Z"></path>
+                <path class="significance-ring-curve" d="M35 158H79V171H93V158H141V189H219V158H267V171H281V158H325"></path>
+                <text x="325" y="143" text-anchor="end">ring signals</text>
+              </svg>
+              <figcaption>Source: <a href="https://www.nature.com/articles/nature13155" target="_blank" rel="noreferrer">Braga-Ribas et al. (2014), Nature ↗</a></figcaption>
+            </figure>
+            <h4>Nearby material</h4>
+            <p>Additional short flux changes can indicate satellites, rings or other material around the main body.</p>
+          </article>
+        </div>
+      </section>
     </section>
-    <nav class="next-project shell"><span>Next direction</span><a href="/astrophotography/">Astrophotography <b>↗</b></a></nav>
+
+    <section class="discovery-section shell" aria-labelledby="discovery-title">
+      <header class="academic-section-heading" data-reveal>
+        <p class="section-index">Research result</p>
+        <div><h2 id="discovery-title">What I have discovered</h2><p>A stellar occultation observation has revealed a previously unreported close double-star candidate.</p></div>
+      </header>
+      <article class="discovery-card" data-reveal>
+        <div class="discovery-result">
+          <p class="discovery-kicker">UCAC4 385-067829</p>
+          <h3>A close double-star candidate</h3>
+          <p>During the 14 June 2026 occultation by (80623) 2000 AE184, I recorded a four-frame, flat-bottomed flux drop of about 32%, rather than the expected full disappearance. The most likely interpretation is that the asteroid occulted the fainter component while the brighter component remained visible.</p>
+          <p>The preliminary solution gives component magnitudes of 13.2 and 14.0, a separation greater than 0.3 mas, and a position angle of 19.5°. The double-star interpretation is currently assessed as a strong candidate rather than a confirmed result.</p>
+        </div>
+        <aside class="manuscript-status">
+          <span>Status</span>
+          <strong>Manuscript in preparation</strong>
+          <p>Prepared for submission to the <a href="https://doublestarsjournal.org/index.php/jdso" target="_blank" rel="noreferrer">Journal of Double Star Observations ↗</a></p>
+        </aside>
+      </article>
+    </section>
+
+    <section class="positive-events" aria-labelledby="example-events-title">
+      <div class="shell">
+        <header class="academic-section-heading academic-section-heading-dark" data-reveal><p class="section-index">Examples</p><div><h2 id="example-events-title">Example events</h2></div></header>
+        <div class="positive-event-list">
+          <article class="positive-event" data-reveal>
+            <div class="event-heading"><h3>(4609) Pizarro</h3></div>
+            <figure class="event-animation"><img src="../../assets/media/occultations/pizarro-positive.gif" alt="Animated Pizarro example showing the light curve above the marked target-star frames" loading="lazy"></figure>
+          </article>
+          <article class="positive-event" data-reveal>
+            <div class="event-heading"><h3>(1993) FY22</h3></div>
+            <figure class="event-animation"><img src="../../assets/media/occultations/1993-fy22-positive.gif" alt="Animated 1993 FY22 example showing the light curve above the marked target-star frames" loading="lazy"></figure>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="collaboration-section shell" aria-labelledby="collaboration-title">
+      <header class="academic-section-heading" data-reveal><p class="section-index">Collaboration</p><div><h2 id="collaboration-title">Reporting and coordinated observations</h2><p>Occultation measurements are most useful when observations from several sites are combined. Positive chords and well-documented misses are submitted to regional and international networks.</p></div></header>
+      <div class="network-grid">
+        <a class="network-card" href="https://occultations.org.nz/" target="_blank" rel="noreferrer" data-reveal><span>TTOA</span><h3>Trans-Tasman Occultation Alliance</h3><p>Regional predictions, observing guidance, reports, results and meetings for Australia, New Zealand and the South Pacific.</p><b>Visit TTOA ↗</b></a>
+        <a class="network-card" href="https://occultations.org/" target="_blank" rel="noreferrer" data-reveal><span>IOTA</span><h3>International Occultation Timing Association</h3><p>International observing resources, reporting guidance, archived data, publications and coordinated campaigns.</p><b>Visit IOTA ↗</b></a>
+      </div>
+      <aside class="team-callout" data-reveal>
+        <div><p class="section-index">University of Melbourne</p><h3>Occultation observing team</h3></div>
+        <div><p>A team is being formed at the University of Melbourne for local occultation observations. We are currently looking for students and collaborators interested in observation planning, telescope operation, timing systems, photometry or data analysis.</p><p class="team-status">A dedicated team website is in preparation. For now, please contact Junsheng He directly if you would like to take part.</p></div>
+      </aside>
+    </section>
+
+    <section class="software-note shell" data-reveal>
+      <img src="../../assets/img/satoccult-icon.png" alt="SatOccult icon, showing a satellite track crossing a star field">
+      <div><p class="section-index">Open-source software</p><h2>SatOccult</h2><p>SatOccult searches for satellite–star approaches, calculates closest approach and geometric contact times, and provides sky-chart and tangent-plane views for planning. A catalogue match still requires field verification, a count-rate test and a checked timing system before observation.</p><div class="software-links"><a class="button button-primary" href="https://github.com/hjs12345678900/SatOccult" target="_blank" rel="noreferrer">SatOccult repository ↗</a><a href="https://github.com/exoplanet5/SatIdentifier" target="_blank" rel="noreferrer">Upstream SatIdentifier ↗</a></div><p class="software-attribution">SatOccult is an independently maintained derivative of SatIdentifier, originally created by Zhuoxiao. It is not an official upstream release.</p></div>
+    </section>
+
+    <nav class="next-project shell"><span>Next direction</span><a href="../../astrophotography/index.html">Astrophotography <b>↗</b></a></nav>
   </main>
   <footer class="site-footer shell"><span>© <span data-year></span> Junsheng He</span><span>Occultations</span><a href="#main">Back to top ↑</a></footer>
 </body>
