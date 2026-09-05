@@ -143,11 +143,35 @@
           <article data-reveal>
             <span>01</span>
             <figure class="significance-visual">
-              <img src="../../assets/media/occultations/antiope-profile-2.jpg" alt="Observed profile of the binary asteroid (90) Antiope reconstructed from many coloured occultation chords" loading="lazy">
-              <figcaption>Image: <a href="https://occultations.org/occultations/why-observe-occultations/" target="_blank" rel="noreferrer">IOTA, profile of (90) Antiope ↗</a><br>Reference: <a href="https://academic.oup.com/mnras/article/499/3/4570/5918397" target="_blank" rel="noreferrer">Herald et al. (2020), MNRAS ↗</a></figcaption>
+              <svg viewBox="0 0 360 210" role="img" aria-labelledby="shape-title shape-desc">
+                <title id="shape-title">Occultation chords tracing an asteroid shadow</title>
+                <desc id="shape-desc">Five observing stations record different chords as an asteroid-shaped shadow crosses Earth. Together, the measured chords trace the outline of the shadow.</desc>
+                <defs>
+                  <clipPath id="shape-shadow-clip">
+                    <path d="M128 49L157 31L199 35L231 53L248 83L242 116L220 143L183 154L148 143L120 121L108 91Z"></path>
+                  </clipPath>
+                  <marker id="shape-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+                    <path d="M0 0L10 5L0 10Z"></path>
+                  </marker>
+                </defs>
+                <g class="significance-chord-tracks">
+                  <path d="M52 58H306"></path><path d="M52 78H306"></path><path d="M52 98H306"></path><path d="M52 118H306"></path><path d="M52 138H306"></path>
+                </g>
+                <path class="significance-shadow-shape" d="M128 49L157 31L199 35L231 53L248 83L242 116L220 143L183 154L148 143L120 121L108 91Z"></path>
+                <g class="significance-chords" clip-path="url(#shape-shadow-clip)">
+                  <path d="M52 58H306"></path><path d="M52 78H306"></path><path d="M52 98H306"></path><path d="M52 118H306"></path><path d="M52 138H306"></path>
+                </g>
+                <g class="significance-stations">
+                  <circle cx="52" cy="58" r="4"></circle><circle cx="52" cy="78" r="4"></circle><circle cx="52" cy="98" r="4"></circle><circle cx="52" cy="118" r="4"></circle><circle cx="52" cy="138" r="4"></circle>
+                </g>
+                <path class="significance-shadow-motion" d="M125 174H243" marker-end="url(#shape-arrow)"></path>
+                <text x="184" y="188" text-anchor="middle">moving asteroid shadow</text>
+                <text x="306" y="47" text-anchor="end">measured chords</text>
+              </svg>
+              <figcaption>Schematic; method: <a href="https://academic.oup.com/mnras/article/499/3/4570/5918397" target="_blank" rel="noreferrer">Herald et al. (2020), MNRAS ↗</a></figcaption>
             </figure>
             <h4>Size and shape</h4>
-            <p>Each observing site measures one chord across the asteroid. Chords from several sites can constrain its size and projected shape.</p>
+            <p>The asteroid-shaped shadow sweeps across Earth. Each site measures one chord through that shadow; several chords trace its outline and constrain the asteroid's size and projected shape.</p>
           </article>
           <article data-reveal>
             <span>02</span>

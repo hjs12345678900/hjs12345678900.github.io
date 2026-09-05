@@ -1532,10 +1532,15 @@ button { font: inherit; }
 .significance-grid span { color: #8a5918; font: 500 .75rem "DM Mono", monospace; }
 .significance-visual { margin: 1.8rem 0 0; }
 .significance-visual svg { display: block; width: 100%; height: auto; background: rgba(255,255,255,.2); border: 1px solid var(--line); }
-.significance-visual > img { width: 100%; aspect-ratio: 360 / 210; object-fit: contain; background: #000; border: 1px solid var(--line); }
 .significance-visual svg text { fill: rgba(7,17,31,.58); font: 500 11px "DM Mono", monospace; }
 .significance-visual figcaption { margin-top: .65rem; color: var(--paper-dim); font: 400 .68rem/1.5 "DM Mono", monospace; }
 .significance-visual figcaption a { color: #6f4b17; text-underline-offset: .2rem; }
+.significance-shadow-shape { fill: rgba(7,17,31,.16); stroke: var(--ink); stroke-width: 2.5; stroke-linejoin: round; }
+.significance-chord-tracks path { fill: none; stroke: rgba(7,17,31,.22); stroke-width: 1.5; }
+.significance-chords path { fill: none; stroke: #b9761e; stroke-width: 4; stroke-linecap: round; }
+.significance-stations circle { fill: var(--ink); }
+.significance-shadow-motion { fill: none; stroke: #8a5918; stroke-width: 1.5; }
+#shape-arrow path { fill: #8a5918; }
 .significance-orbit-old { fill: none; stroke: rgba(7,17,31,.28); stroke-width: 2; stroke-dasharray: 6 7; }
 .significance-orbit-new { fill: none; stroke: var(--ink); stroke-width: 2.5; }
 .significance-sun { fill: #d9912e; }
