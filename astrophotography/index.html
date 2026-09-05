@@ -13,18 +13,112 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&amp;family=Manrope:wght@400;500;600&amp;family=Newsreader:opsz,wght@6..72,300;6..72,400&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/css/site.css"><script src="/assets/js/site.js" defer></script>
 </head>
-<body class="detail-page photo-page">
-  <canvas class="sky-canvas" aria-hidden="true"></canvas><a class="skip-link" href="#main">Skip to content</a>
-  <header class="site-header"><a class="wordmark" href="/"><span class="wordmark-dot"></span><span>JSH<span class="wordmark-slash">/</span>ASTRO</span></a><button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button><nav class="site-nav" id="site-nav"><a href="/#work">Research</a><a href="/astrophotography/">Photography</a><a href="/cv/">CV</a><a class="nav-contact" href="https://github.com/hjs12345678900" target="_blank" rel="noreferrer">GitHub ↗</a></nav></header>
+<body class="detail-page photo-page astro-archive-page">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <a class="wordmark" href="/" aria-label="Junsheng He — home"><span class="wordmark-dot"></span><span>JSH<span class="wordmark-slash">/</span>ASTRO</span></a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav class="site-nav" id="site-nav" aria-label="Primary navigation"><a href="/research/smbh-evolution/">Research</a><a href="/astrophotography/">Photography</a><a href="/cv/">CV</a><a class="nav-contact" href="https://github.com/hjs12345678900" target="_blank" rel="noreferrer">GitHub ↗</a></nav>
+  </header>
+
   <main id="main">
-    <section class="photo-hero shell" data-reveal><a class="back-link" href="/#work">← Home</a><p class="eyebrow"><span>04</span> Personal sky archive</p><h1>Collected<br><em>starlight.</em></h1><p>Astrophotography is where instrumentation, weather, patience, and wonder meet. This archive is built to grow with original images and the field notes behind them.</p></section>
-    <section class="photo-grid shell" aria-label="Astrophotography collections">
-      <article class="photo-tile photo-nebula" data-reveal><div class="generated-sky"></div><span>Collection 01</span><h2>Deep sky</h2><p>Nebulae · galaxies · star fields</p></article>
-      <article class="photo-tile photo-lunar" data-reveal><div class="generated-sky"></div><span>Collection 02</span><h2>Moon &amp; planets</h2><p>Lunar detail · planetary imaging</p></article>
-      <article class="photo-tile photo-wide" data-reveal><div class="generated-sky"></div><span>Collection 03</span><h2>Wide field</h2><p>Milky Way · conjunctions · landscapes</p></article>
-      <article class="photo-tile photo-field" data-reveal><div class="generated-sky"></div><span>Collection 04</span><h2>Field nights</h2><p>Telescopes · sites · observing logs</p></article>
+    <section class="astro-hero">
+      <video class="astro-hero-media" autoplay muted loop playsinline preload="metadata" data-autoplay poster="/assets/media/astrophotography/milky-way-pambula.jpg" aria-hidden="true">
+        <source src="/assets/media/astrophotography/milky-way-timelapse.mp4" type="video/mp4">
+      </video>
+      <div class="astro-hero-shade" aria-hidden="true"></div>
+      <div class="astro-hero-inner shell" data-reveal>
+        <a class="back-link" href="/">← Home</a>
+        <p class="eyebrow"><span>04</span> Astrophotography · field notes</p>
+        <h1>Light gathered<br><em>through patience.</em></h1>
+        <p>Deep-sky imaging, wide-field landscapes, moving targets, and the practical work around a telescope. This is an evolving record of what I observe and how I work in the field.</p>
+        <a class="astro-scroll" href="#archive">Complete archive <span aria-hidden="true">↓</span></a>
+      </div>
     </section>
-    <section class="archive-note shell" data-reveal><p class="section-index">Archive status</p><h2>The gallery frame is ready.<br>The original images come next.</h2><p>This first build intentionally avoids passing stock astronomy images off as my own. Each collection is prepared for full-resolution photographs, capture details, equipment notes, and observing conditions.</p></section>
+
+    <section class="astro-section shell" id="archive" aria-labelledby="archive-title">
+      <header class="astro-section-head" data-reveal>
+        <p class="section-index">Complete archive / 完整档案</p>
+        <div><h2 id="archive-title">Target archive</h2><p>One finished image for each astronomical target, arranged as a clean visual index.</p></div>
+      </header>
+      <div class="archive-layout">
+        <nav class="target-index" aria-label="Astrophotography target index" data-reveal>
+          <p>Target index</p>
+          <div class="target-index-groups">
+            <div><span>Nebulae</span><a href="#work-orion">Orion</a><a href="#work-ic434">IC 434</a><a href="#work-ngc2467">NGC 2467</a><a href="#work-m16">M16</a><a href="#work-carina">Carina</a><a href="#work-cg4">CG4</a><a href="#work-dumbbell">Dumbbell</a><a href="#work-crab">Crab</a><a href="#work-ngc6888">NGC 6888</a><a href="#work-ngc2244">NGC 2244</a><a href="#work-lagoon">Lagoon + Trifid</a></div>
+            <div><span>Galaxies &amp; cluster</span><a href="#work-antennae">Antennae</a><a href="#work-centaurus-a">Centaurus A</a><a href="#work-ngc253">NGC 253</a><a href="#work-m31">M31</a><a href="#work-m10">M10</a></div>
+            <div><span>Solar system &amp; wide field</span><a href="#work-comet">Comet</a><a href="#work-3i-atlas">3I/ATLAS</a><a href="#work-eclipse">Lunar eclipse</a><a href="#work-milky-way">Milky Way</a></div>
+            <div><span>More</span><a href="#motion">Motion studies</a><a href="#field">Field work</a></div>
+          </div>
+        </nav>
+
+        <div class="target-content">
+          <section class="archive-category" aria-labelledby="nebulae-title"><h3 id="nebulae-title">Nebulae</h3><div class="unique-gallery">
+            <figure class="archive-work" id="work-orion"><img loading="lazy" src="/assets/media/astrophotography/archive/orion.jpg" alt="Orion region"><figcaption><strong>Orion</strong><span>Wide nebula field</span></figcaption></figure>
+            <figure class="archive-work" id="work-ic434"><img loading="lazy" src="/assets/media/astrophotography/archive/ic434.jpg" alt="IC 434 region"><figcaption><strong>IC 434</strong><span>Horsehead region</span></figcaption></figure>
+            <figure class="archive-work" id="work-ngc2467"><img loading="lazy" src="/assets/media/astrophotography/archive/ngc2467.jpg" alt="NGC 2467"><figcaption><strong>NGC 2467</strong><span>Emission nebula</span></figcaption></figure>
+            <figure class="archive-work" id="work-m16"><img loading="lazy" src="/assets/media/astrophotography/archive/m16.jpg" alt="M16 Eagle Nebula"><figcaption><strong>M16</strong><span>Eagle Nebula</span></figcaption></figure>
+            <figure class="archive-work feature-work" id="work-carina"><img loading="lazy" src="/assets/media/astrophotography/archive/carina.jpg" alt="Carina Nebula"><figcaption><strong>Carina Nebula</strong><span>NGC 3372</span></figcaption></figure>
+            <figure class="archive-work" id="work-cg4"><img loading="lazy" src="/assets/media/astrophotography/archive/cg4.jpg" alt="Cometary Globule CG4"><figcaption><strong>CG4</strong><span>Cometary globule</span></figcaption></figure>
+            <figure class="archive-work" id="work-dumbbell"><img loading="lazy" src="/assets/media/astrophotography/archive/dumbbell-png.jpg" alt="Dumbbell Nebula"><figcaption><strong>Dumbbell Nebula</strong><span>M27</span></figcaption></figure>
+            <figure class="archive-work" id="work-crab"><img loading="lazy" src="/assets/media/astrophotography/archive/crab.jpg" alt="Crab Nebula"><figcaption><strong>Crab Nebula</strong><span>M1</span></figcaption></figure>
+            <figure class="archive-work" id="work-ngc6888"><img loading="lazy" src="/assets/media/astrophotography/archive/ngc6888.jpg" alt="NGC 6888 Crescent Nebula"><figcaption><strong>NGC 6888</strong><span>Crescent Nebula</span></figcaption></figure>
+            <figure class="archive-work" id="work-ngc2244"><img loading="lazy" src="/assets/media/astrophotography/archive/ngc2244.jpg" alt="NGC 2244 and Rosette Nebula"><figcaption><strong>NGC 2244</strong><span>Rosette Nebula</span></figcaption></figure>
+            <figure class="archive-work" id="work-lagoon"><img loading="lazy" src="/assets/media/astrophotography/archive/lagoon-trifid.jpg" alt="Lagoon and Trifid Nebulae"><figcaption><strong>Lagoon + Trifid</strong><span>M8 + M20</span></figcaption></figure>
+          </div></section>
+
+          <section class="archive-category" aria-labelledby="galaxies-title"><h3 id="galaxies-title">Galaxies &amp; cluster</h3><div class="unique-gallery">
+            <figure class="archive-work" id="work-antennae"><img loading="lazy" src="/assets/media/astrophotography/archive/antennae-drizzle.jpg" alt="Antennae Galaxies"><figcaption><strong>Antennae Galaxies</strong><span>Drizzle processing</span></figcaption></figure>
+            <figure class="archive-work" id="work-centaurus-a"><img loading="lazy" src="/assets/media/astrophotography/archive/ngc5128-3.jpg" alt="Centaurus A"><figcaption><strong>Centaurus A</strong><span>NGC 5128</span></figcaption></figure>
+            <figure class="archive-work" id="work-ngc253"><img loading="lazy" src="/assets/media/astrophotography/archive/ngc253.jpg" alt="NGC 253 Sculptor Galaxy"><figcaption><strong>NGC 253</strong><span>Sculptor Galaxy</span></figcaption></figure>
+            <figure class="archive-work" id="work-m31"><img loading="lazy" src="/assets/media/astrophotography/archive/m31.jpg" alt="M31 Andromeda Galaxy"><figcaption><strong>M31</strong><span>Andromeda Galaxy</span></figcaption></figure>
+            <figure class="archive-work" id="work-m10"><img loading="lazy" src="/assets/media/astrophotography/archive/m10.jpg" alt="M10 globular cluster"><figcaption><strong>M10</strong><span>Globular cluster</span></figcaption></figure>
+          </div></section>
+
+          <section class="archive-category" aria-labelledby="solar-title"><h3 id="solar-title">Solar system &amp; wide field</h3><div class="unique-gallery">
+            <figure class="archive-work" id="work-comet"><img loading="lazy" src="/assets/media/astrophotography/archive/comet.jpg" alt="Comet among star trails"><figcaption><strong>Comet</strong><span>Moving target</span></figcaption></figure>
+            <figure class="archive-work" id="work-3i-atlas"><img loading="lazy" src="/assets/media/astrophotography/archive/3i-atlas.jpg" alt="3I ATLAS"><figcaption><strong>3I/ATLAS</strong><span>Interstellar object</span></figcaption></figure>
+            <figure class="archive-work feature-work" id="work-eclipse"><img loading="lazy" src="/assets/media/astrophotography/archive/eclipse-stack.jpg" alt="Stacked sequence of a lunar eclipse"><figcaption><strong>Lunar eclipse</strong><span>Stacked sequence</span></figcaption></figure>
+            <figure class="archive-work portrait-work" id="work-milky-way"><img loading="lazy" src="/assets/media/astrophotography/archive/milky-way-pambula-2.jpg" alt="Milky Way above the Pambula coast"><figcaption><strong>Milky Way</strong><span>Pambula coast</span></figcaption></figure>
+          </div></section>
+        </div>
+      </div>
+    </section>
+
+    <section class="astro-section motion-section shell" id="motion" aria-labelledby="motion-title">
+      <header class="astro-section-head" data-reveal>
+        <p class="section-index">Motion studies / 动态</p>
+        <div><h2 id="motion-title">The sky in motion</h2><p>Time-lapse and blink sequences reveal changes that a single exposure cannot.</p></div>
+      </header>
+      <div class="motion-grid">
+        <figure class="motion-card motion-wide" data-reveal>
+          <video autoplay muted loop playsinline preload="metadata" data-autoplay poster="/assets/media/astrophotography/milky-way-pambula.jpg"><source src="/assets/media/astrophotography/milky-way-timelapse.mp4" type="video/mp4"></video>
+          <figcaption><strong>Milky Way rising</strong><span>Wide-field time-lapse</span></figcaption>
+        </figure>
+        <figure class="motion-card" data-reveal>
+          <video autoplay muted loop playsinline preload="metadata" data-autoplay><source src="/assets/media/astrophotography/field-rig-stars.mp4" type="video/mp4"></video>
+          <figcaption><strong>Rig under the stars</strong><span>Field sequence</span></figcaption>
+        </figure>
+        <figure class="motion-card motion-comet" data-reveal>
+          <video autoplay muted loop playsinline preload="metadata" data-autoplay poster="/assets/media/astrophotography/comet.jpg"><source src="/assets/media/astrophotography/comet-blink.mp4" type="video/mp4"></video>
+          <figcaption><strong>Comet blink</strong><span>Motion between exposures</span></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="astro-section field-section shell" id="field" aria-labelledby="field-title">
+      <header class="astro-section-head" data-reveal>
+        <p class="section-index">Behind the image / 现场</p>
+        <div><h2 id="field-title">At the telescope</h2><p>Instrument setup, alignment, weather, and long nights are part of every finished frame.</p></div>
+      </header>
+      <div class="field-grid">
+        <figure class="field-card field-night" data-reveal><img src="/assets/media/astrophotography/field-night.jpg" alt="The Milky Way above a coastal observing site"><figcaption>Under the Milky Way</figcaption></figure>
+        <figure class="field-card field-campus" data-reveal><video autoplay muted loop playsinline preload="metadata" data-autoplay><source src="/assets/media/astrophotography/unimelb-observing.mp4" type="video/mp4"></video><figcaption>Observing at the University of Melbourne</figcaption></figure>
+        <figure class="field-card" data-reveal><img src="/assets/media/astrophotography/equipment-main.jpg" alt="A large telescope and imaging system set up in the field"><figcaption>Field imaging system</figcaption></figure>
+        <figure class="field-card field-detail" data-reveal><img src="/assets/media/astrophotography/equipment-detail.jpg" alt="Close view of a telescope, mount, and imaging camera"><figcaption>Optics, mount, and camera</figcaption></figure>
+      </div>
+    </section>
+
     <nav class="next-project shell"><span>Return</span><a href="/">Home <b>↗</b></a></nav>
   </main>
   <footer class="site-footer shell"><span>© <span data-year></span> Junsheng He</span><span>Astrophotography</span><a href="#main">Back to top ↑</a></footer>

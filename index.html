@@ -33,126 +33,68 @@
     </a>
     <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
     <nav class="site-nav" id="site-nav" aria-label="Primary navigation">
-      <a href="#work">Research</a>
+      <a href="/research/smbh-evolution/">Research</a>
       <a href="/astrophotography/">Photography</a>
       <a href="/cv/">CV</a>
       <a class="nav-contact" href="https://github.com/hjs12345678900" target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">↗</span></a>
     </nav>
   </header>
 
-  <main id="main">
-    <section class="hero shell">
-      <div class="hero-copy" data-reveal>
-        <p class="eyebrow"><span>01</span> Astrophysicist · observer · maker</p>
-        <h1>I study the dark<br>to understand<br><em>how galaxies grow.</em></h1>
-        <p class="hero-intro">I’m Junsheng (Sam) He, a PhD researcher in astrophysics at Swinburne University of Technology, Melbourne. My work moves between black-hole growth, quasar observations, precision timing, and the night sky.</p>
-        <div class="hero-actions">
-          <a class="button button-primary" href="#work">Explore the work <span aria-hidden="true">↓</span></a>
-          <a class="button button-ghost" href="/cv/">View CV <span aria-hidden="true">↗</span></a>
-        </div>
-      </div>
+  <main id="main" class="home-stage">
+    <h1 class="sr-only">Junsheng (Sam) He — Astrophysics</h1>
 
-      <aside class="hero-portrait" data-reveal aria-label="About Junsheng He">
-        <div class="orbit-field" aria-hidden="true">
-          <span class="orbit orbit-one"></span>
-          <span class="orbit orbit-two"></span>
-          <span class="orbit orbit-three"></span>
-          <span class="orbit-object"></span>
-        </div>
-        <div class="portrait-frame">
-          <img src="/assets/img/junsheng-he.png" alt="Junsheng He's GitHub avatar">
-        </div>
-        <div class="portrait-meta">
-          <span>Based in</span>
-          <strong>Melbourne, AU</strong>
-          <span>Current orbit</span>
-          <strong>Swinburne University</strong>
-        </div>
-      </aside>
+    <section class="home-quadrants" aria-label="Research and creative work">
+      <a class="quadrant quadrant-smbh" href="/research/smbh-evolution/" data-reveal>
+        <img src="/assets/img/home-smbh-v1.png" alt="" aria-hidden="true">
+        <span class="quadrant-shade" aria-hidden="true"></span>
+        <span class="quadrant-heading">
+          <span class="quadrant-index">01 · PhD research</span>
+          <strong>Supermassive black-hole<br> evolution</strong>
+        </span>
+        <span class="quadrant-arrow" aria-hidden="true">↗</span>
+      </a>
+
+      <a class="quadrant quadrant-quasar" href="/research/quasar-reduction/" data-reveal>
+        <img src="/assets/img/home-quasar-v1.png" alt="" aria-hidden="true">
+        <span class="quadrant-shade" aria-hidden="true"></span>
+        <span class="quadrant-heading">
+          <span class="quadrant-index">02 · Observation</span>
+          <strong>Quasar data<br> reduction</strong>
+        </span>
+        <span class="quadrant-arrow" aria-hidden="true">↗</span>
+      </a>
+
+      <a class="quadrant quadrant-occultation" href="/research/occultations/" data-reveal>
+        <img src="/assets/img/home-occultation-v1.png" alt="" aria-hidden="true">
+        <span class="quadrant-shade" aria-hidden="true"></span>
+        <span class="quadrant-heading">
+          <span class="quadrant-index">03 · Precision timing</span>
+          <strong>Occultations</strong>
+        </span>
+        <span class="quadrant-arrow" aria-hidden="true">↗</span>
+      </a>
+
+      <a class="quadrant quadrant-photography" href="/astrophotography/" data-reveal>
+        <img src="/assets/img/home-astrophotography-v1.png" alt="" aria-hidden="true">
+        <span class="quadrant-shade" aria-hidden="true"></span>
+        <span class="quadrant-heading">
+          <span class="quadrant-index">04 · Night-sky archive</span>
+          <strong>Astrophotography</strong>
+        </span>
+        <span class="quadrant-arrow" aria-hidden="true">↗</span>
+      </a>
     </section>
 
-    <section class="manifesto shell" data-reveal aria-labelledby="manifesto-title">
-      <p class="section-index">About / 关于我</p>
-      <div>
-        <h2 id="manifesto-title">From cosmic populations<br>to single-frame events.</h2>
-        <p>My research asks how supermassive black holes assemble across cosmic time. Alongside that long-timescale view, I reduce quasar imaging data and observe occultations—brief moments in which geometry turns light into a precise measurement. Astrophotography keeps the same questions personal.</p>
+    <section class="home-profile" data-reveal aria-label="About Junsheng He">
+      <div class="home-avatar">
+        <img src="/assets/img/junsheng-he.png" alt="Junsheng (Sam) He">
       </div>
+      <p class="home-name">Junsheng (Sam) He</p>
+      <p>I’m a PhD researcher in astrophysics at the University of Melbourne.</p>
+      <p>My work spans theoretical modelling, astronomical data reduction, precision timing, telescope fieldwork, and astrophotography.</p>
     </section>
 
-    <section class="work shell" id="work" aria-labelledby="work-title">
-      <div class="section-heading" data-reveal>
-        <p class="section-index">Selected directions / 研究板块</p>
-        <h2 id="work-title">Four ways of looking up.</h2>
-      </div>
-
-      <div class="project-grid">
-        <a class="project-card card-smbh" href="/research/smbh-evolution/" data-reveal>
-          <div class="card-topline"><span>PhD Research</span><span>01</span></div>
-          <div class="black-hole" aria-hidden="true"><span></span></div>
-          <div class="card-copy">
-            <p class="card-kicker">Theory · population modelling · cosmic evolution</p>
-            <h3>Supermassive<br>black-hole evolution</h3>
-            <p>Following the co-evolution of galaxies and their central black holes across cosmic time.</p>
-          </div>
-          <span class="card-arrow" aria-hidden="true">↗</span>
-        </a>
-
-        <a class="project-card card-quasar" href="/research/quasar-reduction/" data-reveal>
-          <div class="card-topline"><span>Observational pipeline</span><span>02</span></div>
-          <div class="spectrum-art" aria-hidden="true">
-            <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
-          </div>
-          <div class="card-copy">
-            <p class="card-kicker">Near-IR imaging · calibration · PSF analysis</p>
-            <h3>Quasar data<br>reduction</h3>
-            <p>Turning raw detector frames into calibrated images and physically useful constraints.</p>
-          </div>
-          <span class="card-arrow" aria-hidden="true">↗</span>
-        </a>
-
-        <a class="project-card card-occultation" href="/research/occultations/" data-reveal>
-          <div class="card-topline"><span>Fast astronomy</span><span>03</span></div>
-          <div class="occult-art" aria-hidden="true">
-            <span class="occult-star">✦</span>
-            <span class="occult-track"></span>
-            <span class="occult-body"></span>
-            <span class="lightcurve"></span>
-          </div>
-          <div class="card-copy">
-            <p class="card-kicker">Prediction · field work · high-speed photometry</p>
-            <h3>Occultations</h3>
-            <p>Planning, capturing, and interpreting fleeting shadows from asteroids and satellites.</p>
-          </div>
-          <span class="card-arrow" aria-hidden="true">↗</span>
-        </a>
-
-        <a class="project-card card-photo" href="/astrophotography/" data-reveal>
-          <div class="card-topline"><span>Personal sky archive</span><span>04</span></div>
-          <div class="nebula-art" aria-hidden="true"><span></span></div>
-          <div class="card-copy">
-            <p class="card-kicker">Deep sky · lunar · field notes</p>
-            <h3>Astro-<br>photography</h3>
-            <p>A visual notebook of clear nights, imperfect conditions, and patient exposures.</p>
-          </div>
-          <span class="card-arrow" aria-hidden="true">↗</span>
-        </a>
-      </div>
-    </section>
-
-    <section class="contact-strip shell" data-reveal>
-      <p>Research is a team sport.</p>
-      <h2>Have an idea, dataset,<br>or clear patch of sky?</h2>
-      <div class="contact-links">
-        <a href="https://github.com/hjs12345678900" target="_blank" rel="noreferrer">GitHub ↗</a>
-        <a href="https://au.linkedin.com/in/junsheng-he-b39816203" target="_blank" rel="noreferrer">LinkedIn ↗</a>
-      </div>
-    </section>
+    <p class="home-location" aria-label="Location">Melbourne, Australia · <span data-year></span></p>
   </main>
-
-  <footer class="site-footer shell">
-    <span>© <span data-year></span> Junsheng He</span>
-    <span>Built between code &amp; starlight.</span>
-    <a href="#main">Back to top ↑</a>
-  </footer>
 </body>
 </html>

@@ -31,6 +31,23 @@
     revealItems.forEach((item) => observer.observe(item));
   }
 
+  const ambientVideos = document.querySelectorAll('video[data-autoplay]');
+  if (reducedMotion) {
+    ambientVideos.forEach((video) => video.pause());
+  } else if ('IntersectionObserver' in window) {
+    const videoObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const video = entry.target;
+        if (entry.isIntersecting) {
+          video.play().catch(() => {});
+        } else {
+          video.pause();
+        }
+      });
+    }, { threshold: 0.18 });
+    ambientVideos.forEach((video) => videoObserver.observe(video));
+  }
+
   const canvas = document.querySelector('.sky-canvas');
   if (!canvas || reducedMotion) return;
   const context = canvas.getContext('2d');
