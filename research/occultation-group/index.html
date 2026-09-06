@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&amp;family=Manrope:wght@400;500;600&amp;family=Newsreader:opsz,wght@6..72,300;6..72,400&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../assets/css/site.css">
-  <link rel="stylesheet" href="../../assets/css/occultation-group.css?v=7">
+  <link rel="stylesheet" href="../../assets/css/occultation-group.css?v=8">
   <script src="../../assets/js/site.js" defer></script>
 </head>
 <body class="detail-page occultation-group-page">
@@ -60,38 +60,40 @@
         </div>
       </header>
       <figure class="occultation-system-figure group-occultation-animation" data-reveal>
-        <div class="figure-label">Occultation geometry and light curve</div>
         <svg viewBox="0 0 1200 780" role="img" aria-labelledby="group-system-title group-system-desc">
           <title id="group-system-title">Animated asteroid occultation geometry with a corresponding light curve</title>
-          <desc id="group-system-desc">An asteroid crosses the line of sight from a distant star and casts a moving shadow on Earth. A synchronized light curve shows the temporary loss of stellar flux.</desc>
+          <desc id="group-system-desc">An asteroid crosses the line of sight from a distant star and casts a moving shadow over a telescope on the night side of Earth. A synchronized light curve shows the duration of the temporary loss of stellar flux.</desc>
           <defs>
-            <radialGradient id="group-star-core" cx="38%" cy="34%"><stop offset="0" stop-color="#fffbe5"></stop><stop offset=".35" stop-color="#ffd77b"></stop><stop offset="1" stop-color="#d88925"></stop></radialGradient>
             <radialGradient id="group-asteroid-rock" cx="32%" cy="24%"><stop offset="0" stop-color="#d6d9d8"></stop><stop offset=".38" stop-color="#8e969a"></stop><stop offset="1" stop-color="#343b42"></stop></radialGradient>
-            <radialGradient id="group-earth-ocean" cx="32%" cy="27%"><stop offset="0" stop-color="#acd5ec"></stop><stop offset=".45" stop-color="#4c91bd"></stop><stop offset=".82" stop-color="#24577f"></stop><stop offset="1" stop-color="#102a43"></stop></radialGradient>
+            <radialGradient id="group-earth-ocean" cx="72%" cy="27%"><stop offset="0" stop-color="#acd5ec"></stop><stop offset=".45" stop-color="#4c91bd"></stop><stop offset=".82" stop-color="#24577f"></stop><stop offset="1" stop-color="#102a43"></stop></radialGradient>
             <linearGradient id="group-shadow-cone" x1="0" x2="1"><stop offset="0" stop-color="#02060c" stop-opacity=".9"></stop><stop offset="1" stop-color="#02060c" stop-opacity=".52"></stop></linearGradient>
             <filter id="group-star-glow" x="-200%" y="-200%" width="400%" height="400%"><feGaussianBlur stdDeviation="15"></feGaussianBlur></filter>
             <filter id="group-object-shadow" x="-70%" y="-70%" width="240%" height="240%"><feDropShadow dx="8" dy="11" stdDeviation="8" flood-color="#000" flood-opacity=".62"></feDropShadow></filter>
             <clipPath id="group-earth-clip"><circle cx="1010" cy="248" r="158"></circle></clipPath>
             <path id="group-asteroid-silhouette" d="M-33-31L-5-45L31-33L47-3L38 29L10 45L-24 33L-44 5Z"></path>
+            <marker id="group-duration-start" viewBox="0 0 10 10" refX="2" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="system-duration-arrowhead" d="M9 1L2 5L9 9"></path></marker>
+            <marker id="group-duration-end" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="system-duration-arrowhead" d="M1 1L8 5L1 9"></path></marker>
           </defs>
           <g class="system-space-dots" aria-hidden="true"><circle cx="241" cy="78" r="2"></circle><circle cx="343" cy="380" r="1.5"></circle><circle cx="680" cy="92" r="2"></circle><circle cx="745" cy="414" r="1.5"></circle><circle cx="890" cy="56" r="1.5"></circle></g>
           <g class="system-parallel-rays" aria-hidden="true"><path d="M180 166H968"></path><path d="M180 206H968"></path><path d="M180 246H968"></path><path d="M180 286H968"></path><path d="M180 326H968"></path></g>
           <line class="system-sightline" x1="180" y1="246" x2="1010" y2="246"></line>
-          <g class="system-star"><circle class="system-star-glow" cx="132" cy="246" r="51"></circle><circle cx="132" cy="246" r="23"></circle><path d="M132 199V217M132 275V293M85 246H103M161 246H179M99 213L112 226M152 266L165 279M99 279L112 266M152 226L165 213"></path></g>
-          <path class="system-motion-path" d="M510 58V432"></path>
+          <g class="system-star"><circle class="system-star-glow" cx="132" cy="246" r="45"></circle><path class="system-star-point" d="M132 211L138 239L166 246L138 253L132 281L126 253L98 246L126 239Z"></path><circle class="system-star-core" cx="132" cy="246" r="5"></circle></g>
+          <path class="system-motion-path" d="M510 46V466"></path>
           <g class="system-earth" filter="url(#group-object-shadow)"><circle cx="1010" cy="248" r="158"></circle><g clip-path="url(#group-earth-clip)"><ellipse cx="1010" cy="248" rx="75" ry="158"></ellipse><ellipse cx="1010" cy="248" rx="130" ry="158"></ellipse><path d="M852 248H1168M868 184Q1010 225 1152 184M868 312Q1010 271 1152 312"></path></g></g>
-          <g class="system-shadow-motion"><path class="system-shadow-body" d="M510 31H968V121H510Z"></path><path class="system-shadow-edge" d="M510 45H968M510 109H968"></path></g>
-          <g class="system-asteroid-track"><g class="system-asteroid" filter="url(#group-object-shadow)"><use href="#group-asteroid-silhouette" transform="translate(510 76)"></use><ellipse cx="497" cy="62" rx="10" ry="7"></ellipse><ellipse cx="530" cy="91" rx="7" ry="5"></ellipse></g></g>
-          <g class="system-shadow-on-earth" clip-path="url(#group-earth-clip)"><g class="system-shadow-motion"><use class="system-shadow-silhouette" href="#group-asteroid-silhouette" transform="translate(968 76) rotate(-8) scale(1.05)"></use></g></g>
-          <g class="system-site"><circle cx="968" cy="246" r="7"></circle><circle cx="968" cy="246" r="16"></circle></g>
-          <g class="system-labels"><text x="132" y="335" text-anchor="middle">Distant star</text><text x="332" y="145" text-anchor="middle">Parallel starlight</text><text x="510" y="458" text-anchor="middle">Asteroid motion</text><text x="720" y="191">Asteroid-shaped shadow</text><text x="1010" y="445" text-anchor="middle">Earth and observing site</text><text class="system-scale-note" x="1120" y="54" text-anchor="end">Not to scale</text></g>
+          <g class="system-shadow-motion"><path class="system-shadow-body" d="M510 36H968V126H510Z"></path></g>
+          <g class="system-asteroid-track"><g class="system-asteroid" filter="url(#group-object-shadow)"><use href="#group-asteroid-silhouette" transform="translate(510 81)"></use><ellipse cx="497" cy="67" rx="10" ry="7"></ellipse><ellipse cx="530" cy="96" rx="7" ry="5"></ellipse></g></g>
+          <g class="system-shadow-on-earth" clip-path="url(#group-earth-clip)"><g class="system-shadow-motion"><use class="system-shadow-silhouette" href="#group-asteroid-silhouette" transform="translate(968 81) rotate(-8) scale(1.05)"></use></g></g>
+          <g class="system-site"><circle cx="922" cy="246" r="7"></circle><circle cx="922" cy="246" r="16"></circle></g>
+          <g class="system-telescope" transform="translate(922 236)" aria-hidden="true"><path d="M-15-16L9-25L14-15L-10-6Z"></path><path d="M-2-7V2M-2 2L-15 19M-2 2L12 19M-2 2V20"></path></g>
+          <g class="system-labels"><text x="132" y="335" text-anchor="middle">Distant star</text><text x="582" y="82">Asteroid</text><text x="886" y="342" text-anchor="middle">Observing telescope</text><text x="1063" y="445" text-anchor="middle">Earth</text><text class="system-scale-note" x="1120" y="54" text-anchor="end">Not to scale</text></g>
           <line class="system-divider" x1="58" y1="492" x2="1142" y2="492"></line>
-          <text class="system-panel-title" x="88" y="535">Corresponding light curve</text>
-          <g class="system-curve-grid" aria-hidden="true"><path d="M112 566H1104M112 628H1104M112 690H1104"></path><path d="M112 548V710M360 548V710M608 548V710M856 548V710M1104 548V710"></path></g>
-          <rect class="system-event-band" x="444" y="548" width="238" height="162"></rect>
-          <path class="system-curve-model" d="M112 574H412Q444 574 444 606V684H682V606Q682 574 714 574H1104"></path>
-          <line class="system-curve-cursor" x1="112" y1="548" x2="112" y2="710"></line>
-          <g class="system-curve-labels"><text x="92" y="580" text-anchor="end">1.0</text><text x="92" y="695" text-anchor="end">0.0</text><text x="608" y="735" text-anchor="middle">occultation</text><text x="1104" y="735" text-anchor="end">time</text><text x="40" y="635" transform="rotate(-90 40 635)" text-anchor="middle">normalised flux</text></g>
+          <text class="system-panel-title" x="88" y="535">Light curve</text>
+          <g class="system-curve-grid" aria-hidden="true"><path d="M112 566H1104M112 628H1104M112 690H1104"></path><path d="M112 548V690M360 548V690M608 548V690M856 548V690M1104 548V690"></path></g>
+          <rect class="system-event-band" x="444" y="548" width="238" height="142"></rect>
+          <path class="system-curve-model" d="M112 574H412Q444 574 444 606V680H682V606Q682 574 714 574H1104"></path>
+          <line class="system-curve-cursor" x1="112" y1="548" x2="112" y2="690"></line>
+          <g class="system-duration-annotation"><text x="563" y="630" text-anchor="middle">Occultation duration</text><line x1="456" y1="649" x2="670" y2="649" marker-start="url(#group-duration-start)" marker-end="url(#group-duration-end)"></line></g>
+          <g class="system-curve-labels"><text x="1104" y="730" text-anchor="end">time</text><text x="40" y="619" transform="rotate(-90 40 619)" text-anchor="middle">normalised flux</text></g>
         </svg>
         <figcaption>Parallel starlight is blocked by the asteroid. The shadow crosses an observing site and produces a timed drop in stellar flux.</figcaption>
       </figure>
@@ -103,6 +105,7 @@
         <div>
           <h2 id="group-equipment-title">Shared equipment. Real campaigns.</h2>
           <p>You do not need to own a telescope.</p>
+          <p>We have occultation-ready equipment and will train you to set it up, operate it and capture accurately timed observations.</p>
         </div>
       </header>
       <div class="group-equipment-grid">
@@ -123,7 +126,7 @@
       <div class="shell group-field-content">
         <figure class="group-field-photo" data-reveal>
           <img src="../../assets/media/occultation-group/kallichore-esa-campaign.jpg?v=2" alt="Kallichore occultation campaign team in Cobar, New South Wales">
-          <figcaption>ESA-funded Kallichore campaign · Cobar, NSW</figcaption>
+          <figcaption>18 Mar 2026 · ESA-funded Kallichore campaign · Cobar, NSW</figcaption>
         </figure>
         <div class="group-field-copy" data-reveal>
           <p class="section-index">Wider collaboration</p>
@@ -139,7 +142,10 @@
       <div class="shell">
         <header class="academic-section-heading academic-section-heading-dark" data-reveal>
           <p class="section-index">Observation record</p>
-          <div><h2 id="group-events-title">Successful events</h2></div>
+          <div>
+            <h2 id="group-events-title">Successful events</h2>
+            <p>We review new predictions every week. During an active period, suitable geometry and weather can lead to several observing attempts in a month.</p>
+          </div>
         </header>
         <div class="group-event-highlights">
           <figure data-reveal>
@@ -151,7 +157,10 @@
             <figcaption><span class="event-status event-status-positive">Positive</span><strong>1993 FY22</strong><time datetime="2026-05-12">12 May 2026</time></figcaption>
           </figure>
         </div>
-        <a class="group-button group-button-primary group-events-button" href="events/">See all events <span aria-hidden="true">→</span></a>
+        <div class="group-events-actions">
+          <a class="group-button group-button-primary group-events-button" href="events/">See all events <span aria-hidden="true">→</span></a>
+          <a class="group-section-link" href="https://cloud.occultwatcher.net/" target="_blank" rel="noreferrer">Upcoming predictions in OWC <span aria-hidden="true">↗</span></a>
+        </div>
       </div>
     </section>
 
@@ -194,7 +203,7 @@
           <p class="section-index">Tools &amp; organisations</p>
           <div>
             <h2 id="group-community-title">The wider occultation community.</h2>
-            <p>Our observing program builds on community-maintained predictions, software, reporting standards and volunteer expertise. We gratefully acknowledge the people and organisations behind the tools we use.</p>
+            <p>Our observing program is built upon community-maintained predictions, software, reporting standards and volunteer expertise. We gratefully acknowledge the people and organisations behind the tools we use.</p>
           </div>
         </header>
         <div class="group-community-grid">
@@ -233,17 +242,25 @@
       </div>
       <div class="group-join-copy" data-reveal>
         <p class="group-join-lede">No telescope. No prior experience. Start with us.</p>
-        <p>We will help you learn setup, analysis and reporting. Expect a steep but fruitful learning curve.</p>
+        <p>You can help triage future events, plan a campaign, operate a telescope, analyse a light curve, prepare a report, or improve the equipment, timing and software setup. Participation is voluntary, and you can learn one part or follow the full workflow.</p>
         <div class="group-join-actions">
           <span class="group-button group-button-primary group-button-placeholder">Contact email coming soon</span>
-          <a class="group-section-link group-section-link-light" href="guide/">Read the group guide <span aria-hidden="true">→</span></a>
+          <a class="group-section-link group-section-link-light" href="guide/#structure">Ways to contribute <span aria-hidden="true">→</span></a>
         </div>
       </div>
     </section>
   </main>
 
-  <footer class="site-footer shell">
-    <p>© <span data-year></span> Junsheng He · Asteroid Hunters</p>
+  <footer class="site-footer group-footer shell">
+    <div><p>© <span data-year></span> Junsheng He · Asteroid Hunters</p><p>Volunteer occultation observing in Melbourne.</p></div>
+    <nav aria-label="Sitemap">
+      <a href="./">Group home</a>
+      <a href="guide/">Group guide</a>
+      <a href="events/">Events</a>
+      <a href="#people">People</a>
+      <a href="#community">Community</a>
+      <a href="../occultations/">Research archive</a>
+    </nav>
     <a href="#main">Back to top ↑</a>
   </footer>
 </body>

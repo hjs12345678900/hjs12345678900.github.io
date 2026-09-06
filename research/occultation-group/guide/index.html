@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&amp;family=Manrope:wght@400;500;600&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../../assets/css/site.css">
-  <link rel="stylesheet" href="../../../assets/css/occultation-group.css">
+  <link rel="stylesheet" href="../../../assets/css/occultation-group.css?v=8">
   <script src="../../../assets/js/site.js" defer></script>
 </head>
 <body class="detail-page occultation-group-page group-guide-page">
@@ -59,15 +59,15 @@
       </header>
       <div class="group-guide-prose">
         <p>An asteroid occultation occurs when an asteroid passes in front of a distant star. The star can disappear for only a few seconds, but accurately measured disappearance and reappearance times define a chord across the asteroid's projected silhouette.</p>
-        <p>One observing station measures one chord. Several stations spread across the predicted shadow path can recover the asteroid's size and shape far more precisely. The timing also provides an accurate astrometric position and can improve its predicted orbit.</p>
+        <p>One observing station measures one chord. Several stations distributed cross-track—perpendicular to the shadow's motion—sample different slices of the predicted path and can recover the asteroid's size and shape far more precisely. The timing also provides an accurate astrometric position and can improve its predicted orbit.</p>
         <div class="group-guide-callout">
           <strong>Why multiple stations matter</strong>
           <p>A miss is still data. It marks where the asteroid's shadow was not and can constrain the edge of the silhouette when combined with nearby positive detections.</p>
         </div>
       </div>
       <figure class="group-science-diagram group-guide-diagram">
-        <img src="../../../assets/media/occultation-group/asteroid-occultation-diagram.svg" alt="Diagram of starlight blocked by an asteroid, multiple observing chords across the shadow, and the resulting drop in stellar flux">
-        <figcaption>One shadow. Several observing chords. One timed drop in stellar flux.</figcaption>
+        <img src="../../../assets/media/occultation-group/asteroid-occultation-diagram.svg?v=2" alt="Diagram showing observing stations distributed cross-track, parallel tracks through an asteroid shadow, and one corresponding light curve">
+        <figcaption>Stations are distributed cross-track; as the shadow moves over them, each site records a different chord—or a useful miss.</figcaption>
       </figure>
     </section>
 
@@ -75,6 +75,7 @@
       <header>
         <p class="section-index">02 · Shared equipment</p>
         <h2 id="guide-equipment-title">Our telescopes</h2>
+        <p>We provide occultation-ready telescopes, cameras and timing equipment, and train new participants to use the complete setup.</p>
       </header>
       <div class="group-guide-equipment-gallery">
         <figure>
@@ -95,11 +96,11 @@
           <h2 id="guide-fieldwork-title">The observing site follows the shadow</h2>
         </header>
         <div class="group-guide-prose">
-          <p>Scientifically valuable events may require travel to rural Victoria or interstate sites. A campaign can involve weather assessment, route planning, equipment transport, an overnight deployment and time-critical decisions under uncertain conditions.</p>
-          <p>Some high-priority campaigns may receive travel support connected with ESA or NASA programmes. Support is specific to each event and is never assumed or guaranteed.</p>
+          <p>Sometimes we travel to rural Victoria or interstate sites to capture valuable events. People opt in when an event, their availability and the weather line up; the team shares route planning, equipment transport and decisions in the field.</p>
+          <p>Some high-priority campaigns receive travel support connected with ESA or NASA programmes. Support depends on the event, but taking part never depends on being available to travel.</p>
           <div class="group-guide-callout group-guide-callout-dark">
             <strong>Travel is optional</strong>
-            <p>Participants can also contribute through event preparation, photometry, data analysis and reporting.</p>
+            <p>No one is expected to travel. Event triage, preparation, photometry, data analysis, reporting and equipment development can all be done without joining a field trip.</p>
           </div>
         </div>
       </div>
@@ -111,11 +112,17 @@
         <h2 id="guide-structure-title">One group. No fixed roles.</h2>
       </header>
       <div class="group-guide-prose">
-        <p>This is a flat collaboration rather than a club or a hierarchy of permanent observing and analysis positions. The group connects people based at the University of Melbourne with collaborators from SAMU.</p>
-        <p>Everyone is encouraged to understand the complete process. New participants learn alongside previous observers, contribute to a real campaign and later help the next person through the same workflow.</p>
+        <p>This is a volunteer collaboration rather than a hierarchy of permanent roles. It brings together University of Melbourne students and staff, members of the <a href="https://umsu.unimelb.edu.au/buddy-up/clubs/clubs-listing/join/samu/" target="_blank" rel="noreferrer">Society for Astronomy at Melbourne University (SAMU) ↗</a>, and interested people from the wider community.</p>
+        <p>People can move between different parts of the work. New participants learn alongside previous observers, contribute where they are comfortable and, if they wish, follow an event from its first prediction through to the final report.</p>
+        <div class="group-guide-contribution-grid" aria-label="Ways to contribute">
+          <article><span>01</span><h3>Find &amp; plan</h3><p>Review predictions, assess weather and choose observing sites.</p></article>
+          <article><span>02</span><h3>Observe</h3><p>Set up telescopes, cameras and accurate timing in the field.</p></article>
+          <article><span>03</span><h3>Analyse &amp; report</h3><p>Reduce recordings, measure light curves and prepare formal reports.</p></article>
+          <article><span>04</span><h3>Build &amp; improve</h3><p>Develop more reliable equipment, software and timing workflows.</p></article>
+        </div>
         <dl class="group-guide-faq">
-          <div><dt>Who can join?</dt><dd>University of Melbourne students and interested external collaborators.</dd></div>
-          <div><dt>What matters most?</dt><dd>Reliability, patience, careful work and a willingness to learn.</dd></div>
+          <div><dt>Who can join?</dt><dd>Anyone curious about contributing: students, staff and people outside the University are all welcome.</dd></div>
+          <div><dt>What matters most?</dt><dd>Reliability when you volunteer, patience, careful work and a willingness to learn.</dd></div>
           <div><dt>What experience is expected?</dt><dd>None with telescope operation. We start with the setup.</dd></div>
         </dl>
       </div>
@@ -132,8 +139,16 @@
     </section>
   </main>
 
-  <footer class="site-footer shell">
-    <p>© <span data-year></span> Junsheng He · Asteroid Hunters</p>
+  <footer class="site-footer group-footer shell">
+    <div><p>© <span data-year></span> Junsheng He · Asteroid Hunters</p><p>Volunteer occultation observing in Melbourne.</p></div>
+    <nav aria-label="Sitemap">
+      <a href="../">Group home</a>
+      <a href="./">Group guide</a>
+      <a href="../events/">Events</a>
+      <a href="../#people">People</a>
+      <a href="../#community">Community</a>
+      <a href="../../occultations/">Research archive</a>
+    </nav>
     <a href="#main">Back to top ↑</a>
   </footer>
 </body>

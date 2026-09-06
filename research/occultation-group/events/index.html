@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&amp;family=Manrope:wght@400;500;600&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../../assets/css/site.css">
-  <link rel="stylesheet" href="../../../assets/css/occultation-group.css">
+  <link rel="stylesheet" href="../../../assets/css/occultation-group.css?v=8">
   <script src="../../../assets/js/site.js" defer></script>
 </head>
 <body class="detail-page occultation-group-page group-events-page">
@@ -27,6 +27,7 @@
       <a href="../#science">Science</a>
       <a href="./" aria-current="page">Events</a>
       <a href="../#people">People</a>
+      <a href="../#community">Community</a>
       <a href="../guide/">Group guide</a>
       <a class="nav-contact" href="../#join">Join the group</a>
     </nav>
@@ -43,6 +44,14 @@
     </section>
 
     <section class="shell group-record" aria-labelledby="event-record-title">
+      <aside class="group-upcoming" aria-labelledby="group-upcoming-title" data-reveal>
+        <div>
+          <p class="section-index">Campaign planning</p>
+          <h2 id="group-upcoming-title">What are we observing next?</h2>
+          <p>Predictions and weather change, so future plans remain provisional until close to an event. We review new opportunities each week and coordinate live campaign details through Occult Watcher Cloud.</p>
+        </div>
+        <a class="group-button group-button-primary" href="https://cloud.occultwatcher.net/" target="_blank" rel="noreferrer">View upcoming events in OWC <span aria-hidden="true">↗</span></a>
+      </aside>
       <header class="academic-section-heading" data-reveal>
         <p class="section-index">Positive / miss</p>
         <div><h2 id="event-record-title">Event record</h2></div>
@@ -61,7 +70,7 @@
         <div role="row"><time datetime="2026-07-14" role="cell">14 Jul 2026</time><strong role="cell">2006 YN24</strong><span class="event-status event-status-miss" role="cell">Miss</span></div>
         <div role="row"><time datetime="2026-05-12" role="cell">12 May 2026</time><strong role="cell">1993 FY22</strong><span class="event-status event-status-positive" role="cell">Positive</span></div>
         <div role="row"><time datetime="2026-04-26" role="cell">26 Apr 2026</time><strong role="cell">(4609) Pizarro</strong><span class="event-status event-status-positive" role="cell">Positive</span></div>
-        <div role="row"><span role="cell">NSW campaign</span><strong role="cell">Kallichore</strong><span class="event-status event-status-miss" role="cell">Miss · clouded</span></div>
+        <div role="row"><time datetime="2026-03-18" role="cell">18 Mar 2026</time><strong role="cell">Kallichore</strong><span class="event-status event-status-miss" role="cell">Miss · clouded</span></div>
         <div role="row"><time datetime="2024-05-05" role="cell">05 May 2024</time><strong role="cell">Didymos</strong><span class="event-status event-status-miss" role="cell">Miss</span></div>
       </div>
       <p class="group-record-note">A reliable miss constrains where the asteroid's shadow did not pass. A weather loss is recorded separately as clouded.</p>
@@ -69,8 +78,16 @@
     </section>
   </main>
 
-  <footer class="site-footer shell">
-    <p>© <span data-year></span> Junsheng He · Asteroid Hunters</p>
+  <footer class="site-footer group-footer shell">
+    <div><p>© <span data-year></span> Junsheng He · Asteroid Hunters</p><p>Volunteer occultation observing in Melbourne.</p></div>
+    <nav aria-label="Sitemap">
+      <a href="../">Group home</a>
+      <a href="../guide/">Group guide</a>
+      <a href="./">Events</a>
+      <a href="../#people">People</a>
+      <a href="../#community">Community</a>
+      <a href="../../occultations/">Research archive</a>
+    </nav>
     <a href="#main">Back to top ↑</a>
   </footer>
 </body>
