@@ -262,14 +262,25 @@
 .group-occultation-animation .system-asteroid use { fill: url(#group-asteroid-rock); }
 .group-occultation-animation .system-earth > circle { fill: url(#group-earth-ocean); }
 .group-occultation-animation .system-shadow-body { fill: url(#group-shadow-cone); }
-.group-occultation-animation .system-telescope path { fill: none; stroke: #f2c66e; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+.group-occultation-animation .system-shadow-edge { fill: none; stroke: rgba(134, 216, 232, .38); stroke-width: 1.5; stroke-dasharray: 7 8; }
+.group-occultation-animation .system-shadow-footprint { fill: rgba(1, 5, 10, .78); stroke: rgba(134, 216, 232, .34); stroke-width: 1.5; }
+.group-occultation-animation .system-telescope path,
+.group-occultation-animation .system-telescope circle { stroke: #f2c66e; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.group-occultation-animation .system-telescope-tube { fill: url(#group-telescope-tube); }
+.group-occultation-animation .system-telescope-rim,
+.group-occultation-animation .system-telescope-detail,
+.group-occultation-animation .system-telescope-saddle,
+.group-occultation-animation .system-telescope-tripod { fill: none; }
+.group-occultation-animation .system-telescope-lens { fill: #86d8e8; stroke-width: 3; }
+.group-occultation-animation .system-telescope-focuser { fill: #263746; }
+.group-occultation-animation .system-telescope-mount { fill: #263746; }
 .group-occultation-animation .system-duration-annotation text { fill: #f2c66e; font: 500 18px "DM Mono", monospace; }
 .group-occultation-animation .system-duration-annotation line { stroke: #f2c66e; stroke-width: 2.5; }
 .group-occultation-animation .system-duration-arrowhead { fill: none; stroke: #f2c66e; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 
 @keyframes occult-system-asteroid {
   from { transform: translateY(0); }
-  to { transform: translateY(340px); }
+  to { transform: translateY(330px); }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -441,6 +452,8 @@
 .group-people-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; margin-top: 2rem; }
 .group-person { min-width: 0; border-top: 2px solid var(--group-navy); }
 .group-person > img { display: block; width: 100%; height: clamp(11rem, 16vw, 14rem); object-fit: cover; background: var(--group-soft); }
+.group-person > img.group-person-photo-ethan { object-position: center 31%; }
+.group-person > img.group-person-photo-sam { object-position: center 38%; }
 .group-person > div { padding: 1.25rem 0 0; }
 .group-person h3 { margin: 0 0 .75rem; color: var(--group-navy); font: 600 1.15rem/1.25 "Manrope", sans-serif; letter-spacing: -.02em; }
 .group-person p { margin: 0; color: var(--group-muted); font-size: .88rem; line-height: 1.67; }
@@ -499,8 +512,6 @@
 .group-join-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1.4rem; margin-top: 1.5rem; }
 .group-join-actions .group-button,
 .group-join-actions .group-section-link { margin-top: 0; }
-.group-button-placeholder { cursor: default; }
-
 /* Secondary guide */
 .group-guide-hero { padding: clamp(4.5rem, 9vw, 8rem) 0 clamp(3.5rem, 7vw, 6rem); background: var(--group-navy); color: var(--group-white); }
 .group-guide-back { display: inline-block; margin-bottom: clamp(3rem, 7vw, 5.5rem); color: #b8d4ec; font-size: .82rem; text-underline-offset: .25rem; }

@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&amp;family=Manrope:wght@400;500;600&amp;family=Newsreader:opsz,wght@6..72,300;6..72,400&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../assets/css/site.css">
-  <link rel="stylesheet" href="../../assets/css/occultation-group.css?v=8">
+  <link rel="stylesheet" href="../../assets/css/occultation-group.css?v=11">
   <script src="../../assets/js/site.js" defer></script>
 </head>
 <body class="detail-page occultation-group-page">
@@ -67,6 +67,7 @@
             <radialGradient id="group-asteroid-rock" cx="32%" cy="24%"><stop offset="0" stop-color="#d6d9d8"></stop><stop offset=".38" stop-color="#8e969a"></stop><stop offset="1" stop-color="#343b42"></stop></radialGradient>
             <radialGradient id="group-earth-ocean" cx="72%" cy="27%"><stop offset="0" stop-color="#acd5ec"></stop><stop offset=".45" stop-color="#4c91bd"></stop><stop offset=".82" stop-color="#24577f"></stop><stop offset="1" stop-color="#102a43"></stop></radialGradient>
             <linearGradient id="group-shadow-cone" x1="0" x2="1"><stop offset="0" stop-color="#02060c" stop-opacity=".9"></stop><stop offset="1" stop-color="#02060c" stop-opacity=".52"></stop></linearGradient>
+            <linearGradient id="group-telescope-tube" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f7f2df"></stop><stop offset=".55" stop-color="#c8d2d9"></stop><stop offset="1" stop-color="#778a99"></stop></linearGradient>
             <filter id="group-star-glow" x="-200%" y="-200%" width="400%" height="400%"><feGaussianBlur stdDeviation="15"></feGaussianBlur></filter>
             <filter id="group-object-shadow" x="-70%" y="-70%" width="240%" height="240%"><feDropShadow dx="8" dy="11" stdDeviation="8" flood-color="#000" flood-opacity=".62"></feDropShadow></filter>
             <clipPath id="group-earth-clip"><circle cx="1010" cy="248" r="158"></circle></clipPath>
@@ -76,16 +77,24 @@
           </defs>
           <g class="system-space-dots" aria-hidden="true"><circle cx="241" cy="78" r="2"></circle><circle cx="343" cy="380" r="1.5"></circle><circle cx="680" cy="92" r="2"></circle><circle cx="745" cy="414" r="1.5"></circle><circle cx="890" cy="56" r="1.5"></circle></g>
           <g class="system-parallel-rays" aria-hidden="true"><path d="M180 166H968"></path><path d="M180 206H968"></path><path d="M180 246H968"></path><path d="M180 286H968"></path><path d="M180 326H968"></path></g>
-          <line class="system-sightline" x1="180" y1="246" x2="1010" y2="246"></line>
+          <line class="system-sightline" x1="180" y1="246" x2="827" y2="246"></line>
           <g class="system-star"><circle class="system-star-glow" cx="132" cy="246" r="45"></circle><path class="system-star-point" d="M132 211L138 239L166 246L138 253L132 281L126 253L98 246L126 239Z"></path><circle class="system-star-core" cx="132" cy="246" r="5"></circle></g>
           <path class="system-motion-path" d="M510 46V466"></path>
-          <g class="system-earth" filter="url(#group-object-shadow)"><circle cx="1010" cy="248" r="158"></circle><g clip-path="url(#group-earth-clip)"><ellipse cx="1010" cy="248" rx="75" ry="158"></ellipse><ellipse cx="1010" cy="248" rx="130" ry="158"></ellipse><path d="M852 248H1168M868 184Q1010 225 1152 184M868 312Q1010 271 1152 312"></path></g></g>
-          <g class="system-shadow-motion"><path class="system-shadow-body" d="M510 36H968V126H510Z"></path></g>
+          <g class="system-shadow-motion" aria-hidden="true"><path class="system-shadow-body" d="M548 39H920V123H548Z"></path><path class="system-shadow-edge" d="M548 42H920M548 120H920"></path></g>
           <g class="system-asteroid-track"><g class="system-asteroid" filter="url(#group-object-shadow)"><use href="#group-asteroid-silhouette" transform="translate(510 81)"></use><ellipse cx="497" cy="67" rx="10" ry="7"></ellipse><ellipse cx="530" cy="96" rx="7" ry="5"></ellipse></g></g>
-          <g class="system-shadow-on-earth" clip-path="url(#group-earth-clip)"><g class="system-shadow-motion"><use class="system-shadow-silhouette" href="#group-asteroid-silhouette" transform="translate(968 81) rotate(-8) scale(1.05)"></use></g></g>
-          <g class="system-site"><circle cx="922" cy="246" r="7"></circle><circle cx="922" cy="246" r="16"></circle></g>
-          <g class="system-telescope" transform="translate(922 236)" aria-hidden="true"><path d="M-15-16L9-25L14-15L-10-6Z"></path><path d="M-2-7V2M-2 2L-15 19M-2 2L12 19M-2 2V20"></path></g>
-          <g class="system-labels"><text x="132" y="335" text-anchor="middle">Distant star</text><text x="582" y="82">Asteroid</text><text x="886" y="342" text-anchor="middle">Observing telescope</text><text x="1063" y="445" text-anchor="middle">Earth</text><text class="system-scale-note" x="1120" y="54" text-anchor="end">Not to scale</text></g>
+          <g class="system-earth" filter="url(#group-object-shadow)"><circle cx="1010" cy="248" r="158"></circle><g clip-path="url(#group-earth-clip)"><ellipse cx="1010" cy="248" rx="75" ry="158"></ellipse><ellipse cx="1010" cy="248" rx="130" ry="158"></ellipse><path d="M852 248H1168M868 184Q1010 225 1152 184M868 312Q1010 271 1152 312"></path></g></g>
+          <g class="system-shadow-on-earth" clip-path="url(#group-earth-clip)"><g class="system-shadow-motion"><use class="system-shadow-footprint" href="#group-asteroid-silhouette" transform="translate(920 81)"></use></g></g>
+          <g class="system-telescope" transform="translate(884 263) scale(.78)" aria-hidden="true">
+            <path class="system-telescope-tube" d="M-68-27H22L33-21V-9L22-5H-68Z"></path>
+            <path class="system-telescope-rim" d="M-70-29V-3M-62-27V-5"></path>
+            <path class="system-telescope-lens" d="M-70-28Q-79-16-70-4"></path>
+            <path class="system-telescope-focuser" d="M33-20H47V-10H33M47-18H56V-12H47"></path>
+            <path class="system-telescope-detail" d="M-38-27V-5M7-27V-5"></path>
+            <path class="system-telescope-saddle" d="M-9-5V2H13V-5"></path>
+            <circle class="system-telescope-mount" cx="2" cy="11" r="10"></circle>
+            <path class="system-telescope-tripod" d="M2 21L-23 55M2 21L27 55M2 21V58M-29 58H33"></path>
+          </g>
+          <g class="system-labels"><text x="132" y="335" text-anchor="middle">Distant star</text><text x="582" y="82">Asteroid</text><text x="884" y="342" text-anchor="middle">Observing telescope</text><text x="1063" y="445" text-anchor="middle">Earth</text><text class="system-scale-note" x="1120" y="54" text-anchor="end">Not to scale</text></g>
           <line class="system-divider" x1="58" y1="492" x2="1142" y2="492"></line>
           <text class="system-panel-title" x="88" y="535">Light curve</text>
           <g class="system-curve-grid" aria-hidden="true"><path d="M112 566H1104M112 628H1104M112 690H1104"></path><path d="M112 548V690M360 548V690M608 548V690M856 548V690M1104 548V690"></path></g>
@@ -170,21 +179,42 @@
         <div><h2 id="group-people-title">Our team</h2></div>
       </header>
       <div class="group-people-lead" data-reveal>
-        <strong>Junsheng He</strong><span>University of Melbourne</span>
+        <strong>Asteroid Hunters</strong><span>University of Melbourne-based collaboration</span>
       </div>
       <div class="group-people-grid">
+        <article class="group-person" data-reveal>
+          <img class="group-person-photo-sam" src="../../assets/media/occultation-group/people/junsheng-sam-he.jpg" alt="Portrait of Junsheng (Sam) He" loading="lazy">
+          <div>
+            <h3>Junsheng (Sam) He</h3>
+            <p>Junsheng (Sam) He is a PhD student at the University of Melbourne, where he models the evolution of supermassive black holes. He is also an astrophotographer and occasionally searches for asteroids using his own telescope.</p>
+          </div>
+        </article>
+        <article class="group-person" data-reveal>
+          <img class="group-person-photo-vijayalakshmi" src="../../assets/media/occultation-group/people/vijayalakshmi-vijayakumaran-nair.jpg" alt="Portrait of Vijayalakshmi Vijayakumaran Nair" loading="lazy">
+          <div>
+            <h3>Vijayalakshmi Vijayakumaran Nair</h3>
+            <p>Vijayalakshmi is a first-year PhD student studying the cosmic microwave background and the early Universe. She brings this observational perspective to the group’s work on asteroid occultations.</p>
+          </div>
+        </article>
+        <article class="group-person" data-reveal>
+          <img class="group-person-photo-ethan" src="../../assets/media/occultation-group/people/ethan.jpg" alt="Portrait of Ethan" loading="lazy">
+          <div>
+            <h3>Ethan</h3>
+            <p>Ethan is an undergraduate student majoring in physics at the University of Melbourne and a member of the Society for Astronomy at Melbourne University. He has contributed to several stargazing events and is interested in astrophysics and theoretical physics.</p>
+          </div>
+        </article>
         <article class="group-person" data-reveal>
           <img src="../../assets/media/occultation-group/people/alex.png" alt="Portrait of Alex" loading="lazy">
           <div>
             <h3>Alex</h3>
-            <p>Alex is a first-year PhD student studying the cosmic microwave background and the early Universe. What draws Alex to asteroid occultations is the full observing process: setting up, waiting, and seeing a real event unfold in the sky.</p>
+            <p>Alex is a first-year PhD student studying the cosmic microwave background and the early Universe. Alex is particularly interested in the complete occultation-observing process, from setting up equipment to capturing an event as it unfolds.</p>
           </div>
         </article>
         <article class="group-person" data-reveal>
           <img src="../../assets/media/occultation-group/people/daria-li.png" alt="Portrait of Daria Li" loading="lazy">
           <div>
             <h3>Daria Li</h3>
-            <p>Daria Li is a Melbourne-based therapist and researcher interested in what becomes visible through darkness, distance and obscuration. Drawing connections between inner experience and the night sky, she is curious about how encounters with astronomical scale can shift our sense of self, relationship and belonging.</p>
+            <p>Daria Li is a Melbourne-based therapist and researcher whose work considers what becomes visible through darkness, distance and obscuration. She is interested in how encounters with the scale of the night sky can reshape perceptions of self, relationships and belonging.</p>
           </div>
         </article>
         <article class="group-person" data-reveal>
@@ -244,7 +274,7 @@
         <p class="group-join-lede">No telescope. No prior experience. Start with us.</p>
         <p>You can help triage future events, plan a campaign, operate a telescope, analyse a light curve, prepare a report, or improve the equipment, timing and software setup. Participation is voluntary, and you can learn one part or follow the full workflow.</p>
         <div class="group-join-actions">
-          <span class="group-button group-button-primary group-button-placeholder">Contact email coming soon</span>
+          <a class="group-button group-button-primary" href="mailto:junshengh@student.unimelb.edu.au">Email to join</a>
           <a class="group-section-link group-section-link-light" href="guide/#structure">Ways to contribute <span aria-hidden="true">→</span></a>
         </div>
       </div>
