@@ -1078,6 +1078,55 @@ button { font: inherit; }
   letter-spacing: .07em;
   text-transform: uppercase;
 }
+.astro-tools-section { scroll-margin-top: 1.25rem; }
+.astro-tool-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(280px, .65fr);
+  gap: clamp(2rem, 5vw, 5rem);
+  padding: clamp(2rem, 5vw, 4.25rem);
+  overflow: hidden;
+  border: 1px solid rgba(174,191,255,.34);
+  color: var(--paper);
+  text-decoration: none;
+  background:
+    linear-gradient(rgba(174,191,255,.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(174,191,255,.045) 1px, transparent 1px),
+    radial-gradient(circle at 86% 18%, rgba(74,105,202,.28), transparent 38%),
+    #0a101d;
+  background-size: 32px 32px, 32px 32px, auto, auto;
+  transition: border-color .25s ease, transform .25s ease, background-color .25s ease;
+}
+.astro-tool-card:hover,
+.astro-tool-card:focus-visible { border-color: rgba(174,191,255,.8); transform: translateY(-3px); }
+.astro-tool-card-copy { position: relative; z-index: 1; }
+.astro-tool-label {
+  color: #aebfff;
+  font: 500 .82rem "DM Mono", monospace;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.astro-tool-card h3 {
+  margin: 1.15rem 0 1.25rem;
+  font: 300 clamp(2.2rem, 4vw, 4.25rem)/.96 "Newsreader", serif;
+  letter-spacing: -.04em;
+}
+.astro-tool-card-copy > p { max-width: 690px; margin: 0; color: rgba(243,240,231,.7); font-size: 1rem; line-height: 1.7; }
+.astro-tool-link {
+  display: inline-flex;
+  gap: .8rem;
+  align-items: center;
+  margin-top: 2rem;
+  padding-bottom: .35rem;
+  border-bottom: 1px solid rgba(243,240,231,.45);
+  font: 500 .86rem "DM Mono", monospace;
+}
+.astro-tool-link b { display: inline-block; font-size: 1rem; transition: transform .25s ease; }
+.astro-tool-card:hover .astro-tool-link b { transform: translate(4px,-4px); }
+.astro-tool-specs { position: relative; z-index: 1; align-self: end; margin: 0; border-top: 1px solid rgba(243,240,231,.18); }
+.astro-tool-specs div { display: grid; grid-template-columns: 88px 1fr; gap: 1rem; padding: .95rem 0; border-bottom: 1px solid rgba(243,240,231,.13); }
+.astro-tool-specs dt { color: #aebfff; font: 500 .82rem "DM Mono", monospace; text-transform: uppercase; }
+.astro-tool-specs dd { margin: 0; color: rgba(243,240,231,.68); font-size: .92rem; line-height: 1.45; }
 
 @media (max-width: 900px) {
   .astro-hero,
@@ -1104,6 +1153,7 @@ button { font: inherit; }
   .field-night,
   .field-campus { grid-column: span 6; min-height: 500px; }
   .field-night { grid-column: 1 / -1; min-height: 420px; }
+  .astro-tool-card { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 640px) {
@@ -1132,6 +1182,7 @@ button { font: inherit; }
   .field-night,
   .field-campus { grid-column: 1; min-height: 430px; }
   .field-night { min-height: 310px; }
+  .astro-tool-specs div { grid-template-columns: 1fr; gap: .25rem; }
 }
 
 /* CV */

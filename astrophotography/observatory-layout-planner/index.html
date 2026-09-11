@@ -1,0 +1,1853 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Interactive observatory layout planner for custom telescope dimensions, pier heights, swept clearances, and placement optimisation.">
+<link rel="icon" href="data:,">
+<title>Observatory Layout &amp; Telescope Clearance Planner</title>
+<style>
+:root{--bg:#f5f5f5;--panel:#fff;--ink:#111;--muted:#555;--blue:#1f77ff;--orange:#ffb000;--green:#2ca02c;--purple:#9467bd;}
+body{margin:0;font-family:system-ui,Segoe UI,sans-serif;background:var(--bg);color:var(--ink)}
+.wrap{display:grid;grid-template-columns:var(--toolW,470px) 18px minmax(760px,var(--canvasW,1360px));gap:8px;padding:16px;align-items:start;transition:grid-template-columns .12s ease}.wrap.leftHidden{grid-template-columns:0 0 minmax(760px,var(--canvasW,1360px))}.wrap.leftHidden .panel,.wrap.leftHidden .resizeHandle{display:none}
+.panel{width:100%;min-width:0;max-height:94vh;overflow:auto;background:#fff;border:1px solid #ccc;border-radius:12px;padding:14px;box-sizing:border-box;position:relative}
+.resizeHandle{width:18px;align-self:stretch;cursor:col-resize;background:linear-gradient(90deg,#eee 0,#ddd 4px,#555 8px,#555 10px,#ddd 14px,#eee 18px);border:1px solid #888;border-radius:8px;min-height:92vh;box-sizing:border-box;position:relative;z-index:30}.resizeHandle:after{content:'⋮';position:sticky;top:45vh;display:block;text-align:center;color:#222;font-size:28px;line-height:1}
+.panelGrip{display:none}
+.canvas{background:#fff;border:1px solid #ccc;border-radius:12px;padding:10px;position:relative;overflow:auto;box-sizing:border-box;width:var(--canvasW,1360px)}
+h1{font-size:18px;margin:0 0 8px}
+h2{font-size:14px;margin:14px 0 7px;border-top:1px solid #ddd;padding-top:10px}
+h3{font-size:13px;margin:12px 0 6px}
+.small{font-size:12px;line-height:1.38;color:#333}.row{margin:6px 0;white-space:normal;overflow-wrap:anywhere}
+label{font-size:12px}input[type=range]{width:min(185px,45%);vertical-align:middle}input[type=number]{width:70px;max-width:22%}
+.btn{margin:3px 4px 3px 0;padding:6px 9px;border:1px solid #aaa;border-radius:6px;background:#fafafa;cursor:pointer}
+.legend{display:grid;grid-template-columns:16px 1fr;gap:4px 7px;font-size:12px;margin-top:8px}.sw{width:14px;height:10px;border-radius:2px;margin-top:3px}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}.warn{color:#8a5a00;font-weight:700}.ok{color:#076b24;font-weight:700}.bad{color:#b00020;font-weight:700}
+.scopeBox{border:1px solid #ddd;border-radius:8px;padding:8px;margin:10px 0;background:#fafafa;overflow:hidden}
+.scopeHeader{display:flex;align-items:center;justify-content:space-between;gap:12px}.scopeHeader h3{margin:0}.quantityField{font-weight:700}.quantityField input{width:54px!important}.scopeCopy{padding:0}.scopeCopy>summary{cursor:pointer;padding:8px 10px;font-size:12px;font-weight:700;user-select:none}.scopeCopyBody{padding:0 8px 8px}.typeDefinition{border-color:#9db7db;background:#f7fbff}.typeNameField{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:700}.typeNameField input{min-width:135px;width:55%;padding:5px 7px;border:1px solid #aaa;border-radius:5px}.deleteBtn{color:#9b1c1c;border-color:#d4a0a0}.emptyState{padding:14px;border:1px dashed #8aa4c8;border-radius:8px;background:#f7fbff;margin:9px 0;text-align:center}.startCard{border:2px solid #1f77ff;border-radius:10px;padding:11px;margin:8px 0 12px;background:#f5f9ff}.startCard h2{border:0;margin:0 0 3px;padding:0;font-size:16px}.startHint{margin:0 0 8px;color:#24496f}.sectionTitle{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:13px}.sectionTitle h2{margin:0;flex:1}
+.collapsible{border:1px solid #ddd;border-radius:8px;margin:10px 0;background:#fafafa;overflow:hidden}.collapsible summary{cursor:pointer;font-weight:700;padding:8px 10px;user-select:none}.collapsible .collapsibleBody{padding:0 10px 10px 10px;overflow:hidden}.topActions{display:flex;gap:8px;align-items:center;margin:0 0 8px 0}.togglePanelBtn{padding:6px 10px;border:1px solid #aaa;border-radius:7px;background:#fff;cursor:pointer}.viewActionBar{position:absolute;left:30px;top:466px;width:625px;background:rgba(255,255,255,.97);border:1px solid #999;border-radius:8px;padding:8px;box-sizing:border-box;font-size:12px;z-index:5}.viewActionBar .barRow{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center}.viewActionBar input[type=range]{width:105px}.viewActionBar input[type=number]{width:56px;max-width:56px}.tableDrop{border:1px solid #ccc;border-radius:8px;background:#fff;margin:6px 0;overflow:hidden}.tableDrop summary{cursor:pointer;font-weight:700;padding:7px 9px;background:#f4f4f4;user-select:none}.tableDrop .tableDropBody{padding:7px 9px}.clearanceLegendBg{fill:rgba(255,255,255,.88);stroke:#999;stroke-width:1}.projResizeHandle{position:absolute;width:16px;background:linear-gradient(90deg,#eee 0,#ddd 4px,#777 7px,#777 9px,#ddd 12px,#eee 16px);border:1px solid #aaa;border-radius:8px;box-sizing:border-box;cursor:col-resize;z-index:10}.projResizeHandle:after{content:'⋮';position:absolute;top:50%;left:0;right:0;transform:translateY(-50%);text-align:center;color:#444;font-size:24px;line-height:1}.dragTarget3D{cursor:grab}.dragTarget3D.dragging{cursor:grabbing}
+.dataTable{border-collapse:collapse;font-size:11px;background:#fff}.dataTable th,.dataTable td{border:1px solid #bbb;padding:3px 5px;text-align:right}.dataTable th{background:#f2f2f2}.dataTable td:first-child,.dataTable th:first-child{text-align:left}.sweepTitle{font-size:13px;font-weight:700;fill:#111}
+.auditTableGroup{overflow-x:auto;margin-top:5px}.auditTableGroup .dataTable{min-width:100%}.auditSubhead{font-weight:700;font-size:11px;margin:7px 0 3px;color:#333}
+.statusStrip{position:relative;margin:10px 0;padding:10px 12px;border:2px solid #9aa0a6;border-radius:12px;background:#fff;box-shadow:0 3px 12px rgba(0,0,0,.10)}.statusStrip.safe{border-color:#18864b;background:#f1fbf5}.statusStrip.warn{border-color:#c58a00;background:#fff9e8}.statusStrip.bad{border-color:#c62828;background:#fff2f2}.statusHeadline{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.statusHeadline strong{font-size:16px}.statusHeadline .summary{font-size:12px;color:#333}.statusDot{width:12px;height:12px;border-radius:50%;background:#777;box-shadow:0 0 0 3px rgba(0,0,0,.07)}.safe .statusDot{background:#18864b}.warn .statusDot{background:#d69a00}.bad .statusDot{background:#c62828}.scopeStatusGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:7px;margin-top:8px}.scopeStatusCard{border:1px solid #bbb;border-left-width:5px;border-radius:8px;background:rgba(255,255,255,.88);padding:7px 9px;font-size:11px;line-height:1.35}.scopeStatusCard.safe{border-left-color:#18864b}.scopeStatusCard.warn{border-left-color:#d69a00}.scopeStatusCard.bad{border-left-color:#c62828}.scopeStatusCard .scopeName{font-size:12px;font-weight:800}.statusPill{float:right;border-radius:999px;padding:1px 7px;font-size:10px;font-weight:800;background:#e6e6e6}.scopeStatusCard.safe .statusPill{color:#09612f;background:#dff4e7}.scopeStatusCard.warn .statusPill{color:#785100;background:#fff0bd}.scopeStatusCard.bad .statusPill{color:#8d1111;background:#ffdada}
+.compactGrid{display:grid;grid-template-columns:repeat(2,minmax(150px,1fr));gap:7px 12px;margin:7px 0}.compactField{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:12px}.compactField input[type=number]{width:82px;max-width:none}.compactChecks{display:flex;gap:14px;flex-wrap:wrap;margin:6px 0}.advancedBox{margin:10px 0}.advancedBox summary{font-size:13px}.scopeBox .compactGrid{grid-template-columns:repeat(2,minmax(135px,1fr))}.scopeBox input[type=number]{width:78px;max-width:none}.scopeAdvanced{margin-top:7px;border-top:1px solid #ddd;padding-top:5px}.scopeAdvanced summary{cursor:pointer;font-size:11px;font-weight:700;color:#555}.boundHint{margin-top:5px;color:#555}
+.optimizerNotice{margin-top:8px;padding:6px 9px;border-radius:7px;font-size:11px;font-weight:700}.optimizerNotice.safe{background:#dff4e7;color:#09612f}.optimizerNotice.bad{background:#ffdada;color:#8d1111}.optimizerNotice.info{background:#e7f0ff;color:#174f8a}
+svg{touch-action:none} svg text{font-family:system-ui,Segoe UI,sans-serif;user-select:none;pointer-events:none}
+</style>
+</head>
+<body>
+<div class="topActions">
+  <a class="togglePanelBtn" href="/astrophotography/" style="text-decoration:none">← Astrophotography</a>
+  <button class="togglePanelBtn" onclick="toggleLeftPanel()">Hide controls</button>
+  <span class="small">Drag the separators to resize the workspace. Detailed layout controls are collapsed below.</span>
+</div>
+<div class="wrap" id="mainWrap" style="--toolW:470px;--canvasW:1360px">
+  <div class="panel">
+    <h1>Observatory Layout &amp; Telescope Clearance Planner</h1>
+    <section class="startCard" id="globalSettingsDetails">
+      <h2>1. Define the observatory</h2>
+      <div class="small startHint">Start here. Set the clear internal room dimensions and wall height before defining telescopes and piers.</div>
+        <div class="compactGrid">
+          <label class="compactField">Room east–west <span><input id="g_roomW" type="number" min="1.50" max="12" step="0.05" value="2.85" onchange="setG('roomW',this.value)"> m</span></label>
+          <label class="compactField">Room south–north <span><input id="g_roomH" type="number" min="1.50" max="12" step="0.05" value="2.85" onchange="setG('roomH',this.value)"> m</span></label>
+          <label class="compactField">Wall height <span><input id="g_wallH" type="number" min="0.30" max="3.50" step="0.01" value="1.50" onchange="setG('wallH',this.value)"> m</span></label>
+          <label class="compactField">Latitude south <span><input id="g_lat" type="number" min="0" max="90" step="0.1" value="37" onchange="setG('lat',this.value)"> °</span></label>
+          <label class="compactField">Safety gap <span><input id="g_safeGap" type="number" min="0" max="2" step="0.05" value="0.25" onchange="setG('safeGap',this.value)"> m</span></label>
+        </div>
+        <div class="compactChecks"><label><input id="showSpheres" type="checkbox" onchange="setShowSpheres(this.checked)" checked> Show safety envelopes</label><label><input id="showPolar" type="checkbox" onchange="setShowPolar(this.checked)"> Show polar axes</label></div>
+        <div class="small">Dimensions are clear internal measurements in metres. X follows east–west; Y follows south–north. Position limits update immediately.</div>
+    </section>
+
+    <section id="statusDashboard" class="statusStrip" aria-live="polite"><div class="statusHeadline"><span class="statusDot"></span><strong>Calculating observatory status…</strong></div></section>
+
+    <div class="sectionTitle"><h2>2. Configure telescopes and piers</h2><button class="btn" onclick="addTelescopeType()">+ Add telescope type</button></div>
+    <div class="small">No telescope models or sizes are predefined. Enter a name, tube length, and tube diameter, then choose how many identical copies to install. Every physical copy has its own adjustable pier height and position. Up to 16 telescope instances are supported.</div>
+    <div id="scopeControls"></div>
+
+    <details class="collapsible advancedBox">
+      <summary>Advanced mechanical, safety, and view settings</summary>
+      <div class="collapsibleBody compactGrid">
+        <label class="compactField">RA-axis travel <span><input id="g_flipBoundary" type="number" min="90" max="180" step="1" value="90" onchange="setG('flipBoundary',this.value)"> ±°</span></label>
+        <label class="compactField">Sweep sample <span><input id="g_sweepStep" type="number" min="1" max="15" step="1" value="5" onchange="setG('sweepStep',this.value)"> °</span></label>
+        <label class="compactField">RA body size <span><input id="g_cube" type="number" min="0.10" max="0.35" step="0.01" value="0.18" onchange="setG('cube',this.value)"> m</span></label>
+        <label class="compactField">DEC adapter length <span><input id="g_cylLen" type="number" min="0.03" max="0.25" step="0.005" value="0.08" onchange="setG('cylLen',this.value)"> m</span></label>
+        <label class="compactField">DEC adapter diameter <span><input id="g_cylD" type="number" min="0.04" max="0.30" step="0.005" value="0.12" onchange="setG('cylD',this.value)"> m</span></label>
+        <label class="compactField">3D zoom <span><input id="g_zoom" type="number" min="0.65" max="1.60" step="0.05" value="1" onchange="setG('zoom',this.value)"> ×</span></label>
+        <label class="compactField">3D yaw <span><input id="g_viewYaw" type="number" min="-180" max="180" step="1" value="38" onchange="setG('viewYaw',this.value)"> °</span></label>
+        <label class="compactField">3D pitch <span><input id="g_viewPitch" type="number" min="-80" max="-5" step="1" value="-28" onchange="setG('viewPitch',this.value)"> °</span></label>
+        <label class="compactField">Main width <span><input id="g_mainW" type="number" min="520" max="950" step="10" value="630" onchange="setG('mainW',this.value)"> px</span></label>
+        <label class="compactField">Main height <span><input id="g_mainH" type="number" min="360" max="650" step="10" value="430" onchange="setG('mainH',this.value)"> px</span></label>
+        <label class="compactField">Projection width <span><input id="g_projW" type="number" min="180" max="430" step="10" value="380" onchange="setG('projW',this.value)"> px</span></label>
+      </div>
+    </details>
+
+    <h2>3. Optimise and export</h2>
+    <button class="btn" onclick="optimiseTelescopePlacement()">Optimise telescope placement</button>
+    <button class="btn" id="undoPlacementBtn" onclick="undoOptimisedPlacement()" disabled>Undo optimisation</button>
+    <button class="btn" onclick="downloadHTML()">Download current HTML</button>
+    <button class="btn" onclick="resetAll()">Reset all settings/layout</button>
+
+    <details class="collapsible advancedBox"><summary>About the mechanical model and detailed diagnostics</summary><div class="collapsibleBody">
+      <div class="small">The corrected mount relationship is orange RA body → green flat DEC cylinder → cylindrical OTA. Swept safety envelopes are measured from each individual pier top, and the time drive tracks a fixed celestial target through stateful meridian flips.</div>
+      <div class="legend">
+        <span class="sw" style="background:#1f77ff"></span><span>Fixed polar axis</span>
+        <span class="sw" style="background:#ffb000"></span><span>RA body</span>
+        <span class="sw" style="background:#2ca02c"></span><span>DEC adapter</span>
+        <span class="sw" style="background:#111"></span><span>Custom telescope tube</span>
+        <span class="sw" style="background:#9467bd"></span><span>OTA centre</span>
+        <span class="sw" style="background:rgba(220,0,0,.35);border:1px solid #b00000"></span><span>Swept safety envelope</span>
+      </div>
+      <div id="status" class="small mono" style="margin-top:9px"></div>
+    </div></details>
+  </div>
+
+  <div class="resizeHandle" id="resizeHandle" title="Drag to resize controls"></div>
+  <div class="canvas">
+    <svg id="svg" width="1680" height="1160" viewBox="0 0 1680 1160"></svg>
+    <div id="projResizeHandle" class="projResizeHandle" title="Drag to resize projected views column"></div>
+    <div id="viewActionBar" class="viewActionBar">
+      <div class="barRow">
+        <button class="btn" onclick="parkAll()">Park all</button>
+        <button class="btn" onclick="randomPoseAll()">Random above-horizon</button>
+        <button class="btn" onclick="resetPoseAll()">Reset RA0/DEC90</button>
+        <label><input id="timeDriveOn" type="checkbox" onchange="setTimeDrive(this.checked)"> Time drive</label>
+        <button class="btn" id="animBtn" onclick="toggleAnimation()">Play animation</button>
+      </div>
+      <div class="barRow">
+        <label>Time <input id="g_timeHours_r" type="range" min="0" max="12" step="0.05" value="0" oninput="setG('timeHours',this.value)"> <input id="g_timeHours" type="number" step="0.05" value="0" oninput="if(this.value!=='')setG('timeHours',this.value)" onchange="setG('timeHours',this.value)"> hr</label>
+        <label>Speed <input id="g_animSpeed" type="number" min="0.05" max="5" step="0.05" value="1" onchange="setG('animSpeed',this.value)"> hr/sec</label>
+        <label>Local sidereal time <input id="g_siderealHours" type="number" min="0" max="24" step="0.05" value="0" oninput="if(this.value!=='')setG('siderealHours',this.value)" onchange="setG('siderealHours',this.value)"> h</label>
+        <button class="btn" onclick="setTimeStartFromCurrent()">Set current LST as time zero</button>
+        <button class="btn" onclick="resetTimeDrive()">Time 0</button>
+      </div>
+    </div>
+    <div id="tablesPanel" style="position:absolute;left:30px;top:645px;width:625px;background:rgba(255,255,255,.96);border:1px solid #bbb;border-radius:8px;padding:8px;z-index:3;">
+      <details class="tableDrop" id="sweepTableDrop" open>
+        <summary>Safety clearance details</summary>
+        <div class="tableDropBody" id="sweepTableWrap"></div>
+      </details>
+      <details class="tableDrop" id="pointingTableDrop">
+        <summary>Current telescope pointing and coordinate audit</summary>
+        <div class="tableDropBody" id="altAzTableWrap"></div>
+      </details>
+    </div>
+  </div>
+</div>
+
+<script>
+const ROOM_W0=2.85, ROOM_H0=2.85;
+function roomW(){return G.roomW||ROOM_W0}
+function roomH(){return G.roomH||ROOM_H0}
+const G={roomW:2.85,roomH:2.85,lat:37,cube:.18,cylLen:.08,cylD:.12,wallH:1.50,sweepStep:5,safeGap:.25,decClock:0,otaClock:90,viewYaw:38,viewPitch:-28,zoom:1,mainW:630,mainH:430,projW:380,showPolar:false,showSpheres:true,showSweepTable:true,showPointingTable:true,timeDriveOn:false,timeHours:0,raRate:15,siderealHours:0,timeStartSiderealHours:0,flipBoundary:90,animSpeed:1,isAnimating:false,lastAnimTs:0};
+const TELESCOPE_COLORS=["#1f77b4","#2ca02c","#9467bd","#ff7f0e","#d62728","#17becf","#8c564b","#e377c2"];
+// This object exists only for internal coordinate tests; it is never offered as
+// a user preset. Length, diameter, pier height, and position are in metres.
+const COORDINATE_TEST_SCOPE={typeId:"test",baseName:"test",name:"test",copyIndex:1,quantity:1,x:1,y:1,pierH:1,ra:0,dec:30,targetRaH:18,targetDec:-30,sideOfPier:"east",flipCount:0,controlMode:"sky",trackingStatus:"tracking",L:1,D:.2,color:"#000",mount:true};
+const MAX_SCOPE_QUANTITY=12;
+const MAX_TOTAL_SCOPE_INSTANCES=16;
+let telescopeTypes=[];
+let nextTelescopeTypeId=1;
+let scopes=[];
+let scopeTemplates=new Map();
+let coordinateAuditResult={passed:0,total:0,failures:["not run"],maxPointingErrorDeg:NaN};
+let placementAuditResult={passed:0,total:0,failures:["not run"]};
+let lastPlacementSnapshot=null;
+let placementOptimisationStatus=null;
+function maxPierHeight(){return scopes.length?Math.max(...scopes.map(s=>s.pierH)):0}
+
+const add=(a,b)=>[a[0]+b[0],a[1]+b[1],a[2]+b[2]], sub=(a,b)=>[a[0]-b[0],a[1]-b[1],a[2]-b[2]], mul=(a,s)=>[a[0]*s,a[1]*s,a[2]*s];
+const dot=(a,b)=>a[0]*b[0]+a[1]*b[1]+a[2]*b[2], cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];
+function norm(a){const n=Math.sqrt(Math.max(dot(a,a),1e-12));return [a[0]/n,a[1]/n,a[2]/n]} function rad(d){return d*Math.PI/180} function deg(r){return r*180/Math.PI}
+function rot(v,axis,angDeg){const k=norm(axis),t=rad(angDeg),c=Math.cos(t),s=Math.sin(t);return add(add(mul(v,c),mul(cross(k,v),s)),mul(k,dot(k,v)*(1-c)))}
+function fmt(v){return '['+v.map(x=>(Math.abs(x)<.0005?0:x).toFixed(3)).join(', ')+']'}
+function polar(){const l=rad(G.lat);return norm([0,-Math.cos(l),Math.sin(l)])}
+function perpendicularFrame(){const p=polar(),up=[0,0,1],east=[1,0,0];let a=sub(up,mul(p,dot(up,p)));if(dot(a,a)<1e-6)a=east;a=norm(a);const b=norm(cross(p,a));return{p,a,b}}
+function clockVec(clock){const f=perpendicularFrame();return norm(add(mul(f.a,Math.cos(rad(clock))),mul(f.b,Math.sin(rad(clock)))))}
+
+
+function wrapDegrees180(angleDeg){
+  angleDeg=((Number(angleDeg)+180)%360+360)%360-180;
+  return angleDeg===-180 ? 180 : angleDeg;
+}
+function wrapDec180(dec){return wrapDegrees180(dec)}
+function flipBoundary(){
+  // A symmetric GEM interval narrower than +/-90 deg leaves hour angles for
+  // which neither pier-side solution is mechanically reachable.
+  G.flipBoundary=Math.max(90,Math.min(180,parseFloat(G.flipBoundary)||90));
+  return G.flipBoundary;
+}
+
+function normHours(h){
+  h=parseFloat(h)||0;
+  while(h<0) h+=24;
+  while(h>=24) h-=24;
+  return h;
+}
+function signedHourAngleDeg(targetRaH,lstHours=G.siderealHours){
+  // H = 15 deg/hour * (LST - RA), wrapped to (-180,+180]. Positive H is west.
+  return wrapDegrees180((normHours(lstHours)-normHours(targetRaH))*15);
+}
+function hourAngleDegForTarget(targetRaH){return signedHourAngleDeg(targetRaH)}
+
+function equatorialToHorizontalVector(hourAngleDeg,declinationDeg,latitudeDeg=-Math.abs(G.lat)){
+  /*
+   * Convert equatorial coordinates to a unit vector [east,north,up].
+   * H is signed hour angle in degrees (west positive), delta is celestial
+   * declination in degrees, and phi is signed geodetic latitude in degrees.
+   * The equations are an explicit rotation of the equatorial unit vector:
+   * e=-cos(delta)sin(H), n=sin(delta)cos(phi)-cos(delta)cos(H)sin(phi),
+   * u=sin(delta)sin(phi)+cos(delta)cos(H)cos(phi).
+   */
+  const H=rad(hourAngleDeg), d=rad(declinationDeg), p=rad(latitudeDeg);
+  return norm([
+    -Math.cos(d)*Math.sin(H),
+    Math.sin(d)*Math.cos(p)-Math.cos(d)*Math.cos(H)*Math.sin(p),
+    Math.sin(d)*Math.sin(p)+Math.cos(d)*Math.cos(H)*Math.cos(p)
+  ]);
+}
+function angularSeparationDeg(a,b){
+  return deg(Math.acos(Math.max(-1,Math.min(1,dot(norm(a),norm(b))))));
+}
+
+function mechanicalCandidates(hourAngleDeg,targetDecDeg){
+  /*
+   * Return the two equivalent German-equatorial-mount solutions.
+   * With the visualization's zero angles, the east-side solution is
+   * RA_axis=H-90 deg and DEC_axis=-delta. The west-side solution applies
+   * (RA_axis,DEC_axis)->(RA_axis+180 deg,180 deg-DEC_axis), which preserves
+   * the optical vector exactly.
+   */
+  const eastDec=-targetDecDeg;
+  return {
+    east:{side:"east",ra:wrapDegrees180(hourAngleDeg-90),dec:wrapDegrees180(eastDec)},
+    west:{side:"west",ra:wrapDegrees180(hourAngleDeg+90),dec:wrapDegrees180(180-eastDec)}
+  };
+}
+function candidateWithinRaTravel(candidate){
+  return Math.abs(candidate.ra)<=flipBoundary()+1e-9;
+}
+function solveTrackingPose(s,{countFlip=true}={}){
+  const targetDec=Number.isFinite(s.targetDec)?s.targetDec:0;
+  const ha=signedHourAngleDeg(s.targetRaH??18);
+  const candidates=mechanicalCandidates(ha,targetDec);
+  const currentSide=s.sideOfPier==='west'?'west':'east';
+  const otherSide=currentSide==='east'?'west':'east';
+  let selected=candidates[currentSide];
+  let flipped=false;
+
+  // Preserve pier side through the overlap region. Flip only when the current
+  // branch reaches its physical RA-axis limit; the celestial target is immutable.
+  if(!candidateWithinRaTravel(selected)){
+    if(candidateWithinRaTravel(candidates[otherSide])){
+      selected=candidates[otherSide];
+      s.sideOfPier=otherSide;
+      flipped=true;
+      if(countFlip) s.flipCount=(s.flipCount||0)+1;
+    }else{
+      return {reachable:false,hourAngleDeg:ha,candidates,side:currentSide};
+    }
+  }
+  return {reachable:true,ra:selected.ra,dec:selected.dec,hourAngleDeg:ha,
+    side:selected.side,flipped,candidates};
+}
+function applyTrackingPose(s,options){
+  const pose=solveTrackingPose(s,options);
+  s._p3d=pose;
+  if(!pose.reachable){s.trackingStatus="RA-axis limit";return false;}
+  s.ra=pose.ra;
+  s.dec=pose.dec;
+  s.sideOfPier=pose.side;
+  const expected=equatorialToHorizontalVector(pose.hourAngleDeg,s.targetDec);
+  const alt=deg(Math.asin(expected[2]));
+  s.trackingStatus=alt<0?"below horizon":"tracking";
+  return true;
+}
+
+function mechanicalPoseToSky(s){
+  /* Invert the selected pier-side branch without clamping away flip information. */
+  const side=s.sideOfPier==='west'?'west':'east';
+  const ha=wrapDegrees180(s.ra+(side==='east'?90:-90));
+  let targetDec=side==='east' ? -s.dec : wrapDegrees180(s.dec-180);
+  let targetRaH=normHours(G.siderealHours-ha/15);
+  // Canonicalize pole-crossing representations into DEC [-90,+90].
+  if(targetDec>90){targetDec=180-targetDec;targetRaH=normHours(targetRaH+12)}
+  if(targetDec<-90){targetDec=-180-targetDec;targetRaH=normHours(targetRaH+12)}
+  return {targetRaH,targetDec,ha:signedHourAngleDeg(targetRaH)};
+}
+
+function applyTimeDrive(){
+  if(G.timeDriveOn){
+    G.timeHours=Math.max(0,parseFloat(G.timeHours)||0);
+    G.siderealHours=normHours((G.timeStartSiderealHours||0)+G.timeHours*(G.raRate||15)/15);
+  }
+  for(const s of scopes){
+    if(!s.mount) continue;
+    if(s.controlMode==='manual'&&!G.timeDriveOn) continue;
+    s.controlMode='sky';
+    applyTrackingPose(s);
+  }
+}
+function setTimeStartFromCurrent(){
+  G.timeHours=0;
+  G.timeStartSiderealHours=normHours(G.siderealHours||0);
+  applyTimeDrive();
+  render();
+}
+function resetTimeDrive(){
+  stopAnimation();
+  G.timeHours=0;
+  G.timeStartSiderealHours=normHours(G.siderealHours||0);
+  applyTimeDrive();
+  render();
+}
+function setTimeDrive(v){
+  G.timeDriveOn=!!v;
+  if(G.timeDriveOn){
+    G.timeHours=0;
+    G.timeStartSiderealHours=normHours(G.siderealHours||0);
+    for(const s of scopes) if(s.mount) s.controlMode='sky';
+  }
+  applyTimeDrive();
+  render();
+}
+
+
+function toggleAnimation(){
+  if(G.isAnimating) stopAnimation();
+  else startAnimation();
+}
+function startAnimation(){
+  if(!G.timeDriveOn) setTimeDrive(true);
+  G.isAnimating=true;
+  G.lastAnimTs=performance.now();
+  const btn=document.getElementById('animBtn');
+  if(btn) btn.textContent='Pause animation';
+  requestAnimationFrame(animationStep);
+}
+function stopAnimation(){
+  G.isAnimating=false;
+  const btn=document.getElementById('animBtn');
+  if(btn) btn.textContent='Play animation';
+}
+function animationStep(ts){
+  if(!G.isAnimating) return;
+  const dt=Math.max(0,Math.min(0.25,(ts-G.lastAnimTs)/1000));
+  G.lastAnimTs=ts;
+  G.timeHours += dt * G.animSpeed;
+  const maxTime=12;
+  if(G.timeHours>maxTime){
+    G.timeHours=0;
+    G.timeStartSiderealHours=normHours(G.siderealHours||0);
+  }
+  render();
+  requestAnimationFrame(animationStep);
+}
+
+
+function otaVisualParts(s,otaC,t,tubeSide,tubeQ){
+  const tube=cylinderMesh(otaC,t,s.D/2,s.L,32);
+  return [{name:"OTA cylinder",pts:tube.pts,stroke:"#111",fill:"rgba(0,0,0,.10)"}];
+}
+
+function scopeModel(s){
+  if(!s.mount){
+    const t=[1,0,0], q=[0,1,0], h=[0,0,1];
+    const base=[s.x,s.y,s.pierH];
+    const c=add(base,[0,0,s.D/2]);
+    const body=box(c,t,q,h,s.L,s.D,s.D);
+    const baseBox=box(add(base,[0,0,-.05]),[1,0,0],[0,1,0],[0,0,1],.20,.20,.10);
+    const pier=box([s.x,s.y,s.pierH/2],[1,0,0],[0,1,0],[0,0,1],.10,.10,s.pierH);
+    const front=add(c,mul(t,s.L/2)), rear=add(c,mul(t,-s.L/2));
+    const all=[...pier,...baseBox,...body];
+    return{simple:true,c,otaC:c,t,q,h,parts:[
+      {name:"S30 pier",pts:pier,stroke:"#444",fill:"rgba(0,0,0,.04)"},
+      {name:"S30 base",pts:baseBox,stroke:"#444",fill:"rgba(0,0,0,.04)"},
+      {name:"S30 body",pts:body,stroke:s.color,fill:"rgba(255,127,14,.12)"}
+    ],front,rear,all};
+  }
+
+  const f=perpendicularFrame(), p=f.p;
+  const cyl0=clockVec(G.decClock);
+  const cylAxis=norm(rot(cyl0,p,s.ra));
+  const pR=norm(p);
+
+  let u0=clockVec(G.otaClock);
+  u0=sub(u0,mul(cyl0,dot(u0,cyl0)));
+  if(dot(u0,u0)<1e-5) u0=norm(cross(p,cyl0)); else u0=norm(u0);
+
+  const uRA=norm(rot(u0,p,s.ra));
+  const t=norm(rot(uRA,cylAxis,s.dec));
+  const tubeSide=norm(cylAxis);                // normal from green top flat face into OTA
+  const tubeQ=norm(cross(t,tubeSide));         // tube circular cross-section second axis
+
+  const base=[s.x,s.y,s.pierH];
+  const cubeC=add(base,mul(pR,G.cube*.65));
+  const cubeFaceC=add(cubeC,mul(cylAxis,G.cube/2));
+  const cylC=add(cubeFaceC,mul(cylAxis,G.cylLen/2));
+  const innerCap=cubeFaceC;
+  const outerCap=add(cubeFaceC,mul(cylAxis,G.cylLen));
+  const contactC=outerCap;                     // green top flat face centre
+  const otaC=add(contactC,mul(tubeSide,s.D/2)); // OTA bottom face touches green top flat face
+
+  const baseBox=box(add(base,[0,0,-.05]),[1,0,0],[0,1,0],[0,0,1],.24,.24,.10);
+  const pier=box([s.x,s.y,s.pierH/2],[1,0,0],[0,1,0],[0,0,1],.14,.14,s.pierH);
+  const cube=box(cubeC,pR,cylAxis,norm(cross(pR,cylAxis)),G.cube,G.cube,G.cube);
+  const cyl=cylinderMesh(cylC,cylAxis,G.cylD/2,G.cylLen,24);
+  const physicalTube=cylinderMesh(otaC,t,s.D/2,s.L,32);
+  const front=add(otaC,mul(t,s.L/2)), rear=add(otaC,mul(t,-s.L/2));
+  const otaParts=otaVisualParts(s,otaC,t,tubeSide,tubeQ);
+  const all=[...baseBox,...pier,...cube,...cyl.pts,...physicalTube.pts];
+  return{
+    simple:false,p,cylAxis,pR,t,tubeSide,tubeQ,base,cubeC,cubeFaceC,cylC,innerCap,outerCap,contactC,otaC,front,rear,all,
+    parts:[
+      {name:"base",pts:baseBox,stroke:"#444",fill:"rgba(0,0,0,.04)"},
+      {name:"pier",pts:pier,stroke:"#444",fill:"rgba(0,0,0,.04)"},
+      {name:"orange RA body",pts:cube,stroke:"#ff9d00",fill:"rgba(255,176,0,.18)"},
+      {name:"green DEC cylinder",pts:cyl.pts,stroke:"#2ca02c",fill:"rgba(44,160,44,.22)"},
+      ...otaParts
+    ]
+  };
+}
+
+function runCoordinateSelfTests(){
+  /*
+   * Exercise the actual sky conversion and mechanical forward model. Tests cover
+   * both pier sides, RA/DEC round trips, pole and meridian edge cases, persistent
+   * flip state, and enforcement of a reachable RA-axis interval.
+   */
+  const saved={lst:G.siderealHours,boundary:G.flipBoundary};
+  const failures=[];
+  let passed=0,total=0,maxPointingErrorDeg=0;
+  const check=(condition,label)=>{total++;if(condition)passed++;else failures.push(label)};
+  const cyclicHourError=(a,b)=>Math.abs(wrapDegrees180((a-b)*15))/15;
+  try{
+    G.flipBoundary=90;
+    G.siderealHours=10;
+    const template={...COORDINATE_TEST_SCOPE,x:1,y:1,controlMode:'sky'};
+    for(const ha of[-179,-90,-1,0,1,90,179]){
+      for(const dec of[-90,-30,0,30,90]){
+        const expected=equatorialToHorizontalVector(ha,dec);
+        const candidates=mechanicalCandidates(ha,dec);
+        for(const side of['east','west']){
+          const candidate=candidates[side];
+          const model=scopeModel({...template,...candidate});
+          const error=angularSeparationDeg(model.t,expected);
+          maxPointingErrorDeg=Math.max(maxPointingErrorDeg,error);
+          check(error<1e-5,`vector ${side} HA=${ha} DEC=${dec}: ${error} deg`);
+
+          const sky=mechanicalPoseToSky({...template,...candidate,sideOfPier:side});
+          const expectedRa=normHours(G.siderealHours-ha/15);
+          check(cyclicHourError(sky.targetRaH,expectedRa)<1e-9&&Math.abs(sky.targetDec-dec)<1e-9,
+            `round trip ${side} HA=${ha} DEC=${dec}`);
+        }
+      }
+    }
+
+    const target={...template,targetRaH:10,targetDec:-30,sideOfPier:'west',flipCount:0};
+    G.siderealHours=normHours(10-0.1/15);
+    applyTrackingPose(target);
+    const fixedRa=target.targetRaH,fixedDec=target.targetDec;
+    G.siderealHours=normHours(10+0.1/15);
+    applyTrackingPose(target);
+    check(target.sideOfPier==='east'&&target.flipCount===1,'stateful meridian flip event');
+    check(target.targetRaH===fixedRa&&target.targetDec===fixedDec,'target invariant through flip');
+
+    G.flipBoundary=30;
+    check(flipBoundary()===90,'RA travel lower bound prevents unreachable intervals');
+    const northTarget=equatorialToHorizontalVector(0,30,-37);
+    check(Math.abs(deg(Math.asin(northTarget[2]))-23)<1e-9,'southern-site DEC sign reference');
+  }finally{
+    G.siderealHours=saved.lst;
+    G.flipBoundary=saved.boundary;
+  }
+  return {passed,total,failures,maxPointingErrorDeg};
+}
+
+function box(c,u,v,w,L,W,H){const pts=[];for(const a of[-.5,.5])for(const b of[-.5,.5])for(const d of[-.5,.5])pts.push(add(c,add(add(mul(u,L*a),mul(v,W*b)),mul(w,H*d))));return pts}
+function cylinderMesh(c,axis,r,len,n=24){
+  axis=norm(axis);let ref=Math.abs(axis[2])<.9?[0,0,1]:[1,0,0];let u=norm(cross(axis,ref)),v=norm(cross(axis,u));const pts=[];
+  for(const s of[-.5,.5]){const cc=add(c,mul(axis,len*s));for(let i=0;i<n;i++){const a=2*Math.PI*i/n;pts.push(add(cc,add(mul(u,r*Math.cos(a)),mul(v,r*Math.sin(a)))))}}
+  return{pts,u,v};
+}
+function hull(points,proj){let pts=points.map(proj).sort((a,b)=>a[0]===b[0]?a[1]-b[1]:a[0]-b[0]);if(pts.length<2)return pts;const cr=(o,a,b)=>(a[0]-o[0])*(b[1]-o[1])-(a[1]-o[1])*(b[0]-o[0]);let lo=[],up=[];for(const p of pts){while(lo.length>=2&&cr(lo[lo.length-2],lo[lo.length-1],p)<=0)lo.pop();lo.push(p)}for(let i=pts.length-1;i>=0;i--){const p=pts[i];while(up.length>=2&&cr(up[up.length-2],up[up.length-1],p)<=0)up.pop();up.push(p)}up.pop();lo.pop();return lo.concat(up)}
+function el(tag,a){const e=document.createElementNS('http://www.w3.org/2000/svg',tag);for(const k in a)e.setAttribute(k,a[k]);return e}
+function text(svg,x,y,t,size=12,anchor='middle',fill='#111'){const e=el('text',{x,y,'font-size':size,'text-anchor':anchor,fill});e.textContent=t;svg.appendChild(e)}
+function poly(pts){return pts.map(p=>p[0].toFixed(1)+','+p[1].toFixed(1)).join(' ')}
+function arrow(svg,a,b,col,w=2,label=''){svg.appendChild(el('line',{x1:a[0],y1:a[1],x2:b[0],y2:b[1],stroke:col,'stroke-width':w}));const ang=Math.atan2(b[1]-a[1],b[0]-a[0]),L=8,p1=[b[0]+L*Math.cos(ang+2.55),b[1]+L*Math.sin(ang+2.55)],p2=[b[0]+L*Math.cos(ang-2.55),b[1]+L*Math.sin(ang-2.55)];svg.appendChild(el('polygon',{points:poly([b,p1,p2]),fill:col}));if(label)text(svg,b[0]+6,b[1]-6,label,11,'start',col)}
+
+function allModelData(){return scopes.map(s=>({s,m:scopeModel(s)}));}
+
+function projectFactory(kind,x0,y0,w,h){
+  if(kind==='top'){
+    const sc=Math.min(w/roomW(),h/roomH())*0.94;
+    return p=>[x0+(w-roomW()*sc)/2+p[0]*sc, y0+(h-roomH()*sc)/2+(roomH()-p[1])*sc];
+  }
+  if(kind==='south'){
+    const maxH=Math.max(1.55,G.wallH+0.25,maxPierHeight()+0.65); const sc=Math.min(w/roomW(),h/maxH)*0.92;
+    return p=>[x0+(w-roomW()*sc)/2+p[0]*sc, y0+h-24-p[2]*sc];
+  }
+  if(kind==='west'){
+    const maxH=Math.max(1.55,G.wallH+0.25,maxPierHeight()+0.65); const sc=Math.min(w/roomH(),h/maxH)*0.92;
+    return p=>[x0+(w-roomH()*sc)/2+p[1]*sc, y0+h-24-p[2]*sc];
+  }
+  const yaw=rad(G.viewYaw),pitch=rad(G.viewPitch),sc=Math.min(w,h)/(3.65/G.zoom);
+  const cy=Math.cos(yaw),sy=Math.sin(yaw),cp=Math.cos(pitch),sp=Math.sin(pitch);
+  const cx=roomW()/2,cyc=roomH()/2,cz=.55;
+  return p=>{let x=p[0]-cx,y=p[1]-cyc,z=p[2]-cz;let x1=Math.cos(yaw)*x+Math.sin(yaw)*y,y1=-Math.sin(yaw)*x+Math.cos(yaw)*y,z1=z;let y2=cp*y1-sp*z1,z2=sp*y1+cp*z1;const d=4.2,k=d/(d-z2);return[x0+w/2+x1*sc*k,y0+h/2-y2*sc*k]}
+}
+
+function drawRoom(svg,P,kind,x,y,w,h){
+  if(kind==='top'){
+    const a=P([0,0,0]), b=P([roomW(),roomH(),0]);
+    svg.appendChild(el('rect',{x:a[0],y:b[1],width:b[0]-a[0],height:a[1]-b[1],fill:'none',stroke:'#111','stroke-width':2}));
+    for(let i=0;i<=roomW();i+=.5){
+      let p0=P([i,0,0]),p1=P([i,roomH(),0]);
+      svg.appendChild(el('line',{x1:p0[0],y1:p0[1],x2:p1[0],y2:p1[1],stroke:'#ddd','stroke-width':1}));
+    }
+    for(let j=0;j<=roomH();j+=.5){
+      let p0=P([0,j,0]),p1=P([roomW(),j,0]);
+      svg.appendChild(el('line',{x1:p0[0],y1:p0[1],x2:p1[0],y2:p1[1],stroke:'#ddd','stroke-width':1}));
+    }
+    text(svg,(a[0]+b[0])/2,b[1]+16,'North ↑',11); text(svg,(a[0]+b[0])/2,a[1]-8,'South ↓',11);
+    text(svg,a[0]+15,(a[1]+b[1])/2,'W',11); text(svg,b[0]-15,(a[1]+b[1])/2,'E',11);
+    text(svg,(a[0]+b[0])/2,a[1]+16,roomW().toFixed(2)+' m',12,'middle','#111');
+    text(svg,a[0]-10,(a[1]+b[1])/2,roomH().toFixed(2)+' m',12,'middle','#111');
+    text(svg,b[0]-8,b[1]+32,'wall height '+G.wallH.toFixed(2)+' m',11,'end','#8a5a00');
+  } else if(kind==='3d'){
+    const floor=[[0,0,0],[roomW(),0,0],[roomW(),roomH(),0],[0,roomH(),0]];
+    const top=floor.map(p=>[p[0],p[1],G.wallH]);
+    for(let i=0;i<4;i++){
+      let a=P(floor[i]),b=P(floor[(i+1)%4]);svg.appendChild(el('line',{x1:a[0],y1:a[1],x2:b[0],y2:b[1],stroke:'#111','stroke-width':1.5}));
+      let c=P(top[i]),d=P(top[(i+1)%4]);svg.appendChild(el('line',{x1:c[0],y1:c[1],x2:d[0],y2:d[1],stroke:'#8a5a00','stroke-width':1.2,'stroke-dasharray':'5 4'}));
+      svg.appendChild(el('line',{x1:a[0],y1:a[1],x2:c[0],y2:c[1],stroke:'#8a5a00','stroke-width':1,'stroke-dasharray':'3 4'}));
+    }
+    const edgeX0=P([0,0,0]), edgeX1=P([roomW(),0,0]), edgeY1=P([0,roomH(),0]);
+    text(svg,(edgeX0[0]+edgeX1[0])/2,(edgeX0[1]+edgeX1[1])/2+14,roomW().toFixed(2)+' m',11,'middle','#555');
+    text(svg,(edgeX0[0]+edgeY1[0])/2-12,(edgeX0[1]+edgeY1[1])/2,roomH().toFixed(2)+' m',11,'middle','#555');
+    const wh=P([roomW(),roomH(),G.wallH]);
+    text(svg,wh[0]+6,wh[1]-6,'wall '+G.wallH.toFixed(2)+' m',11,'start','#8a5a00');
+  } else {
+    const floor0=P([0,0,0]), floor1=kind==='south'?P([roomW(),0,0]):P([0,roomH(),0]);
+    svg.appendChild(el('line',{x1:floor0[0],y1:floor0[1],x2:floor1[0],y2:floor1[1],stroke:'#111','stroke-width':1.5}));
+    const w0=P([0,0,G.wallH]), w1=kind==='south'?P([roomW(),0,G.wallH]):P([0,roomH(),G.wallH]);
+    svg.appendChild(el('line',{x1:w0[0],y1:w0[1],x2:w1[0],y2:w1[1],stroke:'#8a5a00','stroke-width':1.5,'stroke-dasharray':'6 4'}));
+    text(svg,w1[0]-8,w1[1]-5,'wall height '+G.wallH.toFixed(2)+' m',11,'end','#8a5a00');
+  }
+}
+
+
+function sweepRecords(){
+  return scopes.map(s=>{
+    const sw=sweptPierRadius(s);
+    return {s, center:[s.x,s.y,s.pierH], radius:sw.r, sweep:sw};
+  });
+}
+function sphereSafety(records){
+  const unsafe=new Set();
+  const pairs=[];
+  for(let i=0;i<records.length;i++){
+    for(let j=i+1;j<records.length;j++){
+      const a=records[i], b=records[j];
+      const cdist=Math.sqrt(dot(sub(a.center,b.center),sub(a.center,b.center)));
+      const edge=cdist-a.radius-b.radius;
+      if(edge<G.safeGap){
+        unsafe.add(a.s.name); unsafe.add(b.s.name);
+        pairs.push({a:a.s.name,b:b.s.name,edge});
+      }
+    }
+  }
+  return {unsafe,pairs};
+}
+
+function placementClearanceMetrics(positions,radii,width,height,pairGap,reference=positions){
+  /*
+   * Evaluate a 2D swept-envelope placement in metres.
+   * Wall slack is the circle edge-to-wall distance. Pair slack is
+   * centre_distance-r_i-r_j-pairGap. A placement is feasible when every slack
+   * is non-negative. Movement is dimensionless and is used only after safety
+   * and robustness have been optimised.
+   */
+  const slacks=[],wallMargins=[],pairClearances=[];
+  let movement=0;
+  for(let i=0;i<positions.length;i++){
+    const p=positions[i],r=radii[i];
+    const walls=[p.x-r,width-p.x-r,p.y-r,height-p.y-r];
+    wallMargins.push(...walls); slacks.push(...walls);
+    const dx=(p.x-reference[i].x)/Math.max(width,1e-9);
+    const dy=(p.y-reference[i].y)/Math.max(height,1e-9);
+    movement+=dx*dx+dy*dy;
+  }
+  for(let i=0;i<positions.length;i++) for(let j=i+1;j<positions.length;j++){
+    const distance=Math.hypot(positions[i].x-positions[j].x,positions[i].y-positions[j].y);
+    const clearance=distance-radii[i]-radii[j];
+    pairClearances.push({i,j,clearance,slack:clearance-pairGap});
+    slacks.push(clearance-pairGap);
+  }
+  const violations=slacks.map(s=>Math.max(0,-s));
+  return {
+    feasible:Math.max(...violations,0)<=1e-6,
+    maxViolation:Math.max(...violations,0),
+    sumViolationSquared:violations.reduce((a,v)=>a+v*v,0),
+    minSlack:Math.min(...slacks),
+    minWallMargin:Math.min(...wallMargins),
+    minPairClearance:pairClearances.length?Math.min(...pairClearances.map(p=>p.clearance)):Infinity,
+    worstPair:pairClearances.sort((a,b)=>a.slack-b.slack)[0]||null,
+    movement
+  };
+}
+
+function placementScoreIsBetter(a,b){
+  if(!b) return true;
+  const eps=1e-10;
+  if(Math.abs(a.maxViolation-b.maxViolation)>eps) return a.maxViolation<b.maxViolation;
+  if(a.maxViolation>eps&&Math.abs(a.sumViolationSquared-b.sumViolationSquared)>eps) return a.sumViolationSquared<b.sumViolationSquared;
+  if(Math.abs(a.minSlack-b.minSlack)>1e-8) return a.minSlack>b.minSlack;
+  return a.movement<b.movement-eps;
+}
+
+function halton(index,base){
+  let fraction=1,result=0;
+  while(index>0){fraction/=base;result+=fraction*(index%base);index=Math.floor(index/base)}
+  return result;
+}
+
+function placementPermutations(values){
+  if(values.length<2) return [values.slice()];
+  const out=[];
+  values.forEach((value,i)=>{
+    for(const tail of placementPermutations(values.slice(0,i).concat(values.slice(i+1)))) out.push([value,...tail]);
+  });
+  return out;
+}
+
+function clampPlacementToWalls(positions,radii,width,height){
+  return positions.map((p,i)=>({
+    x:Math.max(radii[i],Math.min(width-radii[i],p.x)),
+    y:Math.max(radii[i],Math.min(height-radii[i],p.y))
+  }));
+}
+
+function repairPlacement(positions,radii,width,height,pairGap,iterations=240){
+  let p=clampPlacementToWalls(positions,radii,width,height);
+  for(let pass=0;pass<iterations;pass++){
+    let largestOverlap=0;
+    for(let i=0;i<p.length;i++) for(let j=i+1;j<p.length;j++){
+      let dx=p[j].x-p[i].x,dy=p[j].y-p[i].y,dist=Math.hypot(dx,dy);
+      const required=radii[i]+radii[j]+pairGap;
+      const overlap=required-dist;
+      if(overlap<=0) continue;
+      largestOverlap=Math.max(largestOverlap,overlap);
+      if(dist<1e-12){
+        const angle=((i+1)*37+(j+1)*71)*Math.PI/180;
+        dx=Math.cos(angle);dy=Math.sin(angle);dist=1;
+      }
+      const ux=dx/dist,uy=dy/dist,push=overlap*.505;
+      p[i]={x:p[i].x-ux*push,y:p[i].y-uy*push};
+      p[j]={x:p[j].x+ux*push,y:p[j].y+uy*push};
+      p=clampPlacementToWalls(p,radii,width,height);
+    }
+    if(largestOverlap<1e-7) break;
+  }
+  return p;
+}
+
+function refinePlacement(start,radii,width,height,pairGap,reference){
+  let best=repairPlacement(start,radii,width,height,pairGap);
+  let bestMetrics=placementClearanceMetrics(best,radii,width,height,pairGap,reference);
+  let step=Math.max(width,height)/6;
+  while(step>=.001){
+    let changed=true,passes=0;
+    while(changed&&passes++<24){
+      changed=false;
+      for(let i=0;i<best.length;i++) for(const axis of['x','y']) for(const direction of[-1,1]){
+        const trial=best.map(p=>({...p}));
+        trial[i][axis]+=direction*step;
+        const clamped=clampPlacementToWalls(trial,radii,width,height);
+        const metrics=placementClearanceMetrics(clamped,radii,width,height,pairGap,reference);
+        if(placementScoreIsBetter(metrics,bestMetrics)){
+          best=clamped;bestMetrics=metrics;changed=true;
+        }
+      }
+    }
+    step*=.5;
+  }
+  return {positions:best,metrics:bestMetrics};
+}
+
+function solveTelescopePlacement(width,height,radii,pairGap,initialPositions){
+  /*
+   * Deterministic multi-start continuous circle packing for the observatory
+   * floor. Inputs and outputs are metres in the room's X/Y coordinate system.
+   * The result is not applied here. If no feasible candidate is found, the best
+   * quantified shortfall is returned and callers must preserve the old layout.
+   */
+  if(radii.length===0){
+    return {feasible:true,positions:[],metrics:{feasible:true,maxViolation:0,sumViolationSquared:0,minSlack:Infinity,minWallMargin:Infinity,minPairClearance:Infinity,movement:0},reason:''};
+  }
+  if(radii.some(r=>2*r>width+1e-9||2*r>height+1e-9)){
+    const largest=Math.max(...radii);
+    return {feasible:false,positions:null,metrics:{maxViolation:Math.max(0,2*largest-Math.min(width,height)),minSlack:-Infinity},reason:'A swept envelope is larger than the room.'};
+  }
+  const inflatedArea=radii.reduce((area,r)=>area+Math.PI*(r+pairGap/2)**2,0);
+  const expandedRoomArea=(width+pairGap)*(height+pairGap);
+  if(inflatedArea>expandedRoomArea+1e-9){
+    return {feasible:false,positions:null,metrics:{maxViolation:0,minSlack:-Infinity},reason:'The combined swept envelopes and required pair gaps exceed the available room area.'};
+  }
+  const starts=[clampPlacementToWalls(initialPositions,radii,width,height)];
+  const corners=[[0,0],[1,0],[1,1],[0,1]];
+  if(radii.length<=4){
+    for(const permutation of placementPermutations([...radii.keys()])){
+      const candidate=Array(radii.length);
+      permutation.forEach((scopeIndex,slot)=>{
+        const [u,v]=corners[slot];const r=radii[scopeIndex];
+        candidate[scopeIndex]={x:u?width-r:r,y:v?height-r:r};
+      });
+      starts.push(candidate);
+    }
+  }
+  for(let restart=1;restart<=96;restart++){
+    starts.push(radii.map((r,i)=>({
+      x:r+(width-2*r)*halton(restart*radii.length+i+1,2),
+      y:r+(height-2*r)*halton(restart*radii.length+i+1,3)
+    })));
+  }
+
+  let best=null;
+  for(const start of starts){
+    const candidate=refinePlacement(start,radii,width,height,pairGap,initialPositions);
+    if(!best||placementScoreIsBetter(candidate.metrics,best.metrics)) best=candidate;
+  }
+  best=refinePlacement(best.positions,radii,width,height,pairGap,initialPositions);
+  return {...best,feasible:best.metrics.feasible,reason:best.metrics.feasible?'':'No placement satisfies every wall and pair constraint.'};
+}
+
+function runPlacementSelfTests(){
+  /*
+   * Keep a small, geometry-independent regression around the packing engine.
+   * The fixture is intentionally cheaper than the real four-telescope solve so
+   * it can run at page load without making the controls feel sluggish.
+   */
+  const failures=[];
+  let passed=0,total=0;
+  const check=(condition,label)=>{total++;if(condition)passed++;else failures.push(label)};
+  const radii=[.30,.25,.20],gap=.10;
+  const initial=[{x:.30,y:.30},{x:1,y:1},{x:1.80,y:1.80}];
+  const first=solveTelescopePlacement(2,2,radii,gap,initial);
+  const second=solveTelescopePlacement(2,2,radii,gap,initial);
+  check(first.feasible,'known feasible room');
+  check(first.metrics.maxViolation<=1e-6,'feasible result satisfies every constraint');
+  check(JSON.stringify(first.positions)===JSON.stringify(second.positions),'deterministic repeated solve');
+  const impossible=solveTelescopePlacement(.5,.5,radii,gap,initial);
+  check(!impossible.feasible&&impossible.positions===null,'impossible room is rejected without a placement');
+  const overlapping=placementClearanceMetrics([{x:.4,y:.4},{x:.5,y:.4}],[.2,.2],1,1,.1);
+  check(!overlapping.feasible&&overlapping.maxViolation>.39,'overlap violation is quantified');
+  const empty=solveTelescopePlacement(2,2,[],gap,[]);
+  check(empty.feasible&&empty.positions.length===0,'empty observatory needs no placement');
+  return {passed,total,failures};
+}
+
+function sphereIsSafe(rec,safety){
+  return sphereInsideRoom(rec) && !safety.unsafe.has(rec.s.name);
+}
+function sphereStyle(rec,safety){
+  if(sphereIsSafe(rec,safety)){
+    return {
+      fill3d:'rgba(0,160,70,.14)',
+      stroke:'rgba(0,125,55,.78)',
+      fill2d:'rgba(0,170,75,.12)',
+      dot:'rgba(0,125,55,.9)'
+    };
+  }
+  return {
+    fill3d:'rgba(220,0,0,.13)',
+    stroke:'rgba(190,0,0,.72)',
+    fill2d:'rgba(220,0,0,.10)',
+    dot:'rgba(190,0,0,.85)'
+  };
+}
+function nearbySphereClearances(records,maxGap=.5){
+  const out=[];
+  for(let i=0;i<records.length;i++){
+    for(let j=i+1;j<records.length;j++){
+      const a=records[i], b=records[j];
+      const dx=b.center[0]-a.center[0], dy=b.center[1]-a.center[1];
+      const cdist=Math.sqrt(dx*dx+dy*dy);
+      if(cdist<1e-9) continue;
+      const edge=cdist-a.radius-b.radius;
+      if(edge<maxGap){
+        const ux=dx/cdist, uy=dy/cdist;
+        out.push({
+          a,b,edge,cdist,
+          p1:[a.center[0]+ux*a.radius,a.center[1]+uy*a.radius,a.center[2]],
+          p2:[b.center[0]-ux*b.radius,b.center[1]-uy*b.radius,b.center[2]]
+        });
+      }
+    }
+  }
+  out.sort((p,q)=>p.edge-q.edge);
+  return out;
+}
+
+function sphereInsideRoom(rec){
+  const c=rec.center, r=rec.radius;
+  // "Inside" now means the swept sphere's horizontal edge stays inside the 2.85 m x 2.85 m footprint.
+  // Wall height is displayed separately and does not clip the sphere vertically.
+  return (c[0]-r>=0 && c[0]+r<=roomW() && c[1]-r>=0 && c[1]+r<=roomH());
+}
+function sphereWallMargins(rec){
+  const c=rec.center, r=rec.radius;
+  return {
+    west:c[0]-r,
+    east:roomW()-(c[0]+r),
+    south:c[1]-r,
+    north:roomH()-(c[1]+r),
+    min:Math.min(c[0]-r, roomW()-(c[0]+r), c[1]-r, roomH()-(c[1]+r))
+  };
+}
+function drawSphereProjection(svg,P,kind,center,r,style){
+  if(!G.showSpheres) return;
+  const c=P(center);
+
+  if(kind==='3d'){
+    // Original-style shaded sphere:
+    // draw one simple translucent red disk, but compute the display radius from
+    // the largest projected extent of the true 3D sphere. This keeps the clean
+    // old shaded look while preventing the telescope from visually protruding
+    // outside the sphere in the perspective view.
+    let screenR=0;
+    const dirs=[
+      [1,0,0],[-1,0,0],[0,1,0],[0,-1,0],[0,0,1],[0,0,-1],
+      norm([1,1,0]),norm([1,-1,0]),norm([-1,1,0]),norm([-1,-1,0]),
+      norm([1,0,1]),norm([1,0,-1]),norm([-1,0,1]),norm([-1,0,-1]),
+      norm([0,1,1]),norm([0,1,-1]),norm([0,-1,1]),norm([0,-1,-1]),
+      norm([1,1,1]),norm([1,1,-1]),norm([1,-1,1]),norm([-1,1,1]),
+      norm([-1,-1,1]),norm([-1,1,-1]),norm([1,-1,-1]),norm([-1,-1,-1])
+    ];
+    for(const d of dirs){
+      const q=P(add(center,mul(d,r)));
+      const dx=q[0]-c[0], dy=q[1]-c[1];
+      screenR=Math.max(screenR,Math.sqrt(dx*dx+dy*dy));
+    }
+    screenR*=1.05; // small visual buffer so the displayed envelope contains all projected geometry
+    svg.appendChild(el('circle',{cx:c[0],cy:c[1],r:Math.max(screenR,1),fill:style.fill3d,stroke:style.stroke,'stroke-width':1.6,'stroke-dasharray':'6 4'}));
+    svg.appendChild(el('circle',{cx:c[0],cy:c[1],r:3,fill:style.dot}));
+    return;
+  }
+
+  // Orthographic projection panels: keep the mathematically correct projected
+  // radius in the displayed panel axes.
+  let rx,ry;
+  if(kind==='top'){
+    rx=Math.abs(P(add(center,[r,0,0]))[0]-c[0]);
+    ry=Math.abs(P(add(center,[0,r,0]))[1]-c[1]);
+  } else if(kind==='south'){
+    rx=Math.abs(P(add(center,[r,0,0]))[0]-c[0]);
+    ry=Math.abs(P(add(center,[0,0,r]))[1]-c[1]);
+  } else if(kind==='west'){
+    rx=Math.abs(P(add(center,[0,r,0]))[0]-c[0]);
+    ry=Math.abs(P(add(center,[0,0,r]))[1]-c[1]);
+  } else {
+    rx=Math.abs(P(add(center,[r,0,0]))[0]-c[0]);
+    ry=rx;
+  }
+  svg.appendChild(el('ellipse',{cx:c[0],cy:c[1],rx:Math.max(rx,1),ry:Math.max(ry,1),fill:style.fill2d,stroke:style.stroke,'stroke-width':1.5,'stroke-dasharray':'6 4'}));
+  svg.appendChild(el('circle',{cx:c[0],cy:c[1],r:3,fill:style.dot}));
+}
+
+
+function drawTopClearanceLabels(svg,P,x,y,w,h,records){
+  const pairs=nearbySphereClearances(records,.5);
+  if(!pairs.length) return;
+  const maxShown=8;
+  const shown=pairs.slice(0,maxShown);
+
+  for(let i=0;i<shown.length;i++){
+    const p=shown[i];
+    const a=P(p.p1), b=P(p.p2);
+    const mx=(a[0]+b[0])/2, my=(a[1]+b[1])/2;
+    const label='l'+(i+1);
+    svg.appendChild(el('line',{x1:a[0],y1:a[1],x2:b[0],y2:b[1],stroke:'#111','stroke-width':1.8,'stroke-dasharray':'4 3'}));
+    svg.appendChild(el('circle',{cx:a[0],cy:a[1],r:2.5,fill:'#111'}));
+    svg.appendChild(el('circle',{cx:b[0],cy:b[1],r:2.5,fill:'#111'}));
+    svg.appendChild(el('rect',{x:mx-11,y:my-10,width:22,height:15,rx:4,fill:'rgba(255,255,255,.85)',stroke:'#777','stroke-width':.7}));
+    text(svg,mx,my+2,label,10,'middle','#111');
+  }
+
+  const boxW=Math.min(170,Math.max(118,w*.42));
+  const rowH=15;
+  const boxH=26+shown.length*rowH+(pairs.length>maxShown?14:0);
+  const bx=x+w+18, by=y+8;
+  svg.appendChild(el('rect',{x:bx,y:by,width:boxW,height:boxH,rx:7,class:'clearanceLegendBg'}));
+  text(svg,bx+8,by+15,'Clearance gaps < 0.50 m',11,'start','#111');
+  for(let i=0;i<shown.length;i++){
+    const p=shown[i];
+    const label='l'+(i+1);
+    const yy=by+31+i*rowH;
+    const edgeTxt=p.edge<0 ? p.edge.toFixed(3)+' m overlap' : p.edge.toFixed(3)+' m';
+    text(svg,bx+8,yy,label+': '+p.a.s.name+'–'+p.b.s.name,10,'start','#111');
+    text(svg,bx+boxW-8,yy,edgeTxt,10,'end',p.edge<G.safeGap?'#b00000':'#0a6b2d');
+  }
+  if(pairs.length>maxShown){
+    text(svg,bx+8,by+31+shown.length*rowH,'+'+(pairs.length-maxShown)+' more',10,'start','#555');
+  }
+}
+
+function panel(svg,kind,x,y,w,h,title){
+  const P=projectFactory(kind,x,y,w,h), data=allModelData();
+  const subtitle={
+    top:'Observatory footprint / X-Y clearance',
+    south:'South elevation: X-Z side view',
+    west:'West elevation: Y-Z side view',
+    '3d':'Free-angle main view; drag to rotate, use sliders, or enlarge via layout controls'
+  }[kind] || '';
+  // Titles sit outside/above the view box. The render() layout leaves headroom
+  // so these labels do not overlap the drawing or floating UI.
+  text(svg,x+w/2,y-28,title,14,'middle','#111');
+  text(svg,x+12,y-11,subtitle,11,'start','#555');
+  svg.appendChild(el('rect',{x,y,width:w,height:h,rx:8,fill:'#fff',stroke:'#aaa'}));
+
+  drawRoom(svg,P,kind,x,y,w,h);
+
+  const records=sweepRecords();
+  const safety=sphereSafety(records);
+  for(const rec of records) drawSphereProjection(svg,P,kind,rec.center,rec.radius,sphereStyle(rec,safety));
+  if(kind==='top') drawTopClearanceLabels(svg,P,x,y,w,h,records);
+
+  // Draw parts.
+  for(const d of data){
+    const s=d.s,m=d.m;
+    for(const part of m.parts){
+      const hp=hull(part.pts,P);
+      svg.appendChild(el('polygon',{points:poly(hp),fill:part.fill,stroke:part.stroke,'stroke-width':part.name.includes('orange')?2:part.name.includes('green')?2.5:part.name.startsWith('OBJ')?.45:part.name.includes('focuser')?1.8:1.2}));
+    }
+  }
+
+  // Draw axes and labels after parts.
+  for(const d of data){
+    const s=d.s,m=d.m;
+    if(!m.simple){
+      if(G.showPolar) arrow(svg,P(m.base),P(add(m.base,mul(m.p,.45))),'#1f77ff',2,'');
+      arrow(svg,P(m.innerCap),P(m.outerCap),'#2ca02c',3,'');
+      const gc=P(m.contactC), oc=P(m.otaC);
+      svg.appendChild(el('circle',{cx:gc[0],cy:gc[1],r:4,fill:'#2ca02c',stroke:'#064','stroke-width':1}));
+      svg.appendChild(el('circle',{cx:oc[0],cy:oc[1],r:5,fill:s.color,stroke:'#111','stroke-width':.5}));
+      svg.appendChild(el('line',{x1:gc[0],y1:gc[1],x2:oc[0],y2:oc[1],stroke:s.color,'stroke-width':1.2,'stroke-dasharray':'4 3'}));
+      // rotating top-face spoke
+      const spEnd=add(m.contactC,mul(m.t,Math.max(G.cylD*.85,.07)));
+      svg.appendChild(el('line',{x1:gc[0],y1:gc[1],x2:P(spEnd)[0],y2:P(spEnd)[1],stroke:'#2ca02c','stroke-width':2.5,'stroke-linecap':'round'}));
+    }
+    arrow(svg,P(m.rear),P(m.front),s.color,2.2,'');
+    if(kind==='top'){
+      const c=P(m.otaC);
+      text(svg,c[0],c[1]-12,s.name,11,'middle',s.color);
+    }
+  }
+}
+
+function bboxXY(points){
+  return{minx:Math.min(...points.map(p=>p[0])),maxx:Math.max(...points.map(p=>p[0])),miny:Math.min(...points.map(p=>p[1])),maxy:Math.max(...points.map(p=>p[1]))};
+}
+function boxesOverlap(a,b){return a.minx<=b.maxx&&a.maxx>=b.minx&&a.miny<=b.maxy&&a.maxy>=b.miny;}
+
+function setupPointsAbovePier(m){
+  const pts=[];
+  for(const part of m.parts){
+    if(String(part.name).toLowerCase().includes('pier')) continue;
+    pts.push(...part.pts);
+  }
+  return pts;
+}
+function distanceFromPierTop(scope,point){
+  const top=[scope.x,scope.y,scope.pierH];
+  const d=sub(point,top);
+  return Math.sqrt(dot(d,d));
+}
+function sweptPierRadius(scope){
+  const cacheKey=[scope.x,scope.y,scope.L,scope.D,scope.mount,scope.pierH,G.cube,G.cylLen,G.cylD,G.lat,G.decClock,G.otaClock,G.sweepStep,flipBoundary()].join('|');
+  if(scope._sweepCache?.key===cacheKey) return scope._sweepCache.value;
+  const remember=value=>{
+    scope._sweepCache={key:cacheKey,value};
+    return value;
+  };
+  const step=Math.max(1,Math.min(30,Math.round(G.sweepStep||5)));
+  let best={r:0,ra:scope.ra||0,dec:scope.dec||0,point:null};
+  if(!scope.mount){
+    const m=scopeModel(scope);
+    for(const p of setupPointsAbovePier(m)){
+      const r=distanceFromPierTop(scope,p);
+      if(r>best.r) best={r,ra:0,dec:0,point:p};
+    }
+    return remember(best);
+  }
+
+  const oldRa=scope.ra, oldDec=scope.dec;
+  const b=flipBoundary();
+  for(let ra=-b; ra<=b+1e-9; ra+=step){
+    for(let dec=-180; dec<=180+1e-9; dec+=step){
+      scope.ra=ra; scope.dec=dec;
+      const m=scopeModel(scope);
+      for(const p of setupPointsAbovePier(m)){
+        const r=distanceFromPierTop(scope,p);
+        if(r>best.r) best={r,ra,dec,point:p};
+      }
+    }
+  }
+  // Ensure exact end points are included even if step does not land exactly.
+  for(const ra of[-b,b]){
+    for(const dec of[-180,-90,0,90,180]){
+      scope.ra=ra; scope.dec=dec;
+      const m=scopeModel(scope);
+      for(const p of setupPointsAbovePier(m)){
+        const r=distanceFromPierTop(scope,p);
+        if(r>best.r) best={r,ra,dec,point:p};
+      }
+    }
+  }
+  scope.ra=oldRa; scope.dec=oldDec;
+  return remember(best);
+}
+
+
+function altitudeForPose(scope,ra,dec){
+  if(!scope.mount) return null;
+  const oldRa=scope.ra, oldDec=scope.dec;
+  scope.ra=ra; scope.dec=dec;
+  const m=scopeModel(scope);
+  scope.ra=oldRa; scope.dec=oldDec;
+  return deg(Math.asin(Math.max(-1,Math.min(1,m.t[2]))));
+}
+function randomAboveHorizonTarget(){
+  // Generate a celestial target, not a motor pose, so later tracking and flips
+  // retain one unambiguous RA/DEC identity.
+  for(let i=0;i<1500;i++){
+    const ha=-180+Math.random()*360;
+    const dec=-90+Math.random()*180;
+    const vector=equatorialToHorizontalVector(ha,dec);
+    const alt=deg(Math.asin(vector[2]));
+    if(alt>5) return {targetRaH:normHours(G.siderealHours-ha/15),targetDec:dec,alt};
+  }
+  return {targetRaH:normHours(G.siderealHours),targetDec:-Math.abs(G.lat),alt:90};
+}
+
+function updateStatus(){
+  const data=allModelData();
+  const records=sweepRecords();
+  const safety=sphereSafety(records);
+  const recordByName=new Map(records.map(r=>[r.s.name,r]));
+  let rows=[];
+  const tableRows=[];
+  const altAzRows=[];
+  const boxes=[];
+  const dashboardCards=[];
+  let dashboardBad=0,dashboardWarn=0,clearanceSafeCount=0;
+  for(const d of data){
+    const s=d.s,m=d.m,bb=bboxXY(m.all);
+    boxes.push({name:s.name,bb});
+    let altTxt='—', azTxt='—', pointingError=null;
+    if(!m.simple){
+      const al=deg(Math.asin(Math.max(-1,Math.min(1,m.t[2]))));
+      let z=deg(Math.atan2(m.t[0],m.t[1])); if(z<0)z+=360;
+      altTxt=al.toFixed(1)+'°';
+      azTxt=z.toFixed(1)+'°';
+      const ha=s._p3d?.hourAngleDeg??signedHourAngleDeg(s.targetRaH);
+      pointingError=angularSeparationDeg(m.t,equatorialToHorizontalVector(ha,s.targetDec));
+    }
+    const rec=recordByName.get(s.name);
+    const sweep=rec.sweep;
+    const sphereInside=sphereInsideRoom(rec);
+    const margins=sphereWallMargins(rec);
+    let stateText;
+    if(!sphereInside) stateText='outside wall';
+    else if(safety.unsafe.has(s.name)) stateText='inside + unsafe';
+    else stateText='inside + safe';
+
+    const trackingLabel=s.mount?(s.trackingStatus||'tracking'):'fixed setup';
+    const clearanceBad=stateText!=='inside + safe';
+    const pointingBad=pointingError!==null&&pointingError>=.001;
+    const trackingBad=trackingLabel==='RA-axis limit';
+    const trackingWarn=trackingLabel==='below horizon';
+    const cardClass=(clearanceBad||pointingBad||trackingBad)?'bad':(trackingWarn?'warn':'safe');
+    if(cardClass==='bad') dashboardBad++;
+    else if(cardClass==='warn') dashboardWarn++;
+    if(!clearanceBad) clearanceSafeCount++;
+    dashboardCards.push('<div class="scopeStatusCard '+cardClass+'"><span class="statusPill">'+(clearanceBad?'CHECK':trackingWarn?'NOTICE':'CLEAR')+'</span><div class="scopeName" style="color:'+s.color+'">'+escapeHtml(s.name)+'</div><div><b>Pier:</b> '+s.pierH.toFixed(2)+' m</div><div><b>Clearance:</b> '+margins.min.toFixed(3)+' m wall margin</div>'+(s.mount?'<div><b>Pointing:</b> Alt '+altTxt+', '+(s.sideOfPier||'east')+' pier side</div><div><b>Status:</b> '+trackingLabel+'</div>':'<div><b>Status:</b> fixed compact setup</div>')+'</div>');
+
+    tableRows.push({
+      name:s.name,
+      radius:sweep.r,
+      ra:s.mount?sweep.ra:null,
+      dec:s.mount?sweep.dec:null,
+      point:sweep.point,
+      state:stateText,
+      wallMargin:margins.min
+    });
+    altAzRows.push({
+      name:s.name,
+      targetRa:s.mount?s.targetRaH:null,
+      targetDec:s.mount?s.targetDec:null,
+      ra:s.mount?s.ra:null,
+      dec:s.mount?s.dec:null,
+      flips:s.mount?(s.flipCount||0):null,
+      ha:s.mount?(s._p3d? s._p3d.hourAngleDeg : hourAngleDegForTarget(s.targetRaH??18)):null,
+      sop:s.mount?(s.sideOfPier||'east'):null,
+      mode:s.mount?(s.controlMode||'sky'):null,
+      tracking:s.mount?(s.trackingStatus||'tracking'):null,
+      error:pointingError,
+      alt:altTxt,
+      az:azTxt
+    });
+    let state = stateText==='inside + safe' ? '<span class="ok">'+stateText+'</span>' : '<span class="bad">'+stateText+'</span>';
+    rows.push('<b>'+escapeHtml(s.name)+'</b>: sphere wall margin '+margins.min.toFixed(3)+' m; current footprint x '+bb.minx.toFixed(2)+'..'+bb.maxx.toFixed(2)+', y '+bb.miny.toFixed(2)+'..'+bb.maxy.toFixed(2)+' '+state);
+  }
+  for(let i=0;i<boxes.length;i++)for(let j=i+1;j<boxes.length;j++){
+    if(boxesOverlap(boxes[i].bb,boxes[j].bb)) rows.push('<span class="bad">XY overlap:</span> '+escapeHtml(boxes[i].name)+' / '+escapeHtml(boxes[j].name));
+  }
+  if(safety.pairs.length){
+    for(const p of safety.pairs){
+      rows.push('<span class="bad">Sphere clearance unsafe:</span> '+escapeHtml(p.a)+' / '+escapeHtml(p.b)+' edge gap '+p.edge.toFixed(3)+' m < '+G.safeGap.toFixed(2)+' m');
+    }
+  }
+  rows.push('<span class="warn">Mount rule:</span> orange cube follows RA only; green cylinder and cylindrical OTA spin together in DEC; OTA bottom is attached to green top flat face.');
+  const auditOK=coordinateAuditResult.failures.length===0;
+  const placementAuditOK=placementAuditResult.failures.length===0;
+  if(!auditOK) dashboardBad++;
+  if(!placementAuditOK) dashboardBad++;
+  if(placementOptimisationStatus?.kind==='failure') dashboardBad++;
+  const overallClass=dashboardBad?'bad':dashboardWarn?'warn':'safe';
+  const overallTitle=placementOptimisationStatus?.kind==='failure'?'NO FEASIBLE LAYOUT':dashboardBad?'ATTENTION REQUIRED':records.length===0?'NO TELESCOPES INSTALLED':dashboardWarn?'CLEARANCE SAFE — TRACKING NOTICE':'ALL CLEAR';
+  const dashboard=document.getElementById('statusDashboard');
+  if(dashboard){
+    const optimiserNotice=placementOptimisationStatus?'<div class="optimizerNotice '+(placementOptimisationStatus.kind==='failure'?'bad':placementOptimisationStatus.kind==='success'?'safe':'info')+'">'+escapeHtml(placementOptimisationStatus.message)+(Number.isFinite(placementOptimisationStatus.elapsedMs)?' Solver time: '+placementOptimisationStatus.elapsedMs.toFixed(0)+' ms.':'')+'</div>':'';
+    const undoButton=lastPlacementSnapshot?'<button class="btn" onclick="undoOptimisedPlacement()">Undo optimisation</button>':'';
+    dashboard.className='statusStrip '+overallClass;
+    dashboard.innerHTML='<div class="statusHeadline"><span class="statusDot"></span><strong>'+overallTitle+'</strong><span class="summary">'+clearanceSafeCount+'/'+records.length+' telescope instances have safe wall/pair clearance · audits: coordinates '+coordinateAuditResult.passed+'/'+coordinateAuditResult.total+', placement '+placementAuditResult.passed+'/'+placementAuditResult.total+'</span><button class="btn" style="margin-left:auto" onclick="optimiseTelescopePlacement()">Optimise placement</button>'+undoButton+'</div>'+optimiserNotice+'<div class="scopeStatusGrid">'+dashboardCards.join('')+'</div>';
+  }
+  rows.push((auditOK?'<span class="ok">':'<span class="bad">')+'Coordinate self-audit: '+coordinateAuditResult.passed+'/'+coordinateAuditResult.total+' passed; maximum optical-vector error '+(Number.isFinite(coordinateAuditResult.maxPointingErrorDeg)?coordinateAuditResult.maxPointingErrorDeg.toExponential(2):'—')+'°.</span>');
+  rows.push((placementAuditOK?'<span class="ok">':'<span class="bad">')+'Placement self-audit: '+placementAuditResult.passed+'/'+placementAuditResult.total+' passed.</span>');
+  const pierSummary=scopes.length?scopes.map(s=>s.name+' '+s.pierH.toFixed(2)+' m').join(', '):'none';
+  rows.push('Per-instance pier heights: '+pierSummary+'; wall height: '+G.wallH.toFixed(2)+' m; mechanical RA-axis travel ±'+flipBoundary().toFixed(0)+'° (90° flips at the meridian; larger values permit tracking past it); random targets are constrained to Alt > 5°; polar arrows '+(G.showPolar?'shown':'hidden')+'; spheres '+(G.showSpheres?'shown, green=safe red=unsafe/outside':'hidden')+'; room '+roomW().toFixed(2)+' m × '+roomH().toFixed(2)+' m; signed HA is west-positive; local sidereal time '+(G.siderealHours||0).toFixed(2)+' h; time drive '+(G.timeDriveOn?'on':'off')+', animation '+(G.isAnimating?'playing':'paused')+', t='+G.timeHours.toFixed(2)+' hr; below-horizon targets are retained and flagged.');
+  document.getElementById('status').innerHTML=rows.join('<br>');
+  renderSweepTable(tableRows);
+  renderAltAzTable(altAzRows);
+}
+
+function renderSweepTable(tableRows){
+  const wrap=document.getElementById('sweepTableWrap');
+  if(!wrap) return;
+  let html='<div style="font-weight:700;font-size:12px;margin:0 0 3px 0;">Swept sphere radius from pier top</div>';
+  html+='<table class="dataTable"><thead><tr><th>Setup</th><th>Sphere radius</th><th>RA at max</th><th>DEC at max</th><th>Furthest X</th><th>Y</th><th>Z</th><th>Wall margin</th><th>Status</th></tr></thead><tbody>';
+  for(const r of tableRows){
+    const p=r.point||[NaN,NaN,NaN];
+    html+='<tr>'+
+      '<td>'+escapeHtml(r.name)+'</td>'+
+      '<td><b>'+r.radius.toFixed(3)+' m</b></td>'+
+      '<td>'+(r.ra===null?'—':r.ra.toFixed(0)+'°')+'</td>'+
+      '<td>'+(r.dec===null?'—':r.dec.toFixed(0)+'°')+'</td>'+
+      '<td>'+p[0].toFixed(3)+'</td>'+
+      '<td>'+p[1].toFixed(3)+'</td>'+
+      '<td>'+p[2].toFixed(3)+'</td>'+
+      '<td>'+r.wallMargin.toFixed(3)+' m</td>'+
+      '<td class="'+(r.state==='inside + safe'?'ok':'bad')+'">'+r.state+'</td>'+
+    '</tr>';
+  }
+  html+='</tbody></table>';
+  html+='<div class="small" style="margin-top:4px;">Sampling step: '+G.sweepStep+'°. Mechanical RA axis sampled across ±'+flipBoundary().toFixed(0)+'°. Safety gap: '+G.safeGap.toFixed(2)+' m. Inside/outside uses sphere edge vs room walls.</div>';
+  wrap.innerHTML=html;
+}
+function renderAltAzTable(rows){
+  const wrap=document.getElementById('altAzTableWrap');
+  if(!wrap) return;
+  let html='<div style="font-weight:700;font-size:12px;margin:0 0 3px 0;">Current telescope pointing</div>';
+  html+='<div class="auditSubhead">Celestial coordinates and optical-vector check</div><div class="auditTableGroup"><table class="dataTable"><thead><tr><th>Setup</th><th>Target RA</th><th>Target DEC</th><th>HA (W+)</th><th>Alt</th><th>Az</th><th>Status</th><th>Error</th></tr></thead><tbody>';
+  for(const r of rows){
+    html+='<tr>'+
+      '<td>'+escapeHtml(r.name)+'</td>'+
+      '<td>'+(r.targetRa===null?'—':r.targetRa.toFixed(2)+' h')+'</td>'+
+      '<td>'+(r.targetDec===null?'—':r.targetDec.toFixed(1)+'°')+'</td>'+
+      '<td>'+(r.ha===null?'—':(r.ha/15).toFixed(2)+' h')+'</td>'+
+      '<td>'+r.alt+'</td>'+
+      '<td>'+r.az+'</td>'+
+      '<td>'+(r.tracking||'—')+'</td>'+
+      '<td class="'+(r.error!==null&&r.error<.001?'ok':'bad')+'">'+(r.error===null?'—':r.error.toExponential(1)+'°')+'</td>'+
+    '</tr>';
+  }
+  html+='</tbody></table></div>';
+  html+='<div class="auditSubhead">Mechanical mount state</div><div class="auditTableGroup"><table class="dataTable"><thead><tr><th>Setup</th><th>Pier side</th><th>RA axis</th><th>DEC axis</th><th>Side changes</th><th>Control mode</th></tr></thead><tbody>';
+  for(const r of rows){
+    html+='<tr><td>'+escapeHtml(r.name)+'</td><td>'+(r.sop||'—')+'</td><td>'+(r.ra===null?'—':r.ra.toFixed(0)+'°')+'</td><td>'+(r.dec===null?'—':r.dec.toFixed(0)+'°')+'</td><td>'+(r.flips===null?'—':r.flips)+'</td><td>'+(r.mode||'—')+'</td></tr>';
+  }
+  html+='</tbody></table></div>';
+  wrap.innerHTML=html;
+}
+
+function scopeGroupQuantity(typeId){
+  return scopes.filter(s=>s.typeId===typeId).length;
+}
+
+function scopeQuantityLimit(typeId){
+  const otherInstances=scopes.length-scopeGroupQuantity(typeId);
+  return Math.max(0,Math.min(MAX_SCOPE_QUANTITY,MAX_TOTAL_SCOPE_INSTANCES-otherInstances));
+}
+
+function escapeHtml(value){
+  return String(value??'').replace(/[&<>"']/g,ch=>({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+  })[ch]);
+}
+
+function telescopeType(typeId){return telescopeTypes.find(model=>model.typeId===typeId)}
+function telescopeTypeIsComplete(model){
+  return !!model&&model.baseName.trim().length>0&&Number.isFinite(model.L)&&model.L>=.05&&Number.isFinite(model.D)&&model.D>=.04;
+}
+
+function addTelescopeType(){
+  const index=telescopeTypes.length;
+  telescopeTypes.push({
+    typeId:'custom_'+nextTelescopeTypeId++,baseName:'',L:null,D:null,
+    color:TELESCOPE_COLORS[index%TELESCOPE_COLORS.length],mount:true
+  });
+  placementOptimisationStatus={kind:'info',message:'Enter the telescope name, tube length, and tube diameter, then set its quantity.'};
+  buildControls();
+  render();
+}
+
+function removeTelescopeType(typeId){
+  const model=telescopeType(typeId);
+  if(!model) return false;
+  const count=scopeGroupQuantity(typeId);
+  if(count&&!window.confirm('Remove this telescope type and all '+count+' installed copies?')) return false;
+  telescopeTypes=telescopeTypes.filter(item=>item.typeId!==typeId);
+  scopes=scopes.filter(scope=>scope.typeId!==typeId);
+  scopeTemplates.delete(typeId);
+  invalidatePlacementOptimisation();
+  placementOptimisationStatus={kind:'info',message:'Telescope type removed.'};
+  buildControls();
+  render();
+  return true;
+}
+
+function setTelescopeType(typeId,key,value){
+  const model=telescopeType(typeId);
+  if(!model) return false;
+  if(key==='baseName'){
+    model.baseName=String(value).trim();
+  }else if(key==='L'||key==='D'){
+    const parsed=parseFloat(value);
+    const minimum=key==='L'?.05:.04;
+    const maximum=key==='L'?3:1.2;
+    if(!Number.isFinite(parsed)||parsed<minimum||parsed>maximum){
+      placementOptimisationStatus={kind:'failure',message:(key==='L'?'Tube length':'Tube diameter')+' must be between '+minimum+' m and '+maximum+' m.'};
+      buildControls();
+      render();
+      return false;
+    }
+    model[key]=parsed;
+  }
+  for(const scope of scopes){
+    if(scope.typeId!==typeId) continue;
+    scope.baseName=model.baseName||'Unnamed telescope';
+    scope.L=model.L;
+    scope.D=model.D;
+  }
+  const template=scopeTemplates.get(typeId);
+  if(template){
+    template.baseName=model.baseName||'Unnamed telescope';
+    template.L=model.L;
+    template.D=model.D;
+  }
+  refreshScopeGroupIdentity(typeId);
+  invalidatePlacementOptimisation();
+  buildControls();
+  render();
+  return true;
+}
+
+function newScopeTemplateForType(model){
+  return {
+    typeId:model.typeId,baseName:model.baseName,name:model.baseName,copyIndex:1,quantity:1,
+    x:roomW()/2,y:roomH()/2,pierH:1.02,ra:0,dec:30,targetRaH:18,targetDec:-30,
+    sideOfPier:'east',flipCount:0,controlMode:'sky',trackingStatus:'tracking',
+    L:model.L,D:model.D,color:model.color,mount:true
+  };
+}
+
+function rememberScopeTemplate(scope){
+  /* Preserve placement, pointing, and pier height while a type has zero copies. */
+  if(!scope) return;
+  const template=JSON.parse(JSON.stringify(scope));
+  template.copyIndex=1;template.quantity=1;template.name=template.baseName;
+  delete template._p3d;
+  scopeTemplates.set(template.typeId,template);
+}
+
+function refreshScopeGroupIdentity(typeId){
+  /* Keep labels unique while all copies retain one shared custom type name. */
+  const model=telescopeType(typeId);
+  const group=scopes.filter(s=>s.typeId===typeId).sort((a,b)=>a.copyIndex-b.copyIndex);
+  const quantity=group.length;
+  for(const s of group){
+    s.baseName=model?.baseName||s.baseName||'Unnamed telescope';
+    s.quantity=quantity;
+    s.name=quantity>1?s.baseName+' #'+s.copyIndex:s.baseName;
+  }
+}
+
+function sortScopeInstances(){
+  const typeOrder=new Map(telescopeTypes.map((s,i)=>[s.typeId,i]));
+  scopes.sort((a,b)=>(typeOrder.get(a.typeId)-typeOrder.get(b.typeId))||(a.copyIndex-b.copyIndex));
+}
+
+function initialCopyPosition(source,copyIndex){
+  /*
+   * Seed new copies at deterministic low-discrepancy locations in room X/Y.
+   * These are only starting coordinates; the safety dashboard remains
+   * authoritative until the user runs the placement optimiser.
+   */
+  const typeOffset=Math.max(0,telescopeTypes.findIndex(s=>s.typeId===source.typeId));
+  const seed=copyIndex+typeOffset*MAX_SCOPE_QUANTITY;
+  return {
+    x:roomW()*(.12+.76*halton(seed,2)),
+    y:roomH()*(.12+.76*halton(seed,3))
+  };
+}
+
+function setScopeQuantity(typeId,value){
+  const model=telescopeType(typeId);
+  if(!model) return false;
+  const group=scopes.filter(s=>s.typeId===typeId).sort((a,b)=>a.copyIndex-b.copyIndex);
+  const primary=group[0]||scopeTemplates.get(typeId)||newScopeTemplateForType(model);
+  if(group[0]) rememberScopeTemplate(group[0]);
+  const parsed=parseFloat(value);
+  const requested=Math.max(0,Math.round(Number.isFinite(parsed)?parsed:0));
+  if(requested>0&&!telescopeTypeIsComplete(model)){
+    placementOptimisationStatus={kind:'failure',message:'Enter a telescope name, tube length, and tube diameter before adding copies.'};
+    buildControls();
+    render();
+    return false;
+  }
+  const limit=scopeQuantityLimit(typeId);
+  const desired=Math.min(limit,requested);
+
+  if(desired>group.length){
+    for(let copyIndex=group.length+1;copyIndex<=desired;copyIndex++){
+      const copy=JSON.parse(JSON.stringify(primary));
+      const start=group.length===0&&copyIndex===1
+        ?{x:Math.max(0,Math.min(roomW(),primary.x)),y:Math.max(0,Math.min(roomH(),primary.y))}
+        :initialCopyPosition(primary,copyIndex);
+      copy.copyIndex=copyIndex;
+      copy.x=start.x;copy.y=start.y;
+      copy.flipCount=0;
+      copy.baseName=model.baseName;copy.L=model.L;copy.D=model.D;copy.color=model.color;
+      delete copy._p3d;
+      scopes.push(copy);
+    }
+  }else if(desired<group.length){
+    scopes=scopes.filter(s=>s.typeId!==typeId||s.copyIndex<=desired);
+  }
+
+  sortScopeInstances();
+  refreshScopeGroupIdentity(typeId);
+  invalidatePlacementOptimisation();
+  placementOptimisationStatus={
+    kind:'info',
+    message:model.baseName+' quantity set to '+desired+(requested>limit?' (the visualisation supports at most '+MAX_TOTAL_SCOPE_INSTANCES+' telescope instances in total).':'.')+(desired===0?' This type is excluded from room and safety calculations.':' Adjust each copy\'s pier height and position, then check or optimise the layout.')
+  };
+  buildControls();
+  render();
+  return true;
+}
+
+function buildControls(){
+  const c=document.getElementById('scopeControls'); c.innerHTML='';
+  if(telescopeTypes.length===0){
+    c.innerHTML='<div class="emptyState"><b>No telescope types defined.</b><div class="small">Use “Add telescope type” to enter your first telescope and create one or more copies.</div></div>';
+    return;
+  }
+  const b=flipBoundary();
+  telescopeTypes.forEach((model,typeIndex)=>{
+    const group=scopes.filter(s=>s.typeId===model.typeId).sort((a,b)=>a.copyIndex-b.copyIndex);
+    const quantity=group.length;
+    const quantityControl=`<label class="compactField quantityField">Quantity <span><input id="q_${model.typeId}" type="number" min="0" max="${scopeQuantityLimit(model.typeId)}" step="1" value="${quantity}" onchange="setScopeQuantity('${model.typeId}',this.value)"> units</span></label>`;
+    const valid=telescopeTypeIsComplete(model);
+    c.innerHTML+=`<div class="scopeBox typeDefinition">
+      <div class="scopeHeader"><h3 style="color:${model.color}">Telescope type ${typeIndex+1}</h3><button class="btn deleteBtn" onclick="removeTelescopeType('${model.typeId}')">Delete type</button></div>
+      <label class="typeNameField">Name <input id="type_${model.typeId}_name" type="text" maxlength="60" placeholder="Enter telescope name" value="${escapeHtml(model.baseName)}" onchange="setTelescopeType('${model.typeId}','baseName',this.value)"></label>
+      <div class="compactGrid">
+        <label class="compactField">Tube length <span><input id="type_${model.typeId}_L" type="number" min="0.05" max="3" step="0.01" placeholder="metres" value="${Number.isFinite(model.L)?model.L:''}" onchange="setTelescopeType('${model.typeId}','L',this.value)"> m</span></label>
+        <label class="compactField">Tube diameter <span><input id="type_${model.typeId}_D" type="number" min="0.04" max="1.2" step="0.005" placeholder="metres" value="${Number.isFinite(model.D)?model.D:''}" onchange="setTelescopeType('${model.typeId}','D',this.value)"> m</span></label>
+        ${quantityControl}
+      </div>
+      <div class="small boundHint">${valid?(quantity?'Shared tube dimensions apply to every copy; pier height and position remain independent.':'Ready — set a positive quantity to install copies.'):'Complete all three fields before setting a positive quantity.'}</div>
+    </div>`;
+    for(const s of group){
+    const i=scopes.indexOf(s),isPrimary=s.copyIndex===1;
+    const skyControls=s.mount?`
+      <label class="compactField">Target RA <span><input id="s_${i}_targetRaH" type="number" min="0" max="24" step="0.05" value="${(s.targetRaH??18).toFixed(2)}" onchange="setS(${i},'targetRaH',this.value)"> h</span></label>
+      <label class="compactField">Target DEC <span><input id="s_${i}_targetDec" type="number" min="-90" max="90" step="1" value="${(s.targetDec??0).toFixed(0)}" onchange="setS(${i},'targetDec',this.value)"> °</span></label>`:'';
+    const mountAdvanced=s.mount?`
+      <label class="compactField">RA-axis angle <span><input id="s_${i}_ra" type="number" min="${-b}" max="${b}" step="1" value="${s.ra.toFixed(0)}" onchange="setS(${i},'ra',this.value)"> °</span></label>
+      <label class="compactField">DEC-axis angle <span><input id="s_${i}_dec" type="number" min="-180" max="180" step="1" value="${s.dec.toFixed(0)}" onchange="setS(${i},'dec',this.value)"> °</span></label>`:'';
+    const modeLine=s.mount?`<div class="small">Control mode: <b id="s_${i}_mode">${s.controlMode||'sky'}</b>; pier side: <b id="s_${i}_pier">${s.sideOfPier||'east'}</b>. Editing a celestial target selects sky tracking; editing an axis selects manual mode.</div>`:'';
+    const body=`
+      <div class="compactGrid">
+        <label class="compactField">Position X <span><input id="s_${i}_x" type="number" min="0" max="${roomW()}" step="0.01" value="${s.x.toFixed(2)}" onchange="setS(${i},'x',this.value)"> m</span></label>
+        <label class="compactField">Position Y <span><input id="s_${i}_y" type="number" min="0" max="${roomH()}" step="0.01" value="${s.y.toFixed(2)}" onchange="setS(${i},'y',this.value)"> m</span></label>
+        <label class="compactField"><b>Pier height</b> <span><input id="s_${i}_pierH" type="number" min="0.20" max="3.50" step="0.01" value="${s.pierH.toFixed(2)}" onchange="setS(${i},'pierH',this.value)"> m</span></label>
+        ${skyControls}
+      </div>
+      ${modeLine}
+      <div class="small boundHint" id="s_${i}_bounds">Allowed centre: X 0–${roomW().toFixed(2)} m; Y 0–${roomH().toFixed(2)} m.</div>
+      <details class="scopeAdvanced"><summary>Advanced mount angles</summary><div class="compactGrid">
+        ${mountAdvanced}
+      </div></details>
+    `;
+    c.innerHTML+=`<details class="scopeBox scopeCopy" ${isPrimary?'open':''}><summary style="color:${s.color}">${escapeHtml(s.name)} — pier, placement, and pointing</summary><div class="scopeCopyBody">${body}</div></details>`;
+    }
+  });
+}
+
+function invalidatePlacementOptimisation(){
+  placementOptimisationStatus=null;
+  lastPlacementSnapshot=null;
+}
+
+function optimiseTelescopePlacement(){
+  const started=performance.now();
+  const records=sweepRecords();
+  const radii=records.map(r=>r.radius);
+  const original=scopes.map(s=>({x:s.x,y:s.y}));
+  const result=solveTelescopePlacement(roomW(),roomH(),radii,G.safeGap,original);
+
+  if(scopes.length===0){
+    lastPlacementSnapshot=null;
+    placementOptimisationStatus={kind:'info',message:'No telescopes are installed, so there is no placement to optimise.',elapsedMs:performance.now()-started,result};
+    render();
+    return result;
+  }
+
+  if(!result.feasible){
+    const shortfall=Math.max(0,result.metrics.maxViolation||0);
+    placementOptimisationStatus={
+      kind:'failure',
+      message:'No feasible layout found. '+result.reason+(shortfall>0?' Best remaining clearance shortfall: '+shortfall.toFixed(3)+' m.':''),
+      elapsedMs:performance.now()-started,
+      result
+    };
+    render();
+    return result;
+  }
+
+  result.positions.forEach((p,i)=>{scopes[i].x=p.x;scopes[i].y=p.y});
+  const verifiedRecords=sweepRecords();
+  const wallSafe=verifiedRecords.every(sphereInsideRoom);
+  const pairSafety=sphereSafety(verifiedRecords);
+  if(!wallSafe||pairSafety.pairs.length){
+    original.forEach((p,i)=>{scopes[i].x=p.x;scopes[i].y=p.y});
+    placementOptimisationStatus={kind:'failure',message:'Optimiser result failed the independent safety verification; the previous layout was preserved.',elapsedMs:performance.now()-started,result};
+    render();
+    return {...result,feasible:false,reason:'Independent safety verification failed.'};
+  }
+
+  lastPlacementSnapshot=original;
+  const verifiedMetrics=placementClearanceMetrics(
+    scopes.map(s=>({x:s.x,y:s.y})),
+    verifiedRecords.map(r=>r.radius),roomW(),roomH(),G.safeGap,original
+  );
+  placementOptimisationStatus={
+    kind:'success',
+    message:'Placement optimised: minimum wall margin '+verifiedMetrics.minWallMargin.toFixed(3)+' m; minimum pair clearance '+verifiedMetrics.minPairClearance.toFixed(3)+' m (required '+G.safeGap.toFixed(3)+' m).',
+    elapsedMs:performance.now()-started,
+    metrics:verifiedMetrics,
+    result
+  };
+  render();
+  return {...result,metrics:verifiedMetrics};
+}
+
+function undoOptimisedPlacement(){
+  if(!lastPlacementSnapshot) return false;
+  lastPlacementSnapshot.forEach((p,i)=>{scopes[i].x=p.x;scopes[i].y=p.y});
+  lastPlacementSnapshot=null;
+  placementOptimisationStatus={kind:'info',message:'The previous telescope placement has been restored.'};
+  render();
+  return true;
+}
+
+
+let panelResize=null;
+const layoutState={toolW:470,mainW:630,mainH:430,projW:380};
+function clamp(v,min,max){return Math.max(min,Math.min(max,parseFloat(v)||min));}
+function syncLayoutInputs(){
+  const pairs=[
+    ['layoutToolW','toolW'],['layoutMainW','mainW'],['layoutProjW','projW'],
+    ['g_mainW','mainW'],['g_mainH','mainH'],['g_projW','projW']
+  ];
+  for(const [id,key] of pairs){
+    const n=document.getElementById(id);
+    const r=document.getElementById(id+'_r');
+    if(n) n.value=layoutState[key];
+    if(r) r.value=layoutState[key];
+  }
+}
+function applyWorkspaceLayout(){
+  const wrap=document.getElementById('mainWrap');
+  if(!wrap) return;
+  const canvasW=layoutState.mainW+layoutState.projW+260;
+  wrap.style.setProperty('--toolW',layoutState.toolW+'px');
+  wrap.style.setProperty('--canvasW',canvasW+'px');
+  G.mainW=layoutState.mainW;
+  G.mainH=layoutState.mainH;
+  G.projW=layoutState.projW;
+  syncLayoutInputs();
+}
+function setLayoutColumn(k,v){
+  if(k==='toolW') layoutState.toolW=clamp(v,260,900);
+  if(k==='mainW') layoutState.mainW=clamp(v,520,950);
+  if(k==='mainH') layoutState.mainH=clamp(v,360,650);
+  if(k==='projW') layoutState.projW=clamp(v,180,430);
+  applyWorkspaceLayout();
+  render();
+}
+function toggleLeftPanel(){
+  const wrap=document.getElementById('mainWrap');
+  const btn=document.querySelector('.togglePanelBtn');
+  wrap.classList.toggle('leftHidden');
+  if(btn) btn.textContent=wrap.classList.contains('leftHidden')?'Show controls':'Hide controls';
+}
+function initLeftPanelResize(){
+  const handle=document.getElementById('resizeHandle');
+  if(!handle) return;
+  handle.addEventListener('pointerdown',ev=>{
+    panelResize={id:ev.pointerId,x:ev.clientX,w:layoutState.toolW};
+    handle.setPointerCapture(ev.pointerId);
+    ev.preventDefault();
+    ev.stopPropagation();
+  });
+  handle.addEventListener('pointermove',ev=>{
+    if(!panelResize||panelResize.id!==ev.pointerId) return;
+    setLayoutColumn('toolW',panelResize.w + ev.clientX - panelResize.x);
+    ev.preventDefault();
+    ev.stopPropagation();
+  });
+  function end(ev){
+    if(panelResize&&panelResize.id===ev.pointerId){
+      panelResize=null;
+      try{handle.releasePointerCapture(ev.pointerId)}catch(e){}
+      ev.preventDefault();
+      ev.stopPropagation();
+    }
+  }
+  handle.addEventListener('pointerup',end);
+  handle.addEventListener('pointercancel',end);
+}
+
+let drag3D=null;
+function add3DDragLayer(svg,x,y,w,h){
+  const r=el('rect',{
+    x,y,width:w,height:h,
+    fill:'rgba(255,255,255,0)',
+    stroke:'none',
+    class:'dragTarget3D'
+  });
+  r.style.pointerEvents='all';
+  r.addEventListener('pointerdown',ev=>{
+    drag3D={id:ev.pointerId,x:ev.clientX,y:ev.clientY,yaw:G.viewYaw,pitch:G.viewPitch};
+    r.setPointerCapture(ev.pointerId);
+    r.classList.add('dragging');
+    ev.preventDefault();
+    ev.stopPropagation();
+  });
+  r.addEventListener('pointermove',ev=>{
+    if(!drag3D || drag3D.id!==ev.pointerId) return;
+    const dx=ev.clientX-drag3D.x;
+    const dy=ev.clientY-drag3D.y;
+    // Horizontal drag direction is intentionally reversed, per earlier request.
+    G.viewYaw=drag3D.yaw-dx*.45;
+    G.viewPitch=Math.max(-80,Math.min(-5,drag3D.pitch+dy*.35));
+    render();
+    ev.preventDefault();
+    ev.stopPropagation();
+  });
+  function end(ev){
+    if(drag3D && drag3D.id===ev.pointerId){
+      drag3D=null;
+      try{r.releasePointerCapture(ev.pointerId)}catch(e){}
+      r.classList.remove('dragging');
+      ev.preventDefault();
+      ev.stopPropagation();
+    }
+  }
+  r.addEventListener('pointerup',end);
+  r.addEventListener('pointercancel',end);
+  svg.appendChild(r);
+}
+
+let projResize=null;
+function initProjectionResize(){
+  const h=document.getElementById('projResizeHandle');
+  if(!h) return;
+  h.addEventListener('pointerdown',ev=>{
+    projResize={id:ev.pointerId,x:ev.clientX,mainW:layoutState.mainW,projW:layoutState.projW};
+    h.setPointerCapture(ev.pointerId);
+    ev.preventDefault();
+  });
+  h.addEventListener('pointermove',ev=>{
+    if(!projResize||projResize.id!==ev.pointerId) return;
+    const dx=ev.clientX-projResize.x;
+    // Dragging the handle right gives the main view more width and the projected
+    // views less width. Dragging left reverses that.
+    layoutState.mainW=Math.max(520,Math.min(950,projResize.mainW+dx));
+    layoutState.projW=Math.max(180,Math.min(430,projResize.projW-dx));
+    applyWorkspaceLayout();
+    render();
+    ev.preventDefault();
+  });
+  function end(ev){
+    if(projResize&&projResize.id===ev.pointerId){
+      projResize=null;
+      try{h.releasePointerCapture(ev.pointerId)}catch(e){}
+    }
+  }
+  h.addEventListener('pointerup',end);
+  h.addEventListener('pointercancel',end);
+}
+
+
+function updateTableVisibility(){
+  // Tables are now controlled by native <details> dropdowns.
+  // Keep this function so older render/sync calls remain safe.
+  const panel=document.getElementById('tablesPanel');
+  if(panel) panel.style.display='block';
+}
+
+function positionFloatingPanels(mainX,mainY,mainW,mainH){
+  const bar=document.getElementById('viewActionBar');
+  const tables=document.getElementById('tablesPanel');
+  const left=mainX+10;
+  const width=Math.max(480,mainW-20);
+  let barTop=mainY+mainH+11;
+  let tableTop=mainY+mainH+198;
+  if(bar){
+    bar.style.left=left+'px';
+    bar.style.top=barTop+'px';
+    bar.style.width=width+'px';
+  }
+  if(tables){
+    tables.style.left=left+'px';
+    tables.style.top=tableTop+'px';
+    tables.style.width=width+'px';
+    tables.style.maxHeight='360px';
+    tables.style.overflow='auto';
+  }
+}
+
+function render(){
+  // Advance tracking exactly once. All subsequent model and drawing functions
+  // are read-only consumers of the same state snapshot.
+  applyTimeDrive();
+  const svg=document.getElementById('svg');svg.innerHTML='';
+  const mainX=20, mainY=62, mainW=G.mainW, mainH=G.mainH;
+  const gap=30;
+  const projX=mainX+mainW+gap;
+  const projW=G.projW;
+  const projHandle=document.getElementById('projResizeHandle');
+  if(projHandle){
+    projHandle.style.left=(mainX+mainW+7)+'px';
+    projHandle.style.top=mainY+'px';
+    projHandle.style.height=mainH+'px';
+  }
+  const topH=Math.max(175, Math.min(250, Math.round(mainH*.54)));
+  const elevH=Math.max(155, Math.min(225, Math.round(mainH*.48)));
+  const topY=62, southY=topY+topH+42, westY=southY+elevH+42;
+
+  panel(svg,'3d',mainX,mainY,mainW,mainH,'MAIN 3D MECHANICAL VIEW');
+  panel(svg,'top',projX,topY,projW,topH,'TOP VIEW');
+  panel(svg,'south',projX,southY,projW,elevH,'SOUTH ELEVATION');
+  panel(svg,'west',projX,westY,projW,elevH,'WEST ELEVATION');
+  add3DDragLayer(svg,mainX,mainY,mainW,mainH);
+  positionFloatingPanels(mainX,mainY,mainW,mainH);
+  updateStatus();
+  syncInputs();
+}
+function syncInputs(){
+  const cb=document.getElementById('showPolar');
+  if(cb) cb.checked=!!G.showPolar;
+  const sb=document.getElementById('showSpheres');
+  if(sb) sb.checked=!!G.showSpheres;
+  updateTableVisibility();
+  const tb=document.getElementById('timeDriveOn');
+  if(tb) tb.checked=!!G.timeDriveOn;
+  const ab=document.getElementById('animBtn');
+  if(ab) ab.textContent=G.isAnimating?'Pause animation':'Play animation';
+  const undo=document.getElementById('undoPlacementBtn');
+  if(undo) undo.disabled=!lastPlacementSnapshot;
+  for(const k in G){
+    if(k==='showPolar'||k==='showSpheres'||k==='timeDriveOn'||k==='isAnimating'||k==='lastAnimTs'||k==='timeStartSiderealHours') continue;
+    const n=document.getElementById('g_'+k),r=document.getElementById('g_'+k+'_r');
+    if(n&&document.activeElement!==n)n.value=(Math.abs(G[k])<10&&k!=='lat'&&k!=='decClock'&&k!=='otaClock'&&k!=='viewYaw'&&k!=='viewPitch')?Number(G[k]).toFixed(3):G[k];
+    if(r&&document.activeElement!==r)r.value=G[k];
+  }
+  scopes.forEach((s,i)=>{
+    const b=flipBoundary();
+    if(s.copyIndex===1){
+      const quantity=document.getElementById(`q_${s.typeId}`);
+      if(quantity){
+        quantity.max=scopeQuantityLimit(s.typeId);
+        if(document.activeElement!==quantity) quantity.value=scopeGroupQuantity(s.typeId);
+      }
+    }
+    const raRange=document.getElementById(`s_${i}_ra_r`);
+    if(raRange){raRange.min=-b;raRange.max=b;}
+    const xInput=document.getElementById(`s_${i}_x`),yInput=document.getElementById(`s_${i}_y`),bounds=document.getElementById(`s_${i}_bounds`);
+    if(xInput){xInput.min=0;xInput.max=roomW();}
+    if(yInput){yInput.min=0;yInput.max=roomH();}
+    if(bounds) bounds.textContent=`Allowed centre: X 0–${roomW().toFixed(2)} m; Y 0–${roomH().toFixed(2)} m.`;
+    const mode=document.getElementById(`s_${i}_mode`),pier=document.getElementById(`s_${i}_pier`);
+    if(mode) mode.textContent=s.controlMode||'sky';
+    if(pier) pier.textContent=s.sideOfPier||'east';
+    for(const k of ['x','y','pierH','ra','dec','targetRaH','targetDec']){
+      const n=document.getElementById(`s_${i}_${k}`),r=document.getElementById(`s_${i}_${k}_r`);
+      const raw=(k==='targetRaH')?(s[k]??18):((k==='targetDec')?(s[k]??s.dec):s[k]);
+      let val=(k==='x'||k==='y'||k==='pierH'||k==='targetRaH')?raw.toFixed(2):raw.toFixed(0);
+      if(n&&document.activeElement!==n)n.value=val;
+      if(r&&document.activeElement!==r)r.value=raw;
+    }
+  });
+}
+function clampScopePositionsToRoom(){
+  for(const s of scopes){
+    s.x=Math.max(0,Math.min(roomW(),s.x));
+    s.y=Math.max(0,Math.min(roomH(),s.y));
+  }
+}
+function setG(k,v){
+  if(k==='mainW'||k==='mainH'||k==='projW'){setLayoutColumn(k,v);return;}
+  if(['roomW','roomH','safeGap','cube','cylLen','cylD','sweepStep','flipBoundary'].includes(k)) invalidatePlacementOptimisation();
+  G[k]=parseFloat(v);
+  if(k==='siderealHours'){
+    G[k]=normHours(G[k]);
+    if(G.timeDriveOn) G.timeStartSiderealHours=normHours(G[k]-G.timeHours*(G.raRate||15)/15);
+    else G.timeStartSiderealHours=G[k];
+    applyTimeDrive();
+  }
+  if(k==='raRate' && G.timeDriveOn){
+    G.timeStartSiderealHours=normHours((G.siderealHours||0)-G.timeHours*(G.raRate||15)/15);
+  }
+  if(k==='flipBoundary'){
+    G[k]=flipBoundary();
+    for(const s of scopes){
+      if(!s.mount) continue;
+      if(s.controlMode==='manual'&&!G.timeDriveOn) continue;
+      applyTrackingPose(s);
+    }
+  }
+  if(k==='roomW'||k==='roomH') clampScopePositionsToRoom();
+  if(k==='lat') coordinateAuditResult=runCoordinateSelfTests();
+  render();
+}
+function setShowPolar(v){G.showPolar=!!v;render()}
+function setShowSpheres(v){G.showSpheres=!!v;render()}
+function setS(i,k,v){
+  let val=parseFloat(v);
+  const selected=scopes[i];
+  if(['x','y','pierH'].includes(k)) invalidatePlacementOptimisation();
+  if(k==='x') val=Math.max(0,Math.min(roomW(),val));
+  if(k==='y') val=Math.max(0,Math.min(roomH(),val));
+  if(k==='pierH') val=Math.max(.20,Math.min(3.50,val));
+  if(k==='ra') val=Math.max(-flipBoundary(),Math.min(flipBoundary(),val));
+  if(k==='targetRaH') val=normHours(val);
+  if(k==='targetDec') val=Math.max(-90,Math.min(90,val));
+  selected[k]=val;
+  if(k==='targetRaH'||k==='targetDec'){
+    selected.controlMode='sky';
+    selected.flipCount=0;
+    applyTrackingPose(selected,{countFlip:false});
+  }
+  if(!G.timeDriveOn && (k==='ra'||k==='dec')){
+    selected.controlMode='manual';
+    seedSkyCoordinatesFromMechanicalPose(selected);
+  }
+  if(selected.copyIndex===1) rememberScopeTemplate(selected);
+  render();
+}
+
+function seedSkyCoordinatesFromMechanicalPose(s){
+  const sky=mechanicalPoseToSky(s);
+  s.targetRaH=sky.targetRaH;
+  s.targetDec=sky.targetDec;
+  s.controlMode='manual';
+  s.trackingStatus='manual pose';
+  s._p3d={reachable:true,ra:s.ra,dec:s.dec,hourAngleDeg:sky.ha,side:s.sideOfPier};
+}
+function parkAll(){
+  stopAnimation();
+  G.timeDriveOn=false;
+  G.timeHours=0;
+  const parkDec=90-G.lat;
+  scopes.forEach(s=>{
+    if(s.mount){
+      // Park is an explicit manual motor pose; its equivalent sky coordinates
+      // are retained only for diagnostics and do not re-enable tracking.
+      s.ra=90;
+      s.dec=parkDec;
+      s.sideOfPier='east';
+      s.flipCount=0;
+      seedSkyCoordinatesFromMechanicalPose(s);
+    }
+  });
+  render();
+}
+
+function randomPoseAll(){
+  scopes.forEach(s=>{
+    if(s.mount){
+      const target=randomAboveHorizonTarget();
+      s.targetRaH=target.targetRaH;
+      s.targetDec=target.targetDec;
+      s.controlMode='sky';
+      s.flipCount=0;
+      applyTrackingPose(s,{countFlip:false});
+    }
+  });
+  render();
+}
+function resetPoseAll(){
+  scopes.forEach(s=>{
+    if(s.mount){
+      s.ra=0;
+      s.dec=90;
+      s.sideOfPier='east';
+      s.flipCount=0;
+      seedSkyCoordinatesFromMechanicalPose(s);
+    }
+  });
+  render();
+}
+function resetAll(){
+  stopAnimation();
+  invalidatePlacementOptimisation();
+  Object.assign(layoutState,{toolW:470,mainW:630,mainH:430,projW:380});
+  applyWorkspaceLayout();
+  Object.assign(G,{roomW:2.85,roomH:2.85,lat:37,cube:.18,cylLen:.08,cylD:.12,wallH:1.50,sweepStep:5,safeGap:.25,decClock:0,otaClock:90,viewYaw:38,viewPitch:-28,zoom:1,mainW:630,mainH:430,projW:380,showPolar:false,showSpheres:true,showSweepTable:true,showPointingTable:true,timeDriveOn:false,timeHours:0,raRate:15,siderealHours:0,timeStartSiderealHours:0,flipBoundary:90,animSpeed:1,isAnimating:false,lastAnimTs:0});
+  telescopeTypes=[];
+  nextTelescopeTypeId=1;
+  scopes=[];
+  scopeTemplates=new Map();
+  coordinateAuditResult=runCoordinateSelfTests();
+  placementAuditResult=runPlacementSelfTests();
+  buildControls();render();
+}
+function downloadHTML(){
+  const blob=new Blob(['<!doctype html>\n'+document.documentElement.outerHTML],{type:'text/html'});
+  const url=URL.createObjectURL(blob),a=document.createElement('a');
+  a.href=url; a.download='am5_observatory_layout_v59_custom_telescopes.html'; a.click(); URL.revokeObjectURL(url);
+}
+buildControls();
+initLeftPanelResize();
+initProjectionResize();
+applyWorkspaceLayout();
+scopes.forEach(s=>{if(s.mount) applyTrackingPose(s)});
+coordinateAuditResult=runCoordinateSelfTests();
+placementAuditResult=runPlacementSelfTests();
+render();
+</script>
+</body>
+</html>
