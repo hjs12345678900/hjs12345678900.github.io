@@ -35,7 +35,6 @@ svg{touch-action:none} svg text{font-family:system-ui,Segoe UI,sans-serif;user-s
 </head>
 <body>
 <div class="topActions">
-  <a class="togglePanelBtn" href="/astrophotography/" style="text-decoration:none">← Astrophotography</a>
   <button class="togglePanelBtn" onclick="toggleLeftPanel()">Hide controls</button>
   <span class="small">Drag the separators to resize the workspace. Detailed layout controls are collapsed below.</span>
 </div>
@@ -59,8 +58,8 @@ svg{touch-action:none} svg text{font-family:system-ui,Segoe UI,sans-serif;user-s
     <section id="statusDashboard" class="statusStrip" aria-live="polite"><div class="statusHeadline"><span class="statusDot"></span><strong>Calculating observatory status…</strong></div></section>
 
     <div class="sectionTitle"><h2>2. Configure telescopes and piers</h2><button class="btn" onclick="addTelescopeType()">+ Add telescope type</button></div>
-    <div class="small">No telescope models or sizes are predefined. Enter a name, tube length, and tube diameter, then choose how many identical copies to install. Every physical copy has its own adjustable pier height and position. Up to 16 telescope instances are supported.</div>
-    <div id="scopeControls"></div>
+    <div class="small">Choose a named preset below, or define custom telescope dimensions. Enter a name, tube length, and tube diameter, then choose how many identical copies to install. Every physical copy has its own adjustable pier height and position. Up to 16 telescope instances are supported.</div>
+    <div class="scopeBox"><strong>ST32 multi-telescope presets · shared pier</strong><div><button class="btn" onclick="addMultiArray(2)">Add 2 × 150PDS + 2 × SQA55</button><button class="btn" onclick="addMultiArray(3)">Add 3 × 150PDS + 2 × SQA55</button><button class="btn" onclick="addMultiArray(3,false)">Add 3 × 150PDS (no upper SQA55)</button></div><div class="small">The no-SQA55 preset retains all three 150PDS focusers and cameras, and removes both SQA55 telescopes and their cameras, adapters and upper supports. Single bolted crossbar: 445 mm for two tubes or 600 mm for three, with 230 mm tube spacing. ST32 dimensions are uncalibrated placeholders. Swept spheres are conservative bounds, not certified collision checks. Mount dimensions follow the mechanical settings. Expand a setup to adjust pier position, height and pointing.</div></div><div class="scopeBox"><strong>Single-telescope presets</strong><div><button class="btn" onclick="addEquipmentPreset('rc10')">RC10 Carbon + miniCAM</button><button class="btn" onclick="addEquipmentPreset('sqa85')">SQA85 + miniCAM</button><button class="btn" onclick="addEquipmentPreset('sqa55')">SQA55 + miniCAM</button><button class="btn" onclick="addEquipmentPreset('s50pro')">S50 Pro</button><button class="btn" onclick="addEquipmentPreset('s30pro')">S30 Pro</button></div><div class="small">Each preset adds one setup; quantities are adjustable. RC10 uses a closed carbon-tube placeholder pending measured dimensions. External cameras use an estimated miniCAM8 envelope of Ø120 × 70 mm. Adapter lengths reserve space and do not specify optical backfocus. Seestar includes its internal camera and uses an alt-az motion envelope without an external equatorial mount.</div></div><div id="scopeControls"></div><div class="small" id="plannerSaveStatus" role="status">Autosave enabled: settings are stored in this browser and restored when you reopen this page.</div>
 
     <details class="collapsible advancedBox">
       <summary>Advanced mechanical, safety, and view settings</summary>
@@ -347,7 +346,7 @@ function otaVisualParts(s,otaC,t,tubeSide,tubeQ){
   return [{name:"OTA cylinder",pts:tube.pts,stroke:"#111",fill:"rgba(0,0,0,.10)"}];
 }
 
-function scopeModel(s){
+function baseScopeModel(s){
   if(!s.mount){
     const t=[1,0,0], q=[0,1,0], h=[0,0,1];
     const base=[s.x,s.y,s.pierH];
@@ -750,7 +749,7 @@ function sphereIsSafe(rec,safety){
 function sphereStyle(rec,safety){
   if(sphereIsSafe(rec,safety)){
     return {
-      fill3d:'rgba(0,160,70,.14)',
+      fill3d:'rgba(0,160,70,.07)',
       stroke:'rgba(0,125,55,.78)',
       fill2d:'rgba(0,170,75,.12)',
       dot:'rgba(0,125,55,.9)'
@@ -807,27 +806,17 @@ function drawSphereProjection(svg,P,kind,center,r,style){
   const c=P(center);
 
   if(kind==='3d'){
-    // Original-style shaded sphere:
-    // draw one simple translucent red disk, but compute the display radius from
-    // the largest projected extent of the true 3D sphere. This keeps the clean
-    // old shaded look while preventing the telescope from visually protruding
-    // outside the sphere in the perspective view.
-    let screenR=0;
-    const dirs=[
-      [1,0,0],[-1,0,0],[0,1,0],[0,-1,0],[0,0,1],[0,0,-1],
-      norm([1,1,0]),norm([1,-1,0]),norm([-1,1,0]),norm([-1,-1,0]),
-      norm([1,0,1]),norm([1,0,-1]),norm([-1,0,1]),norm([-1,0,-1]),
-      norm([0,1,1]),norm([0,1,-1]),norm([0,-1,1]),norm([0,-1,-1]),
-      norm([1,1,1]),norm([1,1,-1]),norm([1,-1,1]),norm([-1,1,1]),
-      norm([-1,-1,1]),norm([-1,1,-1]),norm([1,-1,-1]),norm([-1,-1,-1])
-    ];
-    for(const d of dirs){
-      const q=P(add(center,mul(d,r)));
-      const dx=q[0]-c[0], dy=q[1]-c[1];
-      screenR=Math.max(screenR,Math.sqrt(dx*dx+dy*dy));
+    // Project the sphere surface itself: perspective silhouettes are not
+    // generally circles centred on the projected sphere centre.
+    const surface=[];
+    for(let j=0;j<=32;j++){
+      const latitude=-Math.PI/2+j*Math.PI/32;
+      for(let i=0;i<64;i++){
+        const longitude=i*2*Math.PI/64;
+        surface.push(add(center,[r*Math.cos(latitude)*Math.cos(longitude),r*Math.cos(latitude)*Math.sin(longitude),r*Math.sin(latitude)]));
+      }
     }
-    screenR*=1.05; // small visual buffer so the displayed envelope contains all projected geometry
-    svg.appendChild(el('circle',{cx:c[0],cy:c[1],r:Math.max(screenR,1),fill:style.fill3d,stroke:style.stroke,'stroke-width':1.6,'stroke-dasharray':'6 4'}));
+    svg.appendChild(el('polygon',{points:poly(hull(surface,P)),fill:style.fill3d,stroke:style.stroke,'stroke-width':1.6,'stroke-dasharray':'6 4'}));
     svg.appendChild(el('circle',{cx:c[0],cy:c[1],r:3,fill:style.dot}));
     return;
   }
@@ -896,7 +885,7 @@ function panel(svg,kind,x,y,w,h,title){
     top:'Observatory footprint / X-Y clearance',
     south:'South elevation: X-Z side view',
     west:'West elevation: Y-Z side view',
-    '3d':'Free-angle main view; drag to rotate, use sliders, or enlarge via layout controls'
+    '3d':'Free-angle view · shaded regions = full-motion clearance, not equipment size'
   }[kind] || '';
   // Titles sit outside/above the view box. The render() layout leaves headroom
   // so these labels do not overlap the drawing or floating UI.
@@ -960,7 +949,7 @@ function distanceFromPierTop(scope,point){
   const d=sub(point,top);
   return Math.sqrt(dot(d,d));
 }
-function sweptPierRadius(scope){
+function sampledPierRadius(scope){
   const cacheKey=[scope.x,scope.y,scope.L,scope.D,scope.mount,scope.pierH,G.cube,G.cylLen,G.cylD,G.lat,G.decClock,G.otaClock,G.sweepStep,flipBoundary()].join('|');
   if(scope._sweepCache?.key===cacheKey) return scope._sweepCache.value;
   const remember=value=>{
@@ -1073,8 +1062,8 @@ function updateStatus(){
     tableRows.push({
       name:s.name,
       radius:sweep.r,
-      ra:s.mount?sweep.ra:null,
-      dec:s.mount?sweep.dec:null,
+      ra:s.mount&&!sweep.conservative?sweep.ra:null,
+      dec:s.mount&&!sweep.conservative?sweep.dec:null,
       point:sweep.point,
       state:stateText,
       wallMargin:margins.min
@@ -1132,7 +1121,7 @@ function updateStatus(){
 function renderSweepTable(tableRows){
   const wrap=document.getElementById('sweepTableWrap');
   if(!wrap) return;
-  let html='<div style="font-weight:700;font-size:12px;margin:0 0 3px 0;">Swept sphere radius from pier top</div>';
+  let html='<div style="font-weight:700;font-size:12px;margin:0 0 3px 0;">Swept envelope from pier top (arrays: conservative bound)</div>';
   html+='<table class="dataTable"><thead><tr><th>Setup</th><th>Sphere radius</th><th>RA at max</th><th>DEC at max</th><th>Furthest X</th><th>Y</th><th>Z</th><th>Wall margin</th><th>Status</th></tr></thead><tbody>';
   for(const r of tableRows){
     const p=r.point||[NaN,NaN,NaN];
@@ -1141,9 +1130,9 @@ function renderSweepTable(tableRows){
       '<td><b>'+r.radius.toFixed(3)+' m</b></td>'+
       '<td>'+(r.ra===null?'—':r.ra.toFixed(0)+'°')+'</td>'+
       '<td>'+(r.dec===null?'—':r.dec.toFixed(0)+'°')+'</td>'+
-      '<td>'+p[0].toFixed(3)+'</td>'+
-      '<td>'+p[1].toFixed(3)+'</td>'+
-      '<td>'+p[2].toFixed(3)+'</td>'+
+      '<td>'+(Number.isFinite(p[0])?p[0].toFixed(3):'—')+'</td>'+
+      '<td>'+(Number.isFinite(p[1])?p[1].toFixed(3):'—')+'</td>'+
+      '<td>'+(Number.isFinite(p[2])?p[2].toFixed(3):'—')+'</td>'+
       '<td>'+r.wallMargin.toFixed(3)+' m</td>'+
       '<td class="'+(r.state==='inside + safe'?'ok':'bad')+'">'+r.state+'</td>'+
     '</tr>';
@@ -1265,7 +1254,7 @@ function newScopeTemplateForType(model){
     typeId:model.typeId,baseName:model.baseName,name:model.baseName,copyIndex:1,quantity:1,
     x:roomW()/2,y:roomH()/2,pierH:1.02,ra:0,dec:30,targetRaH:18,targetDec:-30,
     sideOfPier:'east',flipCount:0,controlMode:'sky',trackingStatus:'tracking',
-    L:model.L,D:model.D,color:model.color,mount:true
+    L:model.L,D:model.D,color:model.color,mount:model.mount!==false,equipment:model.equipment?JSON.parse(JSON.stringify(model.equipment)):null,arraySpec:model.arraySpec?{...model.arraySpec}:null
   };
 }
 
@@ -1375,6 +1364,7 @@ function buildControls(){
         <label class="compactField">Tube diameter <span><input id="type_${model.typeId}_D" type="number" min="0.04" max="1.2" step="0.005" placeholder="metres" value="${Number.isFinite(model.D)?model.D:''}" onchange="setTelescopeType('${model.typeId}','D',this.value)"> m</span></label>
         ${quantityControl}
       </div>
+      ${equipmentControls(model)}
       <div class="small boundHint">${valid?(quantity?'Shared tube dimensions apply to every copy; pier height and position remain independent.':'Ready — set a positive quantity to install copies.'):'Complete all three fields before setting a positive quantity.'}</div>
     </div>`;
     for(const s of group){
@@ -1666,6 +1656,7 @@ function render(){
   positionFloatingPanels(mainX,mainY,mainW,mainH);
   updateStatus();
   syncInputs();
+  queuePlannerSave();
 }
 function syncInputs(){
   const cb=document.getElementById('showPolar');
@@ -1835,16 +1826,176 @@ function resetAll(){
   placementAuditResult=runPlacementSelfTests();
   buildControls();render();
 }
+
+// v60: one mechanical mount and tracking solution carries all optical tubes.
+// Array coordinates are metres: x transverse, y along optical axis, z away from saddle.
+function addMultiArray(n,includeSqa=true){
+ const model={typeId:'array_'+nextTelescopeTypeId++,baseName:'ST32 '+n+'×150PDS'+(includeSqa?' + 2×SQA55':' (no upper SQA55)'),L:.690,D:.182,color:TELESCOPE_COLORS[telescopeTypes.length%TELESCOPE_COLORS.length],mount:true,arraySpec:{count:n,pitch:.230,bar:n===2?.445:.600,includeSqa}};
+ telescopeTypes.push(model);setScopeQuantity(model.typeId,1);
+}
+function arrayScopeModel(s){
+ const m=baseScopeModel(s);if(!s.arraySpec||m.simple)return m;
+ const a=s.arraySpec,parts=m.parts.filter(p=>p.name!=='OTA cylinder');
+ const O=m.contactC,X=m.tubeQ,Y=m.t,Z=m.tubeSide;
+ const at=(x,y,z)=>add(O,add(mul(X,x),add(mul(Y,y),mul(Z,z))));
+ function prism(name,x,y,z,w,l,h,color){parts.push({name,pts:box(at(x,y,z),X,Y,Z,w,l,h),stroke:color,fill:color+'22'});}
+ function tube(name,x,y,z,d,l,color,axis=Y){parts.push({name,pts:cylinderMesh(at(x,y,z),axis,d/2,l,24).pts,stroke:color,fill:color+'22'});}
+ prism('array crossbar',0,0,.010,a.bar,.080,.020,'#555555');
+ for(let i=0;i<a.count;i++){
+  const x=(i-(a.count-1)/2)*a.pitch;
+  prism('longitudinal rail',x,0,.026,.044,.320,.012,'#268052');
+  for(const y of [-.130,.130]){
+   prism('ring foot',x,y,.0395,.040,.024,.015,'#777777');
+   tube('ring envelope',x,y,.152,.210,.024,'#777777');
+  }
+  tube('150PDS '+(i+1),x,0,.152,.182,.690,'#356db5');
+  if(i===0||i===a.count-1){const sign=i===0?-1:1;
+   prism('focuser',x+sign*.126,.250,.152,.070,.045,.045,'#444444');
+   tube('miniCAM envelope',x+sign*.196,.250,.152,.120,.070,'#8761a9',X);
+  }else{
+   prism('focuser',x,.250,.278,.045,.045,.070,'#444444');
+   tube('miniCAM envelope',x,.250,.348,.120,.070,'#8761a9',Z);
+  }
+ }
+ // Missing flags preserve the original presets and imported configurations.
+ if(a.includeSqa!==false)for(const sign of [-1,1]){
+  const x=sign*(a.count-1)*a.pitch/2;
+  prism('upper bridge',x,0,.262,.050,.320,.010,'#bd821c');
+  prism('SQA55 foot',x,-.060,.272,.050,.100,.010,'#bd821c');
+  tube('SQA55',x,-.060,.332,.110,.316,'#b64242');
+  prism('camera adapter envelope',x,-.2455,.332,.040,.055,.040,'#444444');
+  tube('miniCAM envelope',x,-.308,.332,.120,.070,'#8761a9');
+ }
+ const c=at(0,0,.152);
+ return {...m,parts,all:parts.flatMap(p=>p.pts),otaC:c,front:add(c,mul(Y,.345)),rear:add(c,mul(Y,-.345))};
+}
+function mountedEnvelopeRadius(s){
+ // Metres, centred at the pier top. The RA and DEC axes are perpendicular.
+ // For a vertex relative to the saddle, z is along DEC and rho is its
+ // distance to that axis. A full DEC turn maximises the polar component:
+ // R² = (b+z)² + (a+rho)², a=polar offset, b=DEC saddle offset.
+ // RA rotation preserves this distance. This bounds all DEC poses without
+ // adding offsets that cannot simultaneously point in the same direction.
+ const m=scopeModel(s),a=G.cube*.65,b=G.cube/2+G.cylLen;
+ const payload=m.parts.filter(p=>!['base','pier','orange RA body','green DEC cylinder'].includes(p.name));
+ let r=0;
+ for(const v of payload.flatMap(p=>p.pts)){
+   const w=sub(v,m.contactC),z=dot(w,m.cylAxis);
+   const rho=Math.sqrt(Math.max(0,dot(w,w)-z*z));
+   r=Math.max(r,Math.hypot(b+z,a+rho));
+ }
+ // Exact mount-box corner / cylinder bounds; 2 mm accommodates mesh facets
+ // at the supplied preset dimensions. This is not a construction tolerance.
+ r=Math.max(r,Math.hypot(a+G.cube/2,G.cube/2,G.cube/2),Math.hypot(a+G.cylD/2,b),Math.hypot(.12,.12,.10))+.002;
+ return {r,ra:s.ra,dec:s.dec,point:null,conservative:true};
+}
+function arraySweptPierRadius(s){
+ return s.arraySpec?mountedEnvelopeRadius(s):sampledPierRadius(s);
+}
+
+
+const EQUIPMENT_PRESETS={
+ rc10:{name:'RC10 Carbon (closed tube)',L:.620,D:.320,mass:null,focuser:.100,adapter:.050,note:'Closed carbon tube: 620 × 320 mm tube, 100 mm focuser and 50 mm adapter are placeholders pending measurement. Measure tube length to the focuser mounting face to avoid counting the focuser twice.'},
+ sqa85:{name:'SQA85',L:.439,D:.130,mass:4.62,adapter:.055,note:'Extended length: 439 mm. The 130 mm mounting diameter is an estimate; verify rings and handle dimensions.'},
+ sqa55:{name:'SQA55',L:.316,D:.110,mass:2.18,adapter:.055,note:'Length: 316 mm. The 110 mm envelope diameter is an estimate.'},
+ s50pro:{name:'Seestar S50 Pro',L:.268,D:.149,mass:2.8,smart:true,radius:.200,height:.380,note:'Published folded dimensions: 140 × 149 × 268 mm. The Ø400 × 380 mm motion envelope is a provisional estimate, not a manufacturer sweep specification.'},
+ s30pro:{name:'Seestar S30 Pro',L:.210,D:.140,mass:1.65,smart:true,radius:.120,height:.250,note:'Published dimensions: 210 × 140 × 80 mm. Verify the provisional Ø240 × 250 mm motion envelope against orientation and base dimensions.'}
+};
+function addEquipmentPreset(key){
+ const p=EQUIPMENT_PRESETS[key];if(!p)return;
+ const model={typeId:'preset_'+nextTelescopeTypeId++,baseName:p.name,L:p.L,D:p.D,color:TELESCOPE_COLORS[telescopeTypes.length%TELESCOPE_COLORS.length],mount:!p.smart,equipment:{...p,cameraL:p.smart?0:.070,cameraD:p.smart?0:.120,cameraMass:p.smart?0:.480,cable:p.smart?0:.030}};
+ telescopeTypes.push(model);setScopeQuantity(model.typeId,1);
+}
+function setEquipment(typeId,key,value){
+ const model=telescopeType(typeId);if(!model?.equipment)return;
+ const v=Number(value);if(!Number.isFinite(v)||v<0||v>2)return;
+ model.equipment[key]=v;
+ for(const s of scopes.filter(s=>s.typeId===typeId)){s.equipment={...model.equipment};delete s._sweepCache;}
+ const template=scopeTemplates.get(typeId);if(template)template.equipment={...model.equipment};
+ invalidatePlacementOptimisation();buildControls();render();
+}
+function equipmentControls(model){
+ const e=model.equipment;if(!e)return '';
+ const field=(k,label)=>`<label class="compactField">${label}<span><input type="number" min="0" max="2" step="0.005" value="${e[k]}" onchange="setEquipment('${model.typeId}','${k}',this.value)"> m</span></label>`;
+ const fields=e.smart?field('radius','Motion envelope radius')+field('height','Motion envelope height'):(e.focuser!==undefined?field('focuser','Focuser extension at imaging focus'):'')+field('adapter','Adapter / corrector allowance')+field('cameraL','Camera body length')+field('cameraD','Camera body diameter')+field('cable','Rear cable allowance');
+ const mass=e.mass===null?'Tube mass pending measurement':(e.mass+e.cameraMass).toFixed(2)+' kg (equipment + camera; excludes extra brackets and adapters)';
+ return `<div class="small">${escapeHtml(e.note)} ${mass}. ${e.smart?'Internal camera included. This mode checks the occupied envelope and does not simulate internal Seestar motion.':'External camera included in the geometry and swept envelope.'}</div><div class="compactGrid">${fields}</div>`;
+}
+function scopeModel(s){
+ if(!s.equipment)return arrayScopeModel(s);
+ const e=s.equipment;
+ if(e.smart){
+  const c=[s.x,s.y,s.pierH+e.height/2],t=[1,0,0],q=[0,1,0],h=[0,0,1];
+  const body=cylinderMesh(c,h,e.radius,e.height,32).pts;
+  const pier=box([s.x,s.y,s.pierH/2],t,q,h,.14,.14,s.pierH);
+  return {simple:true,c,otaC:c,t,q,h,front:add(c,[e.radius,0,0]),rear:add(c,[-e.radius,0,0]),all:[...body,...pier],parts:[{name:'pier',pts:pier,stroke:'#444',fill:'#77777711'},{name:'Seestar active envelope / integrated camera',pts:body,stroke:s.color,fill:s.color+'22'}]};
+ }
+ const m=arrayScopeModel(s),parts=[...m.parts];let edge=m.rear;
+ function rearPart(name,length,diameter,color){if(length<=0)return;const c=add(edge,mul(m.t,-length/2));parts.push({name,pts:cylinderMesh(c,m.t,diameter/2,length,24).pts,stroke:color,fill:color+'22'});edge=add(edge,mul(m.t,-length));}
+ rearPart('RC10 focuser envelope',e.focuser||0,.100,'#333333');
+ rearPart('rear adapter allowance',e.adapter,Math.min(.100,s.D),'#555555');
+ rearPart('QHY miniCAM envelope',e.cameraL,e.cameraD,'#8761a9');
+ rearPart('camera cable allowance',e.cable,e.cameraD,'#aaaaaa');
+ return {...m,parts,all:parts.flatMap(p=>p.pts),rear:edge};
+}
+function sweptPierRadius(s){
+ if(!s.equipment)return arraySweptPierRadius(s);
+ if(s.equipment.smart)return {r:Math.hypot(s.equipment.radius,s.equipment.height),ra:0,dec:0,point:null,conservative:true};
+ return mountedEnvelopeRadius(s);
+}
+
 function downloadHTML(){
   const blob=new Blob(['<!doctype html>\n'+document.documentElement.outerHTML],{type:'text/html'});
   const url=URL.createObjectURL(blob),a=document.createElement('a');
-  a.href=url; a.download='am5_observatory_layout_v59_custom_telescopes.html'; a.click(); URL.revokeObjectURL(url);
+  a.href=url; a.download='observatory_layout_v63_optional_sqa.html'; a.click(); URL.revokeObjectURL(url);
 }
+// Store only durable inputs, excluding computed geometry and tracking caches.
+const PLANNER_STORAGE_KEY='observatory-planner:v63:settings:1';
+let plannerSaveTimer=null;
+function plannerSnapshot(){
+ const clean=value=>JSON.parse(JSON.stringify(value,(key,val)=>key.startsWith('_')?undefined:val));
+ return {version:1,savedAt:new Date().toISOString(),globals:clean(G),layout:clean(layoutState),types:clean(telescopeTypes),scopes:clean(scopes),templates:clean([...scopeTemplates]),nextId:nextTelescopeTypeId};
+}
+function plannerSaveStatus(message){
+ const node=document.getElementById('plannerSaveStatus');if(node)node.textContent=message;
+}
+function savePlannerSettings(){
+ if(plannerSaveTimer!==null){clearTimeout(plannerSaveTimer);plannerSaveTimer=null;}
+ try{localStorage.setItem(PLANNER_STORAGE_KEY,JSON.stringify(plannerSnapshot()));plannerSaveStatus('Settings saved automatically in this browser');return true;}
+ catch(error){plannerSaveStatus('Browser storage is unavailable; settings were not saved');return false;}
+}
+function queuePlannerSave(){
+ if(plannerSaveTimer===null)plannerSaveTimer=setTimeout(savePlannerSettings,500);
+}
+function restorePlannerSettings(){
+ try{
+  const raw=localStorage.getItem(PLANNER_STORAGE_KEY);if(!raw)return false;
+  const data=JSON.parse(raw);
+  const record=v=>v&&typeof v==='object'&&!Array.isArray(v);
+  if(data.version!==1||!record(data.globals)||!record(data.layout)||!Array.isArray(data.types)||!Array.isArray(data.scopes)||data.scopes.length>MAX_TOTAL_SCOPE_INSTANCES||!Array.isArray(data.templates)||!Number.isInteger(data.nextId)||data.nextId<1)throw Error('Invalid saved settings');
+  if(!data.types.every(t=>record(t)&&typeof t.typeId==='string')||!data.scopes.every(s=>record(s)&&data.types.some(t=>t.typeId===s.typeId)&&['x','y','pierH','L','D','ra','dec'].every(k=>Number.isFinite(s[k]))))throw Error('Invalid equipment');
+  if(!data.templates.every(pair=>Array.isArray(pair)&&pair.length===2&&typeof pair[0]==='string'&&record(pair[1])))throw Error('Invalid templates');
+  for(const key of Object.keys(G))if(typeof data.globals[key]!==typeof G[key]||(typeof G[key]==='number'&&!Number.isFinite(data.globals[key])))throw Error('Invalid global parameter');
+  for(const key of Object.keys(layoutState))if(!Number.isFinite(data.layout[key])||data.layout[key]<=0)throw Error('Invalid layout');
+  // Commit only after validation. Playback remains paused, preserving the pose.
+  for(const key of Object.keys(G))G[key]=data.globals[key];
+  G.isAnimating=false;G.lastAnimTs=0;
+  for(const key of Object.keys(layoutState))layoutState[key]=data.layout[key];
+  telescopeTypes=data.types;scopes=data.scopes;scopeTemplates=new Map(data.templates);nextTelescopeTypeId=data.nextId;
+  plannerSaveStatus('Previous settings restored · animation paused');return true;
+ }catch(error){plannerSaveStatus('Saved settings could not be read; using the initial configuration');return false;}
+}
+window.addEventListener('pagehide',savePlannerSettings);
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')savePlannerSettings();});
+
+const initialArray={typeId:'array_'+nextTelescopeTypeId++,baseName:'ST32 2×150PDS + 2×SQA55',L:.690,D:.182,color:TELESCOPE_COLORS[0],mount:true,arraySpec:{count:2,pitch:.230,bar:.445}};
+telescopeTypes.push(initialArray);scopes.push(newScopeTemplateForType(initialArray));
+const restoredPlannerSettings=restorePlannerSettings();
 buildControls();
 initLeftPanelResize();
 initProjectionResize();
 applyWorkspaceLayout();
-scopes.forEach(s=>{if(s.mount) applyTrackingPose(s)});
+if(!restoredPlannerSettings)scopes.forEach(s=>{if(s.mount) applyTrackingPose(s)});
 coordinateAuditResult=runCoordinateSelfTests();
 placementAuditResult=runPlacementSelfTests();
 render();
