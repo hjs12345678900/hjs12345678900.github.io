@@ -435,6 +435,8 @@
 .event-status { display: inline-flex; align-items: center; width: fit-content; padding: .35rem .55rem; border-radius: 999px; font: 500 .62rem/1 "DM Mono", monospace; letter-spacing: .045em; text-transform: uppercase; }
 .event-status-positive { color: #07452b; background: #bdebd3; }
 .event-status-miss { color: #394756; background: #dde4ea; }
+.event-status-not-observed { color: #505660; background: #edf0f2; }
+.event-status-review { color: #704b0d; background: #fff0ce; }
 
 .group-event-ledger { margin-top: 1.5rem; border-top: 2px solid var(--group-navy); background: var(--group-white); }
 .group-event-ledger > div { display: grid; grid-template-columns: minmax(8.5rem, .45fr) minmax(12rem, 1fr) minmax(8rem, auto); align-items: center; gap: 1.5rem; min-height: 3.6rem; padding: .8rem 1rem; border-right: 1px solid var(--group-rule); border-bottom: 1px solid var(--group-rule); border-left: 1px solid var(--group-rule); }
@@ -442,6 +444,9 @@
 .group-event-ledger > div > span:first-child { color: var(--group-muted); font: 400 .7rem "DM Mono", monospace; }
 .group-event-ledger strong { color: var(--group-ink); font-size: .9rem; font-weight: 600; }
 .group-event-ledger .event-status { justify-self: end; }
+.group-event-ledger .group-event-time { display: block; margin-top: .35rem; font-size: .65rem; white-space: nowrap; }
+.group-event-result { display: flex; flex-direction: column; align-items: flex-end; justify-self: end; gap: .45rem; max-width: 21rem; text-align: right; }
+.group-event-result > small { max-width: 32ch; color: var(--group-muted); font-size: .72rem; line-height: 1.5; }
 .group-event-ledger .group-event-ledger-head { min-height: 2.75rem; color: var(--group-muted); background: #e7ecf1; font: 500 .65rem "DM Mono", monospace; letter-spacing: .07em; text-transform: uppercase; }
 .group-event-ledger .group-event-ledger-head span:last-child { justify-self: end; color: var(--group-muted); }
 
@@ -743,6 +748,7 @@
   .group-event-ledger time,
   .group-event-ledger > div > span:first-child { grid-column: 1 / -1; }
   .group-event-ledger .group-event-ledger-head { display: none; }
+  .group-event-result { max-width: 42vw; }
   .group-people-lead { align-items: flex-start; flex-direction: column; gap: .35rem; }
   .group-person { grid-template-columns: 7rem minmax(0, 1fr); }
   .group-person > img { height: 7rem; }

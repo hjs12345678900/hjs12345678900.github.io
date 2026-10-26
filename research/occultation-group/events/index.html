@@ -4,14 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Events — Asteroid Hunters</title>
-  <meta name="description" content="The Asteroid Hunters observation record: positive asteroid occultations, documented misses and field campaigns.">
+  <meta name="description" content="The Asteroid Hunters event record: positive occultations, documented misses, unobserved attempts and results under review.">
   <meta name="theme-color" content="#0b2b50">
   <link rel="icon" href="../../../assets/img/junsheng-he.png" type="image/png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&amp;family=Manrope:wght@400;500;600&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../../assets/css/site.css">
-  <link rel="stylesheet" href="../../../assets/css/occultation-group.css?v=8">
+  <link rel="stylesheet" href="../../../assets/css/occultation-group.css?v=20261026">
   <script src="../../../assets/js/site.js" defer></script>
 </head>
 <body class="detail-page occultation-group-page group-events-page">
@@ -39,7 +39,7 @@
         <a class="group-guide-back" href="../">← Group home</a>
         <p class="eyebrow">OBSERVATION RECORD</p>
         <h1>All events</h1>
-        <p>Positive detections and documented misses are both part of the measurement.</p>
+        <p>Positive detections, documented misses and attempts we could not observe all belong in the record.</p>
       </div>
     </section>
 
@@ -53,14 +53,35 @@
         <a class="group-button group-button-primary" href="https://cloud.occultwatcher.net/" target="_blank" rel="noreferrer">View upcoming events in OWC <span aria-hidden="true">↗</span></a>
       </aside>
       <header class="academic-section-heading" data-reveal>
-        <p class="section-index">Positive / miss</p>
+        <p class="section-index">All observing attempts</p>
         <div><h2 id="event-record-title">Event record</h2></div>
       </header>
-      <div class="group-event-ledger" role="table" aria-label="Asteroid occultation event record">
-        <div class="group-event-ledger-head" role="row"><span role="columnheader">Date</span><span role="columnheader">Asteroid</span><span role="columnheader">Result</span></div>
-        <div role="row"><time datetime="2026-08-29" role="cell">29 Aug 2026</time><strong role="cell">Ilarkacsillik</strong><span class="event-status event-status-miss" role="cell">Miss</span></div>
-        <div role="row"><time datetime="2026-08-16" role="cell">16 Aug 2026</time><strong role="cell">2000 RW104</strong><span class="event-status event-status-miss" role="cell">Miss</span></div>
-        <div role="row"><time datetime="2026-08-16" role="cell">16 Aug 2026</time><strong role="cell">2002 XK2</strong><span class="event-status event-status-miss" role="cell">Miss</span></div>
+      <div class="group-event-ledger" role="table" aria-label="Occultation event record" aria-describedby="event-record-note">
+        <div class="group-event-ledger-head" role="row"><span role="columnheader">Date (UTC)</span><span role="columnheader">Target</span><span role="columnheader">Observation status</span></div>
+        <div role="row"><time datetime="2026-10-22T10:37:26Z" role="cell">22 Oct 2026<small class="group-event-time">10:37:26 UTC</small></time><strong role="cell">(22606) 1998 HK148</strong><span class="group-event-result" role="cell"><span class="event-status event-status-review">Under review</span><small>Multiple station outcomes to be reviewed.</small></span></div>
+        <div role="row"><time datetime="2026-10-21T09:55:01Z" role="cell">21 Oct 2026<small class="group-event-time">09:55:01 UTC</small></time><strong role="cell">(287123) 2002 RR182</strong><span class="event-status event-status-not-observed" role="cell">Not observed</span></div>
+        <div role="row"><time datetime="2026-10-21T09:48:05Z" role="cell">21 Oct 2026<small class="group-event-time">09:48:05 UTC</small></time><strong role="cell">(127) Johanna</strong><span class="event-status event-status-not-observed" role="cell">Not observed</span></div>
+        <div role="row"><time datetime="2026-10-18T09:58:31Z" role="cell">18 Oct 2026<small class="group-event-time">09:58:31 UTC</small></time><strong role="cell">(2052) Tamriko</strong><span class="group-event-result" role="cell"><span class="event-status event-status-review">Under review</span><small>One of our two stations did not observe. The other result is under review.</small></span></div>
+        <div role="row"><time datetime="2026-10-14T10:10:42Z" role="cell">14 Oct 2026<small class="group-event-time">10:10:42 UTC</small></time><strong role="cell">(121773) 2000 AZ23</strong><span class="event-status event-status-positive" role="cell">Positive</span></div>
+        <div role="row"><time datetime="2026-10-08T09:36:12Z" role="cell">08 Oct 2026<small class="group-event-time">09:36:12 UTC</small></time><strong role="cell">(1232) Cortusa</strong><span class="event-status event-status-not-observed" role="cell">Not observed</span></div>
+        <div role="row"><time datetime="2026-10-07T09:56:11Z" role="cell">07 Oct 2026<small class="group-event-time">09:56:11 UTC</small></time><strong role="cell">(728374) 2010 MN110</strong><span class="event-status event-status-miss" role="cell">Miss</span></div>
+        <div role="row"><time datetime="2026-10-07T09:35:20Z" role="cell">07 Oct 2026<small class="group-event-time">09:35:20 UTC</small></time><strong role="cell">PANSTARRS (P/2026 P1)</strong><span class="event-status event-status-not-observed" role="cell">Not observed</span></div>
+        <div role="row"><time datetime="2026-10-06T11:35:27Z" role="cell">06 Oct 2026<small class="group-event-time">11:35:27 UTC</small></time><strong role="cell">(235299) 2003 UO83</strong><span class="event-status event-status-not-observed" role="cell">Not observed</span></div>
+        <div role="row"><time datetime="2026-10-06T11:26:26Z" role="cell">06 Oct 2026<small class="group-event-time">11:26:26 UTC</small></time><strong role="cell">(3585) Goshirakawa</strong><span class="event-status event-status-not-observed" role="cell">Not observed</span></div>
+        <div role="row"><time datetime="2026-09-17" role="cell">17 Sep 2026</time><strong role="cell">(1048) Feodosia</strong><span class="group-event-result" role="cell"><span class="event-status event-status-not-observed">Not observed</span><small>Two UoM stations could not complete the observation.</small></span></div>
+        <div role="row"><time datetime="2026-09-12T09:54:32Z" role="cell">12 Sep 2026<small class="group-event-time">09:54:32 UTC</small></time><strong role="cell">(850) Altona</strong><span class="group-event-result" role="cell"><span class="event-status event-status-review">Under review</span><small>Multiple station outcomes to be reviewed.</small></span></div>
+        <div role="row"><time datetime="2026-09-11T10:03:17Z" role="cell">11 Sep 2026<small class="group-event-time">10:03:17 UTC</small></time><strong role="cell">(19823) 2000 SD170</strong><span class="event-status event-status-not-observed" role="cell">Not observed</span></div>
+        <div role="row"><time datetime="2026-09-11T09:56:51Z" role="cell">11 Sep 2026<small class="group-event-time">09:56:51 UTC</small></time><strong role="cell">(289945) 2005 NQ46</strong><span class="event-status event-status-miss" role="cell">Miss</span></div>
+        <div role="row"><time datetime="2026-09-11T09:01:54Z" role="cell">11 Sep 2026<small class="group-event-time">09:01:54 UTC</small></time><strong role="cell">(254271) 2004 RY190</strong><span class="event-status event-status-not-observed" role="cell">Not observed</span></div>
+        <div role="row"><time datetime="2026-09-10T12:07:36Z" role="cell">10 Sep 2026<small class="group-event-time">12:07:36 UTC</small></time><strong role="cell">(60265) 1999 XY22</strong><span class="group-event-result" role="cell"><span class="event-status event-status-review">Result pending</span><small>The observation outcome has not been confirmed.</small></span></div>
+        <div role="row"><time datetime="2026-09-10T11:20:02Z" role="cell">10 Sep 2026<small class="group-event-time">11:20:02 UTC</small></time><strong role="cell">(140256) 2001 SB258</strong><span class="event-status event-status-miss" role="cell">Miss</span></div>
+        <div role="row"><time datetime="2026-09-07T11:04:20Z" role="cell">07 Sep 2026<small class="group-event-time">11:04:20 UTC</small></time><strong role="cell">(131047) 2000 YB35</strong><span class="event-status event-status-positive" role="cell">Positive</span></div>
+        <div role="row"><time datetime="2026-09-07T09:59:00Z" role="cell">07 Sep 2026<small class="group-event-time">09:59:00 UTC</small></time><strong role="cell">(57757) 2001 VT17</strong><span class="event-status event-status-not-observed" role="cell">Not observed</span></div>
+        <div role="row"><time datetime="2026-09-03T10:48:51Z" role="cell">03 Sep 2026<small class="group-event-time">10:48:51 UTC</small></time><strong role="cell">(249178) 2008 CK101</strong><span class="group-event-result" role="cell"><span class="event-status event-status-not-observed">Not observed</span><small>Incorrect field.</small></span></div>
+        <div role="row"><time datetime="2026-09-03T09:13:49Z" role="cell">03 Sep 2026<small class="group-event-time">09:13:49 UTC</small></time><strong role="cell">(800) Kressmannia</strong><span class="group-event-result" role="cell"><span class="event-status event-status-review">Result pending</span><small>The observation outcome has not been confirmed.</small></span></div>
+        <div role="row"><time datetime="2026-08-29T09:11:04Z" role="cell">29 Aug 2026<small class="group-event-time">09:11:04 UTC</small></time><strong role="cell">(20387) Iharkacsillik</strong><span class="group-event-result" role="cell"><span class="event-status event-status-miss">Miss · Sam</span><small>Sam's miss was reported; other station outcomes are under review.</small></span></div>
+        <div role="row"><time datetime="2026-08-16T13:36:22Z" role="cell">16 Aug 2026<small class="group-event-time">13:36:22 UTC</small></time><strong role="cell">2000 RW104</strong><span class="event-status event-status-miss" role="cell">Miss</span></div>
+        <div role="row"><time datetime="2026-08-16T10:24:17Z" role="cell">16 Aug 2026<small class="group-event-time">10:24:17 UTC</small></time><strong role="cell">2002 XK2</strong><span class="event-status event-status-miss" role="cell">Miss</span></div>
         <div role="row"><time datetime="2026-08-15" role="cell">15 Aug 2026</time><strong role="cell">2012 RO38</strong><span class="event-status event-status-miss" role="cell">Miss</span></div>
         <div role="row"><time datetime="2026-08-15" role="cell">15 Aug 2026</time><strong role="cell">Uiugbek</strong><span class="event-status event-status-miss" role="cell">Miss</span></div>
         <div role="row"><time datetime="2026-08-01" role="cell">01 Aug 2026</time><strong role="cell">2009 WK84</strong><span class="event-status event-status-miss" role="cell">Miss</span></div>
@@ -68,12 +89,14 @@
         <div role="row"><time datetime="2026-07-18" role="cell">18 Jul 2026</time><strong role="cell">2002 JL55</strong><span class="event-status event-status-miss" role="cell">Miss</span></div>
         <div role="row"><time datetime="2026-07-17" role="cell">17 Jul 2026</time><strong role="cell">1996 XA24</strong><span class="event-status event-status-miss" role="cell">Miss</span></div>
         <div role="row"><time datetime="2026-07-14" role="cell">14 Jul 2026</time><strong role="cell">2006 YN24</strong><span class="event-status event-status-miss" role="cell">Miss</span></div>
+        <div role="row"><time datetime="2026-06-14" role="cell">14 Jun 2026</time><strong role="cell">(31811) 1999 NA41</strong><span class="event-status event-status-positive" role="cell">Positive</span></div>
+        <div role="row"><time datetime="2026-06-14" role="cell">14 Jun 2026</time><strong role="cell">(80623) 2000 AE184</strong><span class="event-status event-status-positive" role="cell">Positive</span></div>
         <div role="row"><time datetime="2026-05-12" role="cell">12 May 2026</time><strong role="cell">1993 FY22</strong><span class="event-status event-status-positive" role="cell">Positive</span></div>
         <div role="row"><time datetime="2026-04-26" role="cell">26 Apr 2026</time><strong role="cell">(4609) Pizarro</strong><span class="event-status event-status-positive" role="cell">Positive</span></div>
         <div role="row"><time datetime="2026-03-18" role="cell">18 Mar 2026</time><strong role="cell">Kallichore</strong><span class="event-status event-status-miss" role="cell">Miss · clouded</span></div>
         <div role="row"><time datetime="2024-05-05" role="cell">05 May 2024</time><strong role="cell">Didymos</strong><span class="event-status event-status-miss" role="cell">Miss</span></div>
       </div>
-      <p class="group-record-note">A reliable miss constrains where the asteroid's shadow did not pass. A weather loss is recorded separately as clouded.</p>
+      <p class="group-record-note" id="event-record-note">Dates and times are UTC. A miss means a completed observation detected no occultation. Not observed means we could not complete the observation. Multi-station results and unconfirmed outcomes remain under review; a reported result from one observer is labelled separately where needed.</p>
       <a class="group-section-link" href="../../occultations/">Open Junsheng's research archive <span aria-hidden="true">→</span></a>
     </section>
   </main>
