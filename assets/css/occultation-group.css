@@ -428,9 +428,11 @@
 .group-event-highlights { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; }
 .group-event-highlights figure { display: grid; grid-template-columns: minmax(0, 1fr); margin: 0; overflow: hidden; border: 1px solid var(--group-rule); background: var(--group-white); }
 .group-event-highlights img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: contain; }
+.group-event-highlights video { display: block; width: 100%; height: auto; aspect-ratio: 7 / 3; object-fit: contain; background: #0b1524; }
 .group-event-highlights figcaption { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 1rem; padding: 1rem 1.2rem; border-top: 1px solid var(--group-rule); color: var(--group-navy); }
 .group-event-highlights figcaption strong { font-size: .92rem; }
 .group-event-highlights time { color: var(--group-muted); font: 400 .68rem "DM Mono", monospace; }
+.group-event-playback { grid-column: 1 / -1; color: var(--group-muted); font-size: .75rem; }
 
 .event-status { display: inline-flex; align-items: center; width: fit-content; padding: .35rem .55rem; border-radius: 999px; font: 500 .62rem/1 "DM Mono", monospace; letter-spacing: .045em; text-transform: uppercase; }
 .event-status-positive { color: #07452b; background: #bdebd3; }
@@ -601,6 +603,28 @@
 .group-upcoming h2 { margin: .75rem 0 1rem; color: var(--group-navy); font: 600 clamp(1.7rem, 3vw, 2.7rem)/1.1 "Manrope", sans-serif; letter-spacing: -.035em; }
 .group-upcoming div > p:last-child { max-width: 46rem; margin: 0; color: var(--group-muted); font-size: 1rem; line-height: 1.7; }
 .group-upcoming .group-button { white-space: nowrap; }
+
+/* English recordings share the native player's keyboard and playback controls. */
+.group-positive-videos { padding-block: clamp(3.5rem, 7vw, 6rem); background: var(--group-soft); }
+.group-positive-videos .academic-section-heading { margin-bottom: 2rem; }
+.group-video-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; }
+.group-video-card { min-width: 0; overflow: hidden; border: 1px solid var(--group-rule); background: var(--group-white); scroll-margin-top: 6rem; }
+.group-video-card video { display: block; width: 100%; height: auto; aspect-ratio: 7 / 3; object-fit: contain; background: #0b1524; }
+.group-video-card video.event-video-portrait,
+.group-event-highlights video.event-video-portrait { aspect-ratio: 4 / 5; }
+.group-video-copy { padding: 1.25rem 1.4rem 1.4rem; }
+.group-video-meta { display: flex; flex-wrap: wrap; align-items: center; gap: .7rem; margin: 0 0 .8rem; }
+.group-video-meta time { color: var(--group-muted); font: 400 .68rem "DM Mono", monospace; }
+.group-video-copy h3 { margin: 0 0 .6rem; color: var(--group-navy); font: 600 1.2rem/1.3 "Manrope", sans-serif; letter-spacing: -.025em; }
+.group-video-copy > p:not(.group-video-meta) { margin: 0; color: var(--group-muted); font-size: .86rem; line-height: 1.6; }
+.group-video-links { display: flex; flex-wrap: wrap; gap: .7rem 1.3rem; margin-top: 1rem; }
+.group-video-links a { color: var(--group-blue-dark); font-size: .78rem; font-weight: 600; text-underline-offset: .25rem; }
+.group-event-ledger strong a { color: inherit; text-decoration: underline; text-decoration-color: #b9c9d9; text-underline-offset: .23rem; }
+.group-event-ledger strong a:hover { color: var(--group-blue-dark); }
+@media (max-width: 760px) {
+  .group-video-grid { grid-template-columns: 1fr; }
+  .group-video-copy { padding: 1.1rem; }
+}
 
 .occultation-group-page .site-footer {
   width: 100%;

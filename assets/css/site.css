@@ -1627,6 +1627,10 @@ button { font: inherit; }
 .event-heading h3 { margin: 0; font: 300 clamp(2.4rem, 4vw, 4rem)/.95 "Newsreader", serif; letter-spacing: -.04em; }
 .event-animation { margin: 0; }
 .event-animation img { display: block; width: min(100%, 32rem); height: auto; margin-inline: auto; aspect-ratio: 4 / 5; object-fit: contain; background: #080d15; }
+.event-animation video { display: block; width: 100%; height: auto; aspect-ratio: 7 / 3; object-fit: contain; background: #080d15; }
+.event-animation video.event-video-portrait { aspect-ratio: 4 / 5; }
+.event-playback-note { margin-top: .8rem; color: #b6c5d5; font-size: .8rem; }
+.positive-video-archive-link { display: inline-block; margin-top: 1.5rem; color: #b6d9f6; text-underline-offset: .25rem; }
 
 .network-grid { display: grid; grid-template-columns: repeat(2, 1fr); border: 1px solid var(--line); }
 .network-card { display: flex; flex-direction: column; min-height: 23rem; padding: clamp(1.7rem, 3vw, 2.6rem); color: var(--ink); text-decoration: none; border-right: 1px solid var(--line); }
