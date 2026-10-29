@@ -428,7 +428,7 @@
 .group-event-highlights { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; }
 .group-event-highlights figure { display: grid; grid-template-columns: minmax(0, 1fr); margin: 0; overflow: hidden; border: 1px solid var(--group-rule); background: var(--group-white); }
 .group-event-highlights img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: contain; }
-.group-event-highlights video { display: block; width: 100%; height: auto; aspect-ratio: 7 / 3; object-fit: contain; background: #0b1524; }
+.group-event-highlights video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: contain; background: #0b1524; }
 .group-event-highlights figcaption { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 1rem; padding: 1rem 1.2rem; border-top: 1px solid var(--group-rule); color: var(--group-navy); }
 .group-event-highlights figcaption strong { font-size: .92rem; }
 .group-event-highlights time { color: var(--group-muted); font: 400 .68rem "DM Mono", monospace; }
@@ -609,9 +609,7 @@
 .group-positive-videos .academic-section-heading { margin-bottom: 2rem; }
 .group-video-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; }
 .group-video-card { min-width: 0; overflow: hidden; border: 1px solid var(--group-rule); background: var(--group-white); scroll-margin-top: 6rem; }
-.group-video-card video { display: block; width: 100%; height: auto; aspect-ratio: 7 / 3; object-fit: contain; background: #0b1524; }
-.group-video-card video.event-video-portrait,
-.group-event-highlights video.event-video-portrait { aspect-ratio: 4 / 5; }
+.group-video-card video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: contain; background: #0b1524; }
 .group-video-copy { padding: 1.25rem 1.4rem 1.4rem; }
 .group-video-meta { display: flex; flex-wrap: wrap; align-items: center; gap: .7rem; margin: 0 0 .8rem; }
 .group-video-meta time { color: var(--group-muted); font: 400 .68rem "DM Mono", monospace; }
