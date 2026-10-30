@@ -1,0 +1,18 @@
+{
+  "pages": [
+    {
+      "page": "index.html",
+      "links": 21,
+      "months": 12
+    },
+    {
+      "page": "sources.html",
+      "links": 19,
+      "months": 0
+    }
+  ],
+  "fits_layers": 144,
+  "monthly_png_count": 12,
+  "compressed_fits_byte_identity": true,
+  "all_files_under_100MB": true
+}

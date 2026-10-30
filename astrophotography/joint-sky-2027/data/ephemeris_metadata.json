@@ -1,0 +1,81 @@
+{
+  "completed_utc": "2026-10-30T13:28:44.646645+00:00",
+  "config": {
+    "year": 2027,
+    "step_seconds": 300,
+    "map_step_deg": 0.25,
+    "map_dec_limits": [
+      -30,
+      30
+    ],
+    "months": [
+      "2027-01",
+      "2027-02",
+      "2027-03",
+      "2027-04",
+      "2027-05",
+      "2027-06",
+      "2027-07",
+      "2027-08",
+      "2027-09",
+      "2027-10",
+      "2027-11",
+      "2027-12"
+    ],
+    "sites": {
+      "gansu": {
+        "latitude": 38.826387,
+        "longitude": 103.3294496,
+        "timezone": "Asia/Shanghai"
+      },
+      "asv": {
+        "latitude": -36.727973,
+        "longitude": 143.269703,
+        "timezone": "Australia/Melbourne"
+      }
+    },
+    "sun_altitude_max_deg": -18,
+    "target_altitudes_deg": [
+      30,
+      40
+    ],
+    "moon_rule": "geometric centre altitude < 0; optional",
+    "elevation_m": 0,
+    "refraction": false,
+    "ephemeris": "Astropy builtin",
+    "terrain_weather": false
+  },
+  "sample_count": 105168,
+  "first_midpoint_utc": "2027-01-01T00:02:30.000",
+  "last_midpoint_utc": "2028-01-01T03:57:30.000",
+  "python": "3.14.0 (v3.14.0:ebf955df7a8, Oct  7 2025, 08:20:14) [Clang 16.0.0 (clang-1600.0.26.6)]",
+  "platform": "macOS-26.5.2-arm64-arm-64bit-Mach-O",
+  "astropy": "7.2.0",
+  "iers_sha256": "c4366c21d1b674cd1839cf373a92672500fd66be46bbd81a2f9c5841dd0ff3ec",
+  "iers_mjd_range": [
+    41684.0,
+    61714.0
+  ],
+  "iers_status_counts": {
+    "-2": 16464,
+    "2": 88704
+  },
+  "outside_iers_prediction_cells": 16464,
+  "asv_dst_transitions": [
+    {
+      "first_sample_after_transition_utc": "2027-04-03T16:02:30.000",
+      "before_hours": 11.0,
+      "after_hours": 10.0
+    },
+    {
+      "first_sample_after_transition_utc": "2027-10-02T16:02:30.000",
+      "before_hours": 10.0,
+      "after_hours": 11.0
+    }
+  ],
+  "warnings": [
+    "(some) times are outside of range covered by IERS table, accuracy is degraded.",
+    "Tried to get polar motions for times after IERS data is valid. Defaulting to polar motion from the 50-yr mean for those. This may affect precision at the arcsec level. Please check your astropy.utils.iers.conf.iers_auto_url and point it to a newer version if necessary."
+  ],
+  "source_sha256": "9a12461fc4460cab57265ad23053fe2c77f0e7dff8eededa2600196673c9f7c4"
+}

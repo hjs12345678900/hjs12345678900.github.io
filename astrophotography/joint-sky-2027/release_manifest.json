@@ -1,0 +1,199 @@
+{
+  "version": "2.0.0",
+  "page": "/astrophotography/joint-sky-2027/",
+  "months": 12,
+  "layers": 144,
+  "model_sha256": "b51b1def8748410a82f17faf9de3d47e95051cd938939a688ecdcadde7454678",
+  "files": [
+    {
+      "path": "assets/aladin.browser.js",
+      "bytes": 2616604,
+      "sha256": "b22318ae6c43226fddc85f62b2a68f65b14ac36cd7e9dde523f48c67613bef0b"
+    },
+    {
+      "path": "assets/aladin.js",
+      "bytes": 2616595,
+      "sha256": "575eff7e672bc99a1a5bf62469b75455353aa6574a75bcfbfc2c53c799f6693f"
+    },
+    {
+      "path": "assets/aladin_package.json",
+      "bytes": 2560,
+      "sha256": "f987076039922cb040d8b71fc1e244d39faa445324c36d6ff64b1452449639d4"
+    },
+    {
+      "path": "assets/atlas_view_red.js",
+      "bytes": 9977,
+      "sha256": "ea3e94dc5322790baadda05cd107522765ecff6792ce1888e67b0604b94d9245"
+    },
+    {
+      "path": "assets/dss2_red_car_display.jpg",
+      "bytes": 2300167,
+      "sha256": "426234abe1b4ffa2fd5661512adb521e9f1deb31ca0643f1874cf1247e30c79c"
+    },
+    {
+      "path": "assets/dss2_red_car_preview.jpg",
+      "bytes": 2232865,
+      "sha256": "f0c6052a28f303fd8ac25eb4d642620adc0f8ce68c3c9b0156325244129affcb"
+    },
+    {
+      "path": "assets/load_atlas.js",
+      "bytes": 771,
+      "sha256": "778577566c885f5efe88fd10b479d79db0b53d79fcf05e82fd1d3d85d181cb05"
+    },
+    {
+      "path": "assets/sky_model.js",
+      "bytes": 4315,
+      "sha256": "ecaa7dc05ff1aa5976cef160129770c4e35ca0d450ecb1f7ceeb5e0a1424ac43"
+    },
+    {
+      "path": "atlas_source.zip",
+      "bytes": 26896160,
+      "sha256": "12921ee6c1d773646e2591cc32f61cf159bf33f141eade3298bfca5b59d45fb9"
+    },
+    {
+      "path": "data/annual_validation.json",
+      "bytes": 401,
+      "sha256": "a25fa511faeb133a326fcb97f2c31f47724e7860026fe067a14796a438782e98"
+    },
+    {
+      "path": "data/browser_model_validation.json",
+      "bytes": 9968,
+      "sha256": "34fd3d03f851c0d67bece03d0dc985675c7be579a3135da720559d5517311109"
+    },
+    {
+      "path": "data/calculation_metadata.json",
+      "bytes": 568,
+      "sha256": "a09f34010fb7373f3df4952d9379812f91ca2583669411bf30848d7b88f8e5cc"
+    },
+    {
+      "path": "data/ephemeris_metadata.json",
+      "bytes": 2283,
+      "sha256": "b85bb87fcf5e310c6414383030e139d294ad43fe43c8ffb67268a231feeaac15"
+    },
+    {
+      "path": "data/monthly_sky_hours_wcs.fits.gz",
+      "bytes": 20639715,
+      "sha256": "4defa9581dc5157c106df4c170d4e8ed86fe0265078900f0a796e25a6a73d5f3"
+    },
+    {
+      "path": "data/point_model.json",
+      "bytes": 4275741,
+      "sha256": "b51b1def8748410a82f17faf9de3d47e95051cd938939a688ecdcadde7454678"
+    },
+    {
+      "path": "data/q1_regression.json",
+      "bytes": 212,
+      "sha256": "878a955f5585ac8cd2ebe7739f3698d4020e689874a44a62386f674ce054c71b"
+    },
+    {
+      "path": "data/red_reprojection_validation.json",
+      "bytes": 2774,
+      "sha256": "4110c81ecbd343f294a45ae1f8a1279315858589cda282bf0f6b5d897d5cac1c"
+    },
+    {
+      "path": "data/timezone_validation.json",
+      "bytes": 606,
+      "sha256": "4d2d312344440bee4e2dbc07ad91f35cb4128c56008d09017439cb7adb54dfd6"
+    },
+    {
+      "path": "data/website_browser_validation.json",
+      "bytes": 11480,
+      "sha256": "aa5cb991d74e7854282cacd285ed2f0b642a4aae05ea9d3f02e0f6ef6f436172"
+    },
+    {
+      "path": "data/website_mirror_validation.json",
+      "bytes": 836,
+      "sha256": "3e0da5b9272bf15b025d71363f54fbdf0a0951a0344e9bb39cf751af29f9d44d"
+    },
+    {
+      "path": "data/website_static_validation.json",
+      "bytes": 301,
+      "sha256": "5b9ac0c42f507668cc160cf95fe056af17310651ed7b97e00d7f447370cb3500"
+    },
+    {
+      "path": "figures/2027_01_dss_mask.png",
+      "bytes": 1278961,
+      "sha256": "3bd0b459f31ca0cad478c898ca013672e439bc1bb8e326086e6d99a74b26ec1c"
+    },
+    {
+      "path": "figures/2027_02_dss_mask.png",
+      "bytes": 1304076,
+      "sha256": "5a21d5277dd66c14e99d970bf8458095d4fe79a06348dea418857f1f59dc6ed1"
+    },
+    {
+      "path": "figures/2027_03_dss_mask.png",
+      "bytes": 1322637,
+      "sha256": "aa546ce7a0b782bbdf3dc2280c860979ae79f555ba2720e95fc2b780d3585f29"
+    },
+    {
+      "path": "figures/2027_04_dss_mask.png",
+      "bytes": 1315050,
+      "sha256": "6c218caf1d958a1f3e3f71e06b29bd344399d214948acae46638fab91014a09b"
+    },
+    {
+      "path": "figures/2027_05_dss_mask.png",
+      "bytes": 1286141,
+      "sha256": "13360224ba14a3ed129c925bc85d8bac816654d0253152ed3656edaecf729bf3"
+    },
+    {
+      "path": "figures/2027_06_dss_mask.png",
+      "bytes": 1250970,
+      "sha256": "a06f6ecaa7b279f66455a84cb20f98c04b94c536c400df7ab4e2989781b19afe"
+    },
+    {
+      "path": "figures/2027_07_dss_mask.png",
+      "bytes": 1264153,
+      "sha256": "237cdef1793d02383e06868b5009b6e822dd63c469851faa848a78016f25cf53"
+    },
+    {
+      "path": "figures/2027_08_dss_mask.png",
+      "bytes": 1308032,
+      "sha256": "d10ca1dac8aea0ce41f9d5862b74c705c7a98c6fe9e46f5fdc5fa52c66934a37"
+    },
+    {
+      "path": "figures/2027_09_dss_mask.png",
+      "bytes": 1324045,
+      "sha256": "f82019c14c374949a3513906f0ce47d13cbac8b7383b4fd36163b9a9b55f83b3"
+    },
+    {
+      "path": "figures/2027_10_dss_mask.png",
+      "bytes": 1317574,
+      "sha256": "0d7d69b8400959951892384542aa629239f3a5bd02958d49e5b5538247368ebb"
+    },
+    {
+      "path": "figures/2027_11_dss_mask.png",
+      "bytes": 1277426,
+      "sha256": "faf7783f5d5da58b4c11a6351666179893381b212ab860042ae9b28fe38141fd"
+    },
+    {
+      "path": "figures/2027_12_dss_mask.png",
+      "bytes": 1259821,
+      "sha256": "7afa7279203741d65fb5b07660d1a044bfb7cb14ccc5ab0be29dd0d6e0f39cc3"
+    },
+    {
+      "path": "figures/monthly_overlap_overview.png",
+      "bytes": 2201215,
+      "sha256": "354d134209d59a15230d4c1594a103fa3ab34a7286ae9ada1b44b89abf37ba0b"
+    },
+    {
+      "path": "index.html",
+      "bytes": 7697,
+      "sha256": "c3723d875aaafa5a1c97878b29bdfffee3bb1c89bf745442131a210961587104"
+    },
+    {
+      "path": "sources.html",
+      "bytes": 6860,
+      "sha256": "24d2315fe81c748af51e5bf4017f2c9835c5a104e0a02cc2a8e902f054fad5ee"
+    },
+    {
+      "path": "tables/atlas_vs_full_altaz.csv",
+      "bytes": 646588,
+      "sha256": "117505dbfe6bd7c682df98c36f2d70f81015de21c559b64a30cb8e1ebdae1c2e"
+    },
+    {
+      "path": "tables/monthly_sky_areas.csv",
+      "bytes": 16386,
+      "sha256": "cd994d99e4808280d8abc142dc08f527376426ab61864db0d4e6757b1d12080f"
+    }
+  ]
+}

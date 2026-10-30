@@ -1,0 +1,23 @@
+{
+  "version": "2.0.0",
+  "months": [
+    "2027-01",
+    "2027-02",
+    "2027-03",
+    "2027-04",
+    "2027-05",
+    "2027-06",
+    "2027-07",
+    "2027-08",
+    "2027-09",
+    "2027-10",
+    "2027-11",
+    "2027-12"
+  ],
+  "layers": 144,
+  "map_step_deg": 0.25,
+  "time_step_minutes": 5,
+  "model_sha256": "b51b1def8748410a82f17faf9de3d47e95051cd938939a688ecdcadde7454678",
+  "source_sha256": "9a12461fc4460cab57265ad23053fe2c77f0e7dff8eededa2600196673c9f7c4",
+  "assumptions": "Geometric horizon; no terrain/weather; monthly CIRS directions; exact cached Sun/Moon"
+}

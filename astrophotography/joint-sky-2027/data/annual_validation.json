@@ -1,0 +1,10 @@
+{
+  "validation_cases": 9072,
+  "synthetic_and_real_directions": 63,
+  "months_validated": 12,
+  "max_duration_difference_minutes": 5.000000000000568,
+  "max_monthly_direction_altitude_difference_deg": 0.0018087377758035927,
+  "threshold_and_moon_nesting": true,
+  "true_intersection_bounded_by_both_sites": true,
+  "method": "Full time-dependent topocentric Astropy AltAz at every five-minute cell"
+}

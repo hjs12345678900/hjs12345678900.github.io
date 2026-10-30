@@ -1,0 +1,455 @@
+{
+  "checks": [
+    "All twelve months available",
+    "Full-year overview includes every right ascension",
+    "2027-01 intersection bounded",
+    "2027-02 intersection bounded",
+    "2027-03 intersection bounded",
+    "2027-04 intersection bounded",
+    "2027-05 intersection bounded",
+    "2027-06 intersection bounded",
+    "2027-07 intersection bounded",
+    "Winter ASV displays AEST",
+    "2027-08 intersection bounded",
+    "2027-09 intersection bounded",
+    "2027-10 intersection bounded",
+    "2027-11 intersection bounded",
+    "2027-12 intersection bounded",
+    "December ASV displays AEDT",
+    "Masks recompute throughout the annual cycle",
+    "DST folds, gaps and cross-year evening label correct",
+    "Simultaneous, lunar and altitude controls update",
+    "Real high-order DSS2 Red tiles load",
+    "Annual CSV filename",
+    "Mobile layout has no horizontal overflow",
+    "No browser runtime errors"
+  ],
+  "months": [
+    {
+      "month": "2027-01",
+      "maskPixels": 5799,
+      "value": {
+        "outside": false,
+        "gansu": 117.83333333333333,
+        "asv": 81.91666666666667,
+        "simultaneous": 48.916666666666664,
+        "common": 81.91666666666667,
+        "cirs": [
+          1.5708877412860769,
+          0.00000824016569822561
+        ],
+        "limits": [
+          0.8739515071425397,
+          0.8971382640430015
+        ],
+        "key": "2027-01/moon_down"
+      },
+      "asvLongest": {
+        "a": 1292,
+        "b": 1355,
+        "n": 63,
+        "hours": 5.25,
+        "start": 1799149200000,
+        "end": 1799168100000
+      },
+      "local": "2027-01-05 22:40 UTC+11:00"
+    },
+    {
+      "month": "2027-02",
+      "maskPixels": 6201,
+      "value": {
+        "outside": false,
+        "gansu": 95.75,
+        "asv": 80.66666666666667,
+        "simultaneous": 37.75,
+        "common": 80.66666666666667,
+        "cirs": [
+          2.0944803413498665,
+          -0.0013395922724157572
+        ],
+        "limits": [
+          0.8725354569805501,
+          0.8984236581724828
+        ],
+        "key": "2027-02/moon_down"
+      },
+      "asvLongest": {
+        "a": 9639,
+        "b": 9708,
+        "n": 69,
+        "hours": 5.75,
+        "start": 1801653300000,
+        "end": 1801674000000
+      },
+      "local": "2027-02-03 22:15 UTC+11:00"
+    },
+    {
+      "month": "2027-03",
+      "maskPixels": 6539,
+      "value": {
+        "outside": false,
+        "gansu": 108.25,
+        "asv": 103.75,
+        "simultaneous": 39.583333333333336,
+        "common": 103.75,
+        "cirs": [
+          2.6180764339169684,
+          -0.002333967015147209
+        ],
+        "limits": [
+          0.8714886947893157,
+          0.899370200672867
+        ],
+        "key": "2027-03/moon_down"
+      },
+      "asvLongest": {
+        "a": 18270,
+        "b": 18348,
+        "n": 78,
+        "hours": 6.5,
+        "start": 1804242600000,
+        "end": 1804266000000
+      },
+      "local": "2027-03-05 21:30 UTC+11:00"
+    },
+    {
+      "month": "2027-04",
+      "maskPixels": 6314,
+      "value": {
+        "outside": false,
+        "gansu": 92.91666666666667,
+        "asv": 107.83333333333333,
+        "simultaneous": 35.333333333333336,
+        "common": 92.91666666666667,
+        "cirs": [
+          3.1416752344426975,
+          -0.002708117477595806
+        ],
+        "limits": [
+          0.871094378085485,
+          0.8997259662174203
+        ],
+        "key": "2027-04/moon_down"
+      },
+      "asvLongest": {
+        "a": 26906,
+        "b": 26989,
+        "n": 83,
+        "hours": 6.916666666666667,
+        "start": 1806833400000,
+        "end": 1806858300000
+      },
+      "local": "2027-04-04 20:10 UTC+10:00"
+    },
+    {
+      "month": "2027-05",
+      "maskPixels": 5800,
+      "value": {
+        "outside": false,
+        "gansu": 82.91666666666667,
+        "asv": 115.58333333333333,
+        "simultaneous": 29.666666666666668,
+        "common": 82.91666666666667,
+        "cirs": [
+          3.6652786948700324,
+          -0.0023554638028144836
+        ],
+        "limits": [
+          0.8714660460921152,
+          0.8993906468814598
+        ],
+        "key": "2027-05/moon_down"
+      },
+      "asvLongest": {
+        "a": 34972,
+        "b": 35055,
+        "n": 83,
+        "hours": 6.916666666666667,
+        "start": 1809253200000,
+        "end": 1809278100000
+      },
+      "local": "2027-05-02 20:20 UTC+10:00"
+    },
+    {
+      "month": "2027-06",
+      "maskPixels": 5197,
+      "value": {
+        "outside": false,
+        "gansu": 67,
+        "asv": 106.91666666666667,
+        "simultaneous": 22.416666666666668,
+        "common": 67,
+        "cirs": [
+          4.188880688478864,
+          -0.001366115058772266
+        ],
+        "limits": [
+          0.8725075596161797,
+          0.8984489245860252
+        ],
+        "key": "2027-06/moon_down"
+      },
+      "asvLongest": {
+        "a": 44474,
+        "b": 44557,
+        "n": 83,
+        "hours": 6.916666666666667,
+        "start": 1812103800000,
+        "end": 1812128700000
+      },
+      "local": "2027-06-04 20:10 UTC+10:00"
+    },
+    {
+      "month": "2027-07",
+      "maskPixels": 5391,
+      "value": {
+        "outside": false,
+        "gansu": 73,
+        "asv": 109.58333333333333,
+        "simultaneous": 28,
+        "common": 73,
+        "cirs": [
+          4.712478855807108,
+          -0.0000037924387470411602
+        ],
+        "limits": [
+          0.873938879694733,
+          0.8971497514765628
+        ],
+        "key": "2027-07/moon_down"
+      },
+      "asvLongest": {
+        "a": 52253,
+        "b": 52335,
+        "n": 82,
+        "hours": 6.833333333333333,
+        "start": 1814437500000,
+        "end": 1814462100000
+      },
+      "local": "2027-07-01 20:25 UTC+10:00"
+    },
+    {
+      "month": "2027-08",
+      "maskPixels": 5988,
+      "value": {
+        "outside": false,
+        "gansu": 84.5,
+        "asv": 104.16666666666667,
+        "simultaneous": 40.333333333333336,
+        "common": 84.5,
+        "cirs": [
+          5.236073025927965,
+          0.001368471421301365
+        ],
+        "limits": [
+          0.8753773447563008,
+          0.8958382352369048
+        ],
+        "key": "2027-08/moon_down"
+      },
+      "asvLongest": {
+        "a": 61181,
+        "b": 61263,
+        "n": 82,
+        "hours": 6.833333333333333,
+        "start": 1817115900000,
+        "end": 1817140500000
+      },
+      "local": "2027-08-01 20:25 UTC+10:00"
+    },
+    {
+      "month": "2027-09",
+      "maskPixels": 6268,
+      "value": {
+        "outside": false,
+        "gansu": 93.91666666666667,
+        "asv": 92.58333333333333,
+        "simultaneous": 51.333333333333336,
+        "common": 92.58333333333333,
+        "cirs": [
+          5.75966847969509,
+          0.0023812311701476574
+        ],
+        "limits": [
+          0.8764368502652222,
+          0.8948684563606506
+        ],
+        "key": "2027-09/moon_down"
+      },
+      "asvLongest": {
+        "a": 70108,
+        "b": 70190,
+        "n": 82,
+        "hours": 6.833333333333333,
+        "start": 1819794000000,
+        "end": 1819818600000
+      },
+      "local": "2027-09-01 20:20 UTC+10:00"
+    },
+    {
+      "month": "2027-10",
+      "maskPixels": 6223,
+      "value": {
+        "outside": false,
+        "gansu": 111.66666666666667,
+        "asv": 90.91666666666667,
+        "simultaneous": 65.25,
+        "common": 90.91666666666667,
+        "cirs": [
+          0.00008412461465923116,
+          0.002759734634310007
+        ],
+        "limits": [
+          0.8768323656672239,
+          0.8945056110136578
+        ],
+        "key": "2027-10/moon_down"
+      },
+      "asvLongest": {
+        "a": 78749,
+        "b": 78831,
+        "n": 82,
+        "hours": 6.833333333333333,
+        "start": 1822386300000,
+        "end": 1822410900000
+      },
+      "local": "2027-10-01 20:25 UTC+10:00"
+    },
+    {
+      "month": "2027-11",
+      "maskPixels": 5674,
+      "value": {
+        "outside": false,
+        "gansu": 109.58333333333333,
+        "asv": 75.83333333333333,
+        "simultaneous": 63.25,
+        "common": 75.83333333333333,
+        "cirs": [
+          0.523688090590082,
+          0.0023974631913006306
+        ],
+        "limits": [
+          0.8764538169517956,
+          0.8948529003663098
+        ],
+        "key": "2027-11/moon_down"
+      },
+      "asvLongest": {
+        "a": 87696,
+        "b": 87758,
+        "n": 62,
+        "hours": 5.166666666666667,
+        "start": 1825070400000,
+        "end": 1825089000000
+      },
+      "local": "2027-11-01 23:00 UTC+11:00"
+    },
+    {
+      "month": "2027-12",
+      "maskPixels": 5459,
+      "value": {
+        "outside": false,
+        "gansu": 115.66666666666667,
+        "asv": 75.25,
+        "simultaneous": 58.75,
+        "common": 75.25,
+        "cirs": [
+          1.0472911221506473,
+          0.0013874492142349482
+        ],
+        "limits": [
+          0.8753972149608195,
+          0.8958200773384786
+        ],
+        "key": "2027-12/moon_down"
+      },
+      "asvLongest": {
+        "a": 96339,
+        "b": 96398,
+        "n": 59,
+        "hours": 4.916666666666667,
+        "start": 1827663300000,
+        "end": 1827681000000
+      },
+      "local": "2027-12-01 23:15 UTC+11:00"
+    }
+  ],
+  "transitions": [
+    "2027-04-04 02:59 UTC+11:00",
+    "2027-04-04 02:00 UTC+10:00",
+    "2027-10-03 01:59 UTC+10:00",
+    "2027-10-03 03:00 UTC+11:00",
+    "2027-12-31"
+  ],
+  "coverage": [
+    {
+      "ra": 1,
+      "visible": true
+    },
+    {
+      "ra": 31,
+      "visible": true
+    },
+    {
+      "ra": 61,
+      "visible": true
+    },
+    {
+      "ra": 91,
+      "visible": true
+    },
+    {
+      "ra": 121,
+      "visible": true
+    },
+    {
+      "ra": 151,
+      "visible": true
+    },
+    {
+      "ra": 181,
+      "visible": true
+    },
+    {
+      "ra": 211,
+      "visible": true
+    },
+    {
+      "ra": 241,
+      "visible": true
+    },
+    {
+      "ra": 271,
+      "visible": true
+    },
+    {
+      "ra": 301,
+      "visible": true
+    },
+    {
+      "ra": 331,
+      "visible": true
+    }
+  ],
+  "tiles": [
+    "https://hips.china-vo.org/m/DSS2Merged/Norder6/Dir20000/Npix22897.jpg",
+    "https://hips.china-vo.org/m/DSS2Merged/Norder6/Dir20000/Npix22896.jpg",
+    "https://hips.china-vo.org/m/DSS2Merged/Norder6/Dir20000/Npix22878.jpg",
+    "https://hips.china-vo.org/m/DSS2Merged/Norder6/Dir20000/Npix22877.jpg",
+    "https://hips.china-vo.org/m/DSS2Merged/Norder6/Dir20000/Npix22876.jpg",
+    "https://hips.china-vo.org/m/DSS2Merged/Norder6/Dir20000/Npix22875.jpg",
+    "https://hips.china-vo.org/m/DSS2Merged/Norder6/Dir20000/Npix22874.jpg",
+    "https://hips.china-vo.org/m/DSS2Merged/Norder6/Dir20000/Npix22873.jpg",
+    "https://hips.china-vo.org/m/DSS2Merged/Norder6/Dir20000/Npix22872.jpg",
+    "https://hips.china-vo.org/m/DSS2Merged/Norder6/Dir20000/Npix22871.jpg",
+    "https://hips.china-vo.org/m/DSS2Merged/Norder6/Dir20000/Npix22870.jpg",
+    "https://hips.china-vo.org/m/DSS2Merged/Norder6/Dir20000/Npix22869.jpg",
+    "https://hips.china-vo.org/m/DSS2Merged/Norder6/Dir20000/Npix22868.jpg",
+    "https://hips.china-vo.org/m/DSS2Merged/Norder6/Dir20000/Npix22867.jpg",
+    "https://hips.china-vo.org/m/DSS2Merged/Norder6/Dir20000/Npix22866.jpg",
+    "https://hips.china-vo.org/m/DSS2Merged/Norder6/Dir20000/Npix22865.jpg",
+    "https://hips.china-vo.org/m/DSS2Merged/Norder6/Dir20000/Npix22863.jpg",
+    "https://hips.china-vo.org/m/DSS2Merged/Norder6/Dir20000/Npix22861.jpg"
+  ],
+  "errors": []
+}

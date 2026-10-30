@@ -1,0 +1,34 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DSS2 Red 双站选图 · 数据来源与计算</title><style>body{margin:0;background:#100e1b;color:#f2e9dc;font:16px/1.8 system-ui,sans-serif}main{max-width:900px;margin:auto;padding:30px 20px}a{color:#e3b777}h1,h2{font-family:Georgia,serif;font-weight:400}table{border-collapse:collapse;width:100%;font-size:14px}th,td{text-align:left;padding:10px;border-bottom:1px solid #51485b}code{overflow-wrap:anywhere}li{margin:8px 0}</style></head><body><main>
+<a href="./">← 返回星图</a><h1>真实巡天与双站窗口</h1>
+<p>2027年1月1日至12月31日的甘肃 × ASV St Arnaud 联合深空选题工具。星图可自由选点，计算不局限于预先列出的目标。版本 2.0.0。</p>
+<h2>底图与署名</h2>
+<p>当前使用真正的 <strong>DSS2 Red (F+R)</strong> 红摄影波段，北天约0.658 μm、南天约0.64 μm，包含 POSS-II/UKSTU、AAO Red 等摄影底片。它不是 Hα 窄带，也不是把彩色 DSS 的 R 通道抽出来。</p>
+<p>原始摄影资料由 Palomar 和 UK Schmidt 等望远镜获得，STScI/NASA 完成数字化，CDS 完成 HEALPix/HiPS 编码。<a href="https://archive.stsci.edu/dss/copyright.html">DSS 版权与完整署名</a>；<a href="https://hips.china-vo.org/">China-VO 官方巡天列表</a>。</p>
+<p>高清瓦片优先从 <a href="https://hips.china-vo.org/m/DSS2Merged/">China-VO DSS2 Red 镜像</a>读取；CDS 的两个官方地址作为备用。底图会逐层加载，放大后应等候细节。网页同时保留从 <a href="https://irsa.ipac.caltech.edu/data/hips/CDS/DSS2/red/">NASA/IPAC IRSA DSS2 Red</a> 的真实 Allsky 数据重投影而成的约7′采样预览；网络或 WebGL 不可用时使用这个预览，并明确标注分辨率。摄影拼缝、光晕或底片缺陷不表示实际星云结构；没有生成或补画天体。</p>
+<p>预览使用 ICRS CAR 投影、统一显示拉伸；四幅独立 DSS FITS 用于检验方向与位置。<a href="data/red_reprojection_validation.json">预览核验记录</a>。</p>
+<h2>站点与“哪天晚上”</h2>
+<table><thead><tr><th>站点</th><th>纬度 / 经度</th><th>当地时间</th></tr></thead><tbody>
+<tr><td>甘肃</td><td>+38.826387° / +103.3294496°</td><td>UTC+8</td></tr>
+<tr><td>ASV St Arnaud</td><td>−36.727973° / +143.269703°</td><td>Australia/Melbourne；按日期使用 AEDT / UTC+11 或 AEST / UTC+10</td></tr></tbody></table>
+<p>夜晚归属当地中午至次日中午；例如“1月10日晚”可以包含1月11日凌晨。12月31日晚包含2028年1月1日凌晨。2027年4月4日结束夏令时、10月3日开始夏令时；窗口起止分别标出当时实际偏移。窗口同时显示实际日期、时间与 UTC 偏移。</p>
+<h2>遮罩和小时如何计算</h2>
+<ul><li>完整季度使用5分钟 UTC 时间网格。天文黑夜要求太阳中心高度低于−18°；目标最低高度可选30°或40°；可选月球中心在地平线以下。</li>
+<li>全图覆盖赤经0–360°、赤纬−30°至+30°。两站共同达到30°的赤纬带约−21.17°至+23.27°；40°时约−11.17°至+13.27°，均在规划带内。</li>
+<li>“两站各自都可拍”要求每个站的单月时长各自达到滑块门槛，不要求同时曝光。“真正同时”使用同一 UTC 时格中两站条件的交集。</li>
+<li>两站工时之和与真正同时小时分开显示。不同天区占用同一夜晚，各选点小时不能全部相加为可实现总工时。</li>
+<li>地图显示网格约0.25°；点击点采用每月16日 CIRS 方向修正的1°网格插值，再根据完整时间序列计数、寻找连续窗口。月中方向近似不等于只算月中一晚。</li>
+<li>全年63个合成/真实方向，覆盖全部赤经与共同高度边界；与完整 Astropy AltAz 对照共9072项，最大时长差5.0分钟。边界附近应精算，大视场四角的合格时间可能比中心更短。</li></ul>
+<p><strong>所有窗口均为几何上限。</strong>未知海拔按0米；没有扣除天气、地形遮挡、消光、设备损失或完整月光背景。月下筛选只是保守条件。详细<a href="data/calculation_metadata.json">输入与计算记录</a>、<a href="tables/atlas_vs_full_altaz.csv">AltAz 对照 CSV</a>。</p>
+<p>全年日月高度与时区记录：<a href="data/ephemeris_metadata.json">计算元数据</a>；<a href="data/annual_validation.json">十二个月数值核验</a>。本次下载的IERS预测表覆盖至2027年11月5日；之后使用Astropy的表边界UT1及缺省极移，相关警告保存在元数据中。远期结果用于分钟级选题，不作秒级指向或时刻预报。</p><h2>相机框与手动角度</h2>
+<table><thead><tr><th>系统</th><th>有效画幅</th><th>像元比例</th></tr></thead><tbody>
+<tr><td>A · 150PDS / MiniCam8</td><td>约51.26′ × 28.98′</td><td>约0.798″/px</td></tr>
+<tr><td>B · RC10 / 0.8× / QHY268M</td><td>约50.51′ × 33.74′</td><td>约0.485″/px</td></tr>
+<tr><td>C · SQA55 / MiniCam8</td><td>约145.59′ × 82.32′</td><td>约2.266″/px</td></tr></tbody></table>
+<p>矩形用有效像素数和焦距，通过天球切平面反投影绘制。长边东西向表示传感器长边沿天球赤经方向；长边南北向为在天球上旋转90°。这不是相机相对镜筒、地面或调焦座的机械刻度。手动转相机后需拍短曝光并板解确认。Bin2 不改变全幅视场，ROI 裁切才改变；视场接近不等于分辨率或暗结构探测能力相同。</p>
+<h2>下载、代码与授权</h2>
+<ul><li><a href="figures/monthly_overlap_overview.png">三个月总览 PNG</a>；<a href="data/monthly_sky_hours_wcs.fits.gz">144层小时图 WCS FITS（gzip）</a>；<a href="tables/monthly_sky_areas.csv">条件覆盖面积 CSV</a>。</li>
+<li><a href="atlas_source.zip">计算和显示代码、依赖、输入快照与说明</a>。完整时间网格已打包，可从保存的输入重算；归档包含全年原始日月高度、IERS冻结表和全部计算/显示脚本；README给出从零计算和复用缓存两条复算路径。</li>
+<li>显示引擎为 <a href="https://github.com/cds-astro/aladin-lite">Aladin Lite 3.9.2-beta</a>，LGPL-3.0-or-later。浏览器包装仅将最终 ES module export 换为全局 A；<a href="assets/aladin.js">未改动发行模块</a>及<a href="https://github.com/cds-astro/aladin-lite/blob/master/LICENSE">上游授权</a>。源码与自定义模块分开保存，使用者可以替换引擎。</li>
+<li><a href="release_manifest.json">发布文件哈希</a>。网页不会保存选点至服务器；关闭前请导出候选 CSV。在线请求用于读取巡天和引擎资源。</li></ul>
+<p><a href="../joint-sky-2027-q1/quarter-archive.html">原Q1历史快照</a></p></main></body></html>
