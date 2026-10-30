@@ -1,0 +1,21 @@
+{
+  "created_utc": "2026-10-30T11:28:19.217616+00:00",
+  "version": "1.0.0",
+  "source": "/Users/junshenghe/Documents/Astrophotography/joint_targets_2027_Q1_extended/data/raw/visibility_samples.npz",
+  "source_sha256": "a610570a72e171c19ac944afcf5544c13ff0b8879865d006e0e9a93b64852cc0",
+  "map_step_deg": 0.25,
+  "time_step_minutes": 5,
+  "months": [
+    "2027-01",
+    "2027-02",
+    "2027-03"
+  ],
+  "latitude_band_deg": [
+    -30,
+    30
+  ],
+  "layers": 36,
+  "validation_cases": 1692,
+  "max_difference_from_full_altaz_minutes": 5.000020000000518,
+  "assumptions": "Moon/Sun exact cached AltAz; monthly CIRS approximation; ideal geometric horizon; no weather/terrain"
+}

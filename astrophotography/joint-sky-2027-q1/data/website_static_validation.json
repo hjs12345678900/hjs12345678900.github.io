@@ -1,0 +1,20 @@
+{
+  "static_checks": [
+    {
+      "page": "astrophotography/index.html",
+      "links_checked": 70
+    },
+    {
+      "page": "astrophotography/joint-sky-2027-q1/index.html",
+      "links_checked": 14
+    },
+    {
+      "page": "astrophotography/joint-sky-2027-q1/sources.html",
+      "links_checked": 16
+    }
+  ],
+  "model_byte_identity": true,
+  "fits_roundtrip_identity": true,
+  "source_archive_crc": true,
+  "localhost_independent": true
+}

@@ -1,0 +1,27 @@
+{
+  "mirror": "China-VO",
+  "allsky_byte_identical_to_irsa": true,
+  "responses": [
+    {
+      "url": "https://hips.china-vo.org/m/DSS2Merged/properties",
+      "bytes": 3588,
+      "sha256": "a01459847d30d731193c9271ca4871d45bd5101d6f8c79d4b0833ac505d8e8fe",
+      "cors": "*",
+      "elapsed_s": 1.4652641249704175
+    },
+    {
+      "url": "https://hips.china-vo.org/m/DSS2Merged/Norder3/Allsky.jpg",
+      "bytes": 1115587,
+      "sha256": "833024b424462ba03866eb51ff84a048d468e634c30aa64335a4986504efdd0d",
+      "cors": "*",
+      "elapsed_s": 3.821819000004325
+    },
+    {
+      "url": "https://hips.china-vo.org/m/DSS2Merged/Norder3/Dir0/Npix300.jpg",
+      "bytes": 48735,
+      "sha256": "421bccfde7a86f2ed8e2f3fd390c27fbef6a380ccc0e55bc305d7e5938376466",
+      "cors": "*",
+      "elapsed_s": 1.5713241250487044
+    }
+  ]
+}

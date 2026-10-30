@@ -1,0 +1,22 @@
+{
+  "dss_survey": "DSS2 Red",
+  "red_preview_verified": true,
+  "color_version_preserved": true,
+  "time_data_unchanged_from_color": true,
+  "local_red_cache_enabled": true,
+  "overlay_layers": 36,
+  "grid_cells_per_layer": 345600,
+  "time_cell_minutes": 5,
+  "wcs_verified": true,
+  "condition_monotonicity_verified": true,
+  "local_links_verified": 9,
+  "prior_delivery_files_checked": 219,
+  "prior_delivery_files_unchanged": true,
+  "browser_checked_cases": 1656,
+  "browser_max_difference_minutes": 5.00002,
+  "mouse_pick_zoom_export_verified": true,
+  "desktop_width_px": 1440,
+  "mobile_width_px": 390,
+  "horizontal_overflow": false,
+  "real_high_resolution_DSS_verified": true
+}

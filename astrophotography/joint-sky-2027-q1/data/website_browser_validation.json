@@ -1,0 +1,70 @@
+{
+  "checks": [
+    "Real DSS2 Red mirror connected",
+    "M78 January hours agree with full AltAz to one time cell",
+    "ASV local evening includes AEDT offset",
+    "Genuine high-order Red tiles loaded in browser",
+    "EW/NS frame rotation follows spherical geometry",
+    "Selection and real CSV download work",
+    "March independent time remains distinct from true simultaneous time",
+    "Simultaneous mode uses correct label",
+    "February, lunar condition and hour threshold update",
+    "Mobile has no horizontal page overflow",
+    "No browser runtime errors"
+  ],
+  "errors": [],
+  "january": {
+    "outside": false,
+    "gansu": 84.66666666666667,
+    "asv": 63.833333333333336,
+    "simultaneous": 28,
+    "common": 63.833333333333336,
+    "cirs": [
+      1.5131333239954419,
+      0.001542873746615605
+    ],
+    "limits": [
+      0.602623138683167,
+      0.638233951001759
+    ],
+    "key": "2027-01/moon_down"
+  },
+  "march": {
+    "outside": false,
+    "gansu": 17.666666666666668,
+    "asv": 17.833333333333332,
+    "simultaneous": 0,
+    "common": 17.666666666666668,
+    "cirs": [
+      1.5130495562958117,
+      0.0015236321252497045
+    ],
+    "limits": [
+      0.602595860794949,
+      0.6382580880840296
+    ],
+    "key": "2027-03/moon_down"
+  },
+  "tiles": [
+    "https://hips.china-vo.org/m/DSS2Merged/Norder6/Dir20000/Npix22897.jpg",
+    "https://hips.china-vo.org/m/DSS2Merged/Norder6/Dir20000/Npix22896.jpg",
+    "https://hips.china-vo.org/m/DSS2Merged/Norder6/Dir20000/Npix22878.jpg",
+    "https://hips.china-vo.org/m/DSS2Merged/Norder6/Dir20000/Npix22877.jpg",
+    "https://hips.china-vo.org/m/DSS2Merged/Norder6/Dir20000/Npix22876.jpg",
+    "https://hips.china-vo.org/m/DSS2Merged/Norder6/Dir20000/Npix22875.jpg",
+    "https://hips.china-vo.org/m/DSS2Merged/Norder6/Dir20000/Npix22874.jpg",
+    "https://hips.china-vo.org/m/DSS2Merged/Norder6/Dir20000/Npix22873.jpg",
+    "https://hips.china-vo.org/m/DSS2Merged/Norder6/Dir20000/Npix22872.jpg",
+    "https://hips.china-vo.org/m/DSS2Merged/Norder6/Dir20000/Npix22871.jpg",
+    "https://hips.china-vo.org/m/DSS2Merged/Norder6/Dir20000/Npix22870.jpg",
+    "https://hips.china-vo.org/m/DSS2Merged/Norder6/Dir20000/Npix22869.jpg",
+    "https://hips.china-vo.org/m/DSS2Merged/Norder6/Dir20000/Npix22868.jpg",
+    "https://hips.china-vo.org/m/DSS2Merged/Norder6/Dir20000/Npix22867.jpg",
+    "https://hips.china-vo.org/m/DSS2Merged/Norder6/Dir20000/Npix22866.jpg",
+    "https://hips.china-vo.org/m/DSS2Merged/Norder6/Dir20000/Npix22865.jpg",
+    "https://hips.china-vo.org/m/DSS2Merged/Norder6/Dir20000/Npix22863.jpg",
+    "https://hips.china-vo.org/m/DSS2Merged/Norder6/Dir20000/Npix22861.jpg"
+  ],
+  "ordinaryBrowserUserAgent": true,
+  "securityBypass": false
+}
