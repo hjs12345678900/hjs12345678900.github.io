@@ -1,5 +1,5 @@
 {
-  "version": "2.0.0",
+  "version": "2.1.0",
   "page": "/astrophotography/joint-sky-2027/",
   "months": 12,
   "layers": 144,
@@ -22,8 +22,8 @@
     },
     {
       "path": "assets/atlas_view_red.js",
-      "bytes": 9977,
-      "sha256": "ea3e94dc5322790baadda05cd107522765ecff6792ce1888e67b0604b94d9245"
+      "bytes": 10199,
+      "sha256": "92849c4bd3f07dbd902ee387f42b9ec12c20dc18a0db3a70a8c8aa08431e8750"
     },
     {
       "path": "assets/dss2_red_car_display.jpg",
@@ -36,9 +36,19 @@
       "sha256": "f0c6052a28f303fd8ac25eb4d642620adc0f8ce68c3c9b0156325244129affcb"
     },
     {
+      "path": "assets/general_model.js",
+      "bytes": 6094,
+      "sha256": "3af12765f95374d357c79043e919e720b1754371090381398b11dac42d82ce48"
+    },
+    {
       "path": "assets/load_atlas.js",
-      "bytes": 771,
-      "sha256": "778577566c885f5efe88fd10b479d79db0b53d79fcf05e82fd1d3d85d181cb05"
+      "bytes": 1022,
+      "sha256": "b9456db75efa15c7847d3087361d8666995c04cb66cef3e2d01b7b9d8f2e9038"
+    },
+    {
+      "path": "assets/site_controls.js",
+      "bytes": 937,
+      "sha256": "c805308fb290c19c8077e1098234c2ca92f0d41be849a19c7994d18bbec3adc7"
     },
     {
       "path": "assets/sky_model.js",
@@ -47,8 +57,8 @@
     },
     {
       "path": "atlas_source.zip",
-      "bytes": 26896160,
-      "sha256": "12921ee6c1d773646e2591cc32f61cf159bf33f141eade3298bfca5b59d45fb9"
+      "bytes": 38246075,
+      "sha256": "f1a214e701e5c1766606d2c19d938592a34d72c56a315114ce6f7dbfea075da8"
     },
     {
       "path": "data/annual_validation.json",
@@ -69,6 +79,21 @@
       "path": "data/ephemeris_metadata.json",
       "bytes": 2283,
       "sha256": "b85bb87fcf5e310c6414383030e139d294ad43fe43c8ffb67268a231feeaac15"
+    },
+    {
+      "path": "data/general_ephemeris.json",
+      "bytes": 16467716,
+      "sha256": "95519b30f2192b20fa73fcef2b3f74d9527046bddc75e83f9473b3d0bf579133"
+    },
+    {
+      "path": "data/general_reference.json",
+      "bytes": 19641,
+      "sha256": "8a86f3e9875e2dd3e131d333ceb77da7982f5f39ef0bd1301309314845b4de9b"
+    },
+    {
+      "path": "data/general_validation.json",
+      "bytes": 200,
+      "sha256": "2371917cd6fd2aa3e355dacf87b37e149964c75747a62d0bc598d4deefddc9c0"
     },
     {
       "path": "data/monthly_sky_hours_wcs.fits.gz",
@@ -177,13 +202,13 @@
     },
     {
       "path": "index.html",
-      "bytes": 7697,
-      "sha256": "c3723d875aaafa5a1c97878b29bdfffee3bb1c89bf745442131a210961587104"
+      "bytes": 9925,
+      "sha256": "83cca0db9fa58ea154a0b0b2019b5255f939a2b928eb0df2fe912b953f9c7d45"
     },
     {
       "path": "sources.html",
-      "bytes": 6860,
-      "sha256": "24d2315fe81c748af51e5bf4017f2c9835c5a104e0a02cc2a8e902f054fad5ee"
+      "bytes": 7625,
+      "sha256": "5924f44f0c3daa13bc2d2b9f89472f4f9b0a6a667f3dacdb6e5ae6c799739f13"
     },
     {
       "path": "tables/atlas_vs_full_altaz.csv",

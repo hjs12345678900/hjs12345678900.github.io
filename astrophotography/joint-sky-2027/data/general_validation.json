@@ -1,0 +1,8 @@
+{
+  "cases": 72,
+  "comparisons": 216,
+  "max_difference_minutes": 15.000000000000007,
+  "identical_site_and_pole_checks": true,
+  "tolerance_minutes": 10,
+  "tangent_boundary_tolerance_minutes": 30
+}

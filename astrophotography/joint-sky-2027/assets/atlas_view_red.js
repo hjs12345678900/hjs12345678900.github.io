@@ -5,7 +5,7 @@ const controls={month:document.getElementById('month'),height:document.getElemen
 let atlas=null,live=false,picked=null,selected=[],queued=false,view={ra:180,dec:0,fov:360},down=null;
 const photo=new Image();photo.src=document.getElementById('offline-photo').src;
 const rad=Math.PI/180;const cameras=[['A',750,3856,2180,2.9,'#00e5ff'],['B',1600,6252,4176,3.76,'#ff9c32'],['C',264,3856,2180,2.9,'#ff40e6']];
-function state(){return{month:controls.month.value,height:+controls.height.value,moon:controls.moon.checked,mode:controls.mode.value,minimum:+controls.minimum.value,angle:+controls.angle.value};}
+function state(){return{month:controls.month.value,height:M.getSites()[0].height,moon:controls.moon.checked,mode:controls.mode.value,minimum:+controls.minimum.value,angle:+controls.angle.value};}
 function dimensions(){const r=host.getBoundingClientRect();return[r.width,r.height];}
 function pixel(x,y){if(live){try{return atlas.pix2world(x,y);}catch(e){return null;}}const[w,h]=dimensions();return[M.mod(view.ra+(w/2-x)*view.fov/w,360),view.dec+(h/2-y)*view.fov/w];}
 function world(ra,dec){if(live){try{return atlas.world2pix(ra,dec);}catch(e){return null;}}const[w,h]=dimensions();const dx=M.mod(view.ra-ra+180,360)-180;return[w/2+dx*w/view.fov,h/2+(view.dec-dec)*w/view.fov];}
@@ -33,21 +33,21 @@ function redraw(){
  for(let j=0;j<mh;j++)for(let i=0;i<mw;i++){const p=pixel((i+.5)*w/mw,(j+.5)*h/mh);let yes=false;if(p&&Math.abs(p[1])<=90){const v=M.evaluate(p[0],p[1],s);yes=!v.outside&&(s.mode==='common'?v.common:v.simultaneous)>=s.minimum;}
  const n=(j*mw+i)*4;im.data[n]=3;im.data[n+1]=7;im.data[n+2]=13;im.data[n+3]=yes?0:235;if(yes)passing++;}c.putImageData(im,0,0);drawFrames();
  document.getElementById('minimum-value').textContent=s.minimum+' h';document.getElementById('scope').textContent=s.mode==='common'?'亮区：两站各自都达到门槛，可分别累计':'亮区：两站在同一UTC时刻同时满足条件';
- document.getElementById('map-status').textContent=(live?'在线 DSS2 Red（放大后逐步加载细节）':'内置 DSS2 Red 全天预览（约7′有效采样）')+' · 北上东左 · 点击选点';
+ document.getElementById('map-status').textContent=(live?'在线 DSS2 Red（放大后逐步加载细节）':'内置 DSS2 Red 预览（仅 Dec −30°…+30°；带外仍可计算，高清底图需联网）')+' · 北上东左 · 点击选点';
  if(picked)showPoint();window.atlasQA={state:s,passingMaskPixels:passing,maskPixels:mw*mh,live,geometry:{width:w,height:h},center:live?atlas.getRaDec():[view.ra,view.dec]};
 }
 function request(){if(!queued){queued=true;setTimeout(redraw,90);}}
 function showPoint(){
  const s=state(),v=M.evaluate(picked.ra,picked.dec,s),box=document.getElementById('point');
  if(v.outside){box.textContent=`ICRS ${picked.ra.toFixed(5)}°, ${picked.dec.toFixed(5)}°：在本次共同天区规划带外。`;document.getElementById("window").textContent="";document.getElementById("add-point").disabled=true;document.getElementById("zoom-point").disabled=false;return;}
- let text=`ICRS ${picked.ra.toFixed(5)}°, ${picked.dec.toFixed(5)}° ｜ 甘肃 ${v.gansu.toFixed(1)}h ｜ ASV ${v.asv.toFixed(1)}h ｜ 两站工时 ${(v.gansu+v.asv).toFixed(1)}h ｜ 真正同时 ${v.simultaneous.toFixed(1)}h`;
- box.textContent=text;const details=[];for(const site of ['gansu','asv']){const r=M.longest(picked.ra,picked.dec,s,site);details.push(r?`${site==='gansu'?'甘肃':'ASV'}最长 ${r.hours.toFixed(2)}h：${M.night(r.start,site)} 晚，${M.local(r.start,site)} → ${M.local(r.end,site)}`:`${site}无合格窗口`);}document.getElementById('window').textContent=details.join('\n');
+ let text=`ICRS ${picked.ra.toFixed(5)}°, ${picked.dec.toFixed(5)}° ｜ ${M.getSites()[0].name} ${v.gansu.toFixed(1)}h ｜ ${M.getSites()[1].name} ${v.asv.toFixed(1)}h ｜ 两站工时 ${(v.gansu+v.asv).toFixed(1)}h ｜ 真正同时 ${v.simultaneous.toFixed(1)}h`;
+ box.textContent=text;const details=[];for(const site of ['gansu','asv']){const r=M.longest(picked.ra,picked.dec,s,site);details.push(r?`${M.getSites()[site==='gansu'?0:1].name}最长 ${r.hours.toFixed(2)}h：${M.night(r.start,site)} 晚，${M.local(r.start,site)} → ${M.local(r.end,site)}`:`${site}无合格窗口`);}document.getElementById('window').textContent=details.join('\n');
  document.getElementById('zoom-point').disabled=false;document.getElementById('add-point').disabled=false;
 }
 function pick(ra,dec){picked={ra:M.mod(ra,360),dec};showPoint();drawFrames();}
 function zoomToPoint(){if(!picked)return;if(live){atlas.gotoRaDec(picked.ra,picked.dec);atlas.setFoV(4);}else{view={...view,ra:picked.ra,dec:picked.dec,fov:4};}request();}
-function addPoint(){if(!picked)return;const s=state(),v=M.evaluate(picked.ra,picked.dec,s);selected.push({name:'P'+String(selected.length+1).padStart(3,'0'),ra_deg:picked.ra,dec_deg:picked.dec,...s,gansu_hours:v.gansu,asv_hours:v.asv,simultaneous_hours:v.simultaneous});document.getElementById('saved-count').textContent=`已选 ${selected.length} 处`;document.getElementById('export').disabled=false;}
-function exportPoints(){const names=Object.keys(selected[0]),csv='\ufeff'+[names.join(','),...selected.map(p=>names.map(k=>JSON.stringify(p[k])).join(','))].join('\n'),a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));a.download='my_joint_sky_selections_2027.csv';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000);}
+function addPoint(){if(!picked)return;const s=state(),v=M.evaluate(picked.ra,picked.dec,s);selected.push({name:'P'+String(selected.length+1).padStart(3,'0'),ra_deg:picked.ra,dec_deg:picked.dec,...s,...Object.fromEntries(M.getSites().flatMap((site,i)=>Object.entries(site).map(([k,v])=>['site'+(i+1)+'_'+k,v]))),gansu_hours:v.gansu,asv_hours:v.asv,simultaneous_hours:v.simultaneous});document.getElementById('saved-count').textContent=`已选 ${selected.length} 处`;document.getElementById('export').disabled=false;}
+function exportPoints(){const names=Object.keys(selected[0]),csv='\ufeff'+[names.join(','),...selected.map(p=>names.map(k=>'"'+String(p[k]).replaceAll('"','""')+'"').join(','))].join('\n'),a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));a.download='my_joint_sky_selections_2027.csv';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000);}
 Object.values(controls).forEach(c=>c.addEventListener('change',request));controls.minimum.addEventListener('input',request);
 photo.onload=request;new ResizeObserver(request).observe(host);
 document.getElementById('zoom-point').onclick=zoomToPoint;document.getElementById('add-point').onclick=addPoint;document.getElementById('export').onclick=exportPoints;
