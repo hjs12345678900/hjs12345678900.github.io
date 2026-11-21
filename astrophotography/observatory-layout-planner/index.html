@@ -1,68 +1,106 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Interactive observatory layout planner for custom telescope dimensions, pier heights, swept clearances, and placement optimisation.">
+<meta name="theme-color" content="#07111f">
+<meta name="description" content="Plan a remote observatory: arrange telescope arrays, explore pointing and check conservative swept clearances.">
 <link rel="icon" href="data:,">
-<title>Observatory Layout &amp; Telescope Clearance Planner</title>
+<title>Observatory Planner — Junsheng He</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&amp;family=Manrope:wght@400;500;600&amp;family=Newsreader:opsz,wght@6..72,300;6..72,400&amp;display=swap" rel="stylesheet">
+<!-- BEGIN GENERATED WORKSPACE CSS -->
 <style>
-:root{--bg:#f5f5f5;--panel:#fff;--ink:#111;--muted:#555;--blue:#1f77ff;--orange:#ffb000;--green:#2ca02c;--purple:#9467bd;}
-body{margin:0;font-family:system-ui,Segoe UI,sans-serif;background:var(--bg);color:var(--ink)}
-.wrap{display:grid;grid-template-columns:var(--toolW,470px) 18px minmax(760px,var(--canvasW,1360px));gap:8px;padding:16px;align-items:start;transition:grid-template-columns .12s ease}.wrap.leftHidden{grid-template-columns:0 0 minmax(760px,var(--canvasW,1360px))}.wrap.leftHidden .panel,.wrap.leftHidden .resizeHandle{display:none}
-.panel{width:100%;min-width:0;max-height:94vh;overflow:auto;background:#fff;border:1px solid #ccc;border-radius:12px;padding:14px;box-sizing:border-box;position:relative}
-.resizeHandle{width:18px;align-self:stretch;cursor:col-resize;background:linear-gradient(90deg,#eee 0,#ddd 4px,#555 8px,#555 10px,#ddd 14px,#eee 18px);border:1px solid #888;border-radius:8px;min-height:92vh;box-sizing:border-box;position:relative;z-index:30}.resizeHandle:after{content:'⋮';position:sticky;top:45vh;display:block;text-align:center;color:#222;font-size:28px;line-height:1}
-.panelGrip{display:none}
-.canvas{background:#fff;border:1px solid #ccc;border-radius:12px;padding:10px;position:relative;overflow:auto;box-sizing:border-box;width:var(--canvasW,1360px)}
-h1{font-size:18px;margin:0 0 8px}
-h2{font-size:14px;margin:14px 0 7px;border-top:1px solid #ddd;padding-top:10px}
-h3{font-size:13px;margin:12px 0 6px}
-.small{font-size:12px;line-height:1.38;color:#333}.row{margin:6px 0;white-space:normal;overflow-wrap:anywhere}
-label{font-size:12px}input[type=range]{width:min(185px,45%);vertical-align:middle}input[type=number]{width:70px;max-width:22%}
-.btn{margin:3px 4px 3px 0;padding:6px 9px;border:1px solid #aaa;border-radius:6px;background:#fafafa;cursor:pointer}
-.legend{display:grid;grid-template-columns:16px 1fr;gap:4px 7px;font-size:12px;margin-top:8px}.sw{width:14px;height:10px;border-radius:2px;margin-top:3px}
-.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}.warn{color:#8a5a00;font-weight:700}.ok{color:#076b24;font-weight:700}.bad{color:#b00020;font-weight:700}
-.scopeBox{border:1px solid #ddd;border-radius:8px;padding:8px;margin:10px 0;background:#fafafa;overflow:hidden}
-.scopeHeader{display:flex;align-items:center;justify-content:space-between;gap:12px}.scopeHeader h3{margin:0}.quantityField{font-weight:700}.quantityField input{width:54px!important}.scopeCopy{padding:0}.scopeCopy>summary{cursor:pointer;padding:8px 10px;font-size:12px;font-weight:700;user-select:none}.scopeCopyBody{padding:0 8px 8px}.typeDefinition{border-color:#9db7db;background:#f7fbff}.typeNameField{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:700}.typeNameField input{min-width:135px;width:55%;padding:5px 7px;border:1px solid #aaa;border-radius:5px}.deleteBtn{color:#9b1c1c;border-color:#d4a0a0}.emptyState{padding:14px;border:1px dashed #8aa4c8;border-radius:8px;background:#f7fbff;margin:9px 0;text-align:center}.startCard{border:2px solid #1f77ff;border-radius:10px;padding:11px;margin:8px 0 12px;background:#f5f9ff}.startCard h2{border:0;margin:0 0 3px;padding:0;font-size:16px}.startHint{margin:0 0 8px;color:#24496f}.sectionTitle{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:13px}.sectionTitle h2{margin:0;flex:1}
-.collapsible{border:1px solid #ddd;border-radius:8px;margin:10px 0;background:#fafafa;overflow:hidden}.collapsible summary{cursor:pointer;font-weight:700;padding:8px 10px;user-select:none}.collapsible .collapsibleBody{padding:0 10px 10px 10px;overflow:hidden}.topActions{display:flex;gap:8px;align-items:center;margin:0 0 8px 0}.togglePanelBtn{padding:6px 10px;border:1px solid #aaa;border-radius:7px;background:#fff;cursor:pointer}.viewActionBar{position:absolute;left:30px;top:466px;width:625px;background:rgba(255,255,255,.97);border:1px solid #999;border-radius:8px;padding:8px;box-sizing:border-box;font-size:12px;z-index:5}.viewActionBar .barRow{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center}.viewActionBar input[type=range]{width:105px}.viewActionBar input[type=number]{width:56px;max-width:56px}.tableDrop{border:1px solid #ccc;border-radius:8px;background:#fff;margin:6px 0;overflow:hidden}.tableDrop summary{cursor:pointer;font-weight:700;padding:7px 9px;background:#f4f4f4;user-select:none}.tableDrop .tableDropBody{padding:7px 9px}.clearanceLegendBg{fill:rgba(255,255,255,.88);stroke:#999;stroke-width:1}.projResizeHandle{position:absolute;width:16px;background:linear-gradient(90deg,#eee 0,#ddd 4px,#777 7px,#777 9px,#ddd 12px,#eee 16px);border:1px solid #aaa;border-radius:8px;box-sizing:border-box;cursor:col-resize;z-index:10}.projResizeHandle:after{content:'⋮';position:absolute;top:50%;left:0;right:0;transform:translateY(-50%);text-align:center;color:#444;font-size:24px;line-height:1}.dragTarget3D{cursor:grab}.dragTarget3D.dragging{cursor:grabbing}
-.dataTable{border-collapse:collapse;font-size:11px;background:#fff}.dataTable th,.dataTable td{border:1px solid #bbb;padding:3px 5px;text-align:right}.dataTable th{background:#f2f2f2}.dataTable td:first-child,.dataTable th:first-child{text-align:left}.sweepTitle{font-size:13px;font-weight:700;fill:#111}
-.auditTableGroup{overflow-x:auto;margin-top:5px}.auditTableGroup .dataTable{min-width:100%}.auditSubhead{font-weight:700;font-size:11px;margin:7px 0 3px;color:#333}
-.statusStrip{position:relative;margin:10px 0;padding:10px 12px;border:2px solid #9aa0a6;border-radius:12px;background:#fff;box-shadow:0 3px 12px rgba(0,0,0,.10)}.statusStrip.safe{border-color:#18864b;background:#f1fbf5}.statusStrip.warn{border-color:#c58a00;background:#fff9e8}.statusStrip.bad{border-color:#c62828;background:#fff2f2}.statusHeadline{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.statusHeadline strong{font-size:16px}.statusHeadline .summary{font-size:12px;color:#333}.statusDot{width:12px;height:12px;border-radius:50%;background:#777;box-shadow:0 0 0 3px rgba(0,0,0,.07)}.safe .statusDot{background:#18864b}.warn .statusDot{background:#d69a00}.bad .statusDot{background:#c62828}.scopeStatusGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:7px;margin-top:8px}.scopeStatusCard{border:1px solid #bbb;border-left-width:5px;border-radius:8px;background:rgba(255,255,255,.88);padding:7px 9px;font-size:11px;line-height:1.35}.scopeStatusCard.safe{border-left-color:#18864b}.scopeStatusCard.warn{border-left-color:#d69a00}.scopeStatusCard.bad{border-left-color:#c62828}.scopeStatusCard .scopeName{font-size:12px;font-weight:800}.statusPill{float:right;border-radius:999px;padding:1px 7px;font-size:10px;font-weight:800;background:#e6e6e6}.scopeStatusCard.safe .statusPill{color:#09612f;background:#dff4e7}.scopeStatusCard.warn .statusPill{color:#785100;background:#fff0bd}.scopeStatusCard.bad .statusPill{color:#8d1111;background:#ffdada}
-.compactGrid{display:grid;grid-template-columns:repeat(2,minmax(150px,1fr));gap:7px 12px;margin:7px 0}.compactField{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:12px}.compactField input[type=number]{width:82px;max-width:none}.compactChecks{display:flex;gap:14px;flex-wrap:wrap;margin:6px 0}.advancedBox{margin:10px 0}.advancedBox summary{font-size:13px}.scopeBox .compactGrid{grid-template-columns:repeat(2,minmax(135px,1fr))}.scopeBox input[type=number]{width:78px;max-width:none}.scopeAdvanced{margin-top:7px;border-top:1px solid #ddd;padding-top:5px}.scopeAdvanced summary{cursor:pointer;font-size:11px;font-weight:700;color:#555}.boundHint{margin-top:5px;color:#555}
-.optimizerNotice{margin-top:8px;padding:6px 9px;border-radius:7px;font-size:11px;font-weight:700}.optimizerNotice.safe{background:#dff4e7;color:#09612f}.optimizerNotice.bad{background:#ffdada;color:#8d1111}.optimizerNotice.info{background:#e7f0ff;color:#174f8a}
-svg{touch-action:none} svg text{font-family:system-ui,Segoe UI,sans-serif;user-select:none;pointer-events:none}
+/* The planner shares the JSH / ASTRO palette and typography; all styles are
+ * embedded for portable HTML export, with system-font fallbacks when offline. */
+:root{color-scheme:dark;--bg:#07111f;--panel:#0c1a2d;--ink:#f3f0e7;--muted:#a1adbe;--line:rgba(243,240,231,.14);--blue:#8aa4ff;--amber:#efad4b;--mint:#9cd9c8;--orange:#efad4b;--green:#9cd9c8;--purple:#bca3e6}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Manrope,system-ui,sans-serif;font-size:13px;line-height:1.55}
+a{color:inherit;text-decoration:none}button,input,select{font:inherit}button,a,input,select,summary{-webkit-tap-highlight-color:transparent}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:2px solid var(--amber);outline-offset:4px}
+button{cursor:pointer}button:disabled{opacity:.38;cursor:not-allowed}button{touch-action:manipulation}
+[hidden]{display:none!important}.skip-link{position:fixed;top:-90px;left:20px;z-index:50;background:var(--ink);color:var(--bg);padding:12px}.skip-link:focus{top:12px}
+.site-header{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:25px 32px;border-bottom:1px solid var(--line)}
+.wordmark{display:flex;align-items:center;gap:10px;font:500 12px 'DM Mono',monospace;letter-spacing:.1em}.wordmark-dot{width:8px;height:8px;border-radius:50%;background:var(--amber);box-shadow:0 0 16px #efad4b66}.wordmark-slash{color:var(--blue);padding:0 5px}
+.site-nav{display:flex;gap:28px;align-items:center;font-size:12px;color:var(--muted)}.site-nav a:hover{color:var(--ink)}.site-nav .active{color:var(--ink)}
+.hero{padding:30px 32px 25px;display:flex;align-items:flex-end;justify-content:space-between;gap:24px}.eyebrow{font:400 10px 'DM Mono',monospace;letter-spacing:.15em;text-transform:uppercase;color:var(--amber);margin:0 0 10px}
+h1{font:300 clamp(32px,3.2vw,48px)/1.05 Newsreader,Georgia,serif;letter-spacing:-.03em;margin:0 0 9px}h1 em{font-weight:300;color:var(--blue)}.hero p:not(.eyebrow){margin:0;color:var(--muted);font-size:12px}
+#fileActionStatus{flex-basis:100%;font-size:10px;color:var(--mint);text-align:right;max-width:400px;overflow-wrap:anywhere}#fileActionStatus:empty{display:none}
+.hero-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.btn,.togglePanelBtn{margin:0;padding:9px 12px;min-height:36px;border:1px solid var(--line);border-radius:5px;background:#122239;color:var(--ink);font-size:11px;line-height:1.35}
+.btn:hover,.togglePanelBtn:hover{background:#1b2f4b;border-color:#8aa4ff80}.btn.primary{background:var(--amber);border-color:var(--amber);color:#141b25;font-weight:700}.btn.primary:hover{background:#f8c473}.btn.subtle{background:transparent}.deleteBtn{color:#ffaaaa}
+.wrap{display:grid;grid-template-columns:minmax(300px,min(28vw,var(--toolW,360px))) minmax(0,1fr);gap:18px;padding:0 32px 30px;align-items:start;max-width:1920px;margin:auto}
+.wrap.leftHidden{grid-template-columns:minmax(0,1fr)}.wrap.leftHidden>.panel{display:none}.resizeHandle,.projResizeHandle{display:none}
+.panel{min-width:0;border:1px solid var(--line);border-radius:8px;background:#0b1728;position:sticky;top:16px;max-height:calc(100vh - 32px);overflow:auto;scrollbar-width:thin;scrollbar-color:#30435d transparent}
+.panel-heading{padding:17px 18px 0;display:flex;justify-content:space-between;align-items:center}.panel-heading strong{font-size:12px;letter-spacing:.02em}.panel-heading span{font:10px 'DM Mono',monospace;color:var(--muted)}
+.control-tabs{display:flex;gap:3px;margin:14px 14px 0;padding:4px;background:#07111f;border-radius:6px}.control-tabs button{flex:1;border:0;background:transparent;color:var(--muted);border-radius:3px;padding:8px;font-size:11px}.control-tabs button[aria-pressed=true]{background:#20304a;color:var(--ink)}
+.control-section{padding:18px}.control-section h2{margin:0 0 9px;font-size:14px;font-weight:600}.control-section h3{font-size:12px;margin:12px 0 7px}.section-kicker{font:10px 'DM Mono',monospace;color:var(--blue);margin-bottom:8px}
+.small{font-size:11px;line-height:1.6;color:var(--muted)}.startHint{margin-bottom:18px}.row{margin:9px 0;overflow-wrap:anywhere}label{font-size:11px}
+.compactGrid{display:grid;grid-template-columns:minmax(0,1fr);gap:11px;margin:14px 0}.compactField{display:flex;align-items:center;justify-content:space-between;gap:9px;font-size:11px}.compactField>span{display:flex;align-items:center;gap:6px;white-space:nowrap;color:var(--muted)}
+input[type=number],input[type=text],select{background:#07111f;border:1px solid #304057;border-radius:4px;color:var(--ink);min-height:32px;padding:5px 7px;font-size:12px}
+input[type=number]{width:78px;max-width:100%;font-family:'DM Mono',monospace;text-align:right}input[type=text]{min-width:0;width:100%}input[type=range]{accent-color:var(--blue);width:105px;max-width:100%;vertical-align:middle}input[type=checkbox]{accent-color:var(--blue);vertical-align:middle}
+.compactChecks{display:flex;flex-direction:column;gap:9px;margin:18px 0}.site-note{padding:13px 0 0;border-top:1px solid var(--line)}
+.sectionTitle{display:flex;flex-wrap:wrap;gap:9px;justify-content:space-between;align-items:center;margin:0 0 12px}.sectionTitle h2{margin:0}.sectionTitle .btn{padding:6px 9px}
+.scopeBox,.collapsible{border:1px solid var(--line);border-radius:5px;margin:14px 0;background:#0e1d31;overflow:hidden}.scopeBox{padding:12px}.scopeHeader{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:11px}.scopeHeader h3{margin:0}.scopeHeader .btn{padding:5px 7px;font-size:10px}
+.typeNameField{display:flex;align-items:center;gap:9px;font-size:11px}.scopeCopy{padding:0}.scopeCopy>summary,.collapsible>summary{cursor:pointer;padding:12px;font-size:11px;line-height:1.6}.scopeCopyBody,.collapsibleBody{padding:0 12px 12px}.scopeAdvanced{border-top:1px solid var(--line);padding-top:8px;margin-top:12px}.scopeAdvanced summary{font-size:11px;cursor:pointer;color:var(--muted)}
+.boundHint{margin-top:8px}.typeDefinition{border-color:#8aa4ff42}.preset-buttons{display:grid;gap:6px;margin:10px 0}.preset-buttons .btn{text-align:left}.emptyState{padding:14px;border:1px dashed #536888;border-radius:5px;color:var(--muted);font-size:12px}.quantityField{font-weight:600}
+.control-footer{padding:12px 18px;border-top:1px solid var(--line);font:9px/1.6 'DM Mono',monospace;color:var(--muted)}.control-footer::before{content:'● ';color:var(--mint)}
+.canvas{min-width:0;display:flex;flex-direction:column;gap:14px}.metrics{display:grid;grid-template-columns:1.7fr 1fr 1.2fr 1fr;border:1px solid var(--line);border-radius:7px;background:#0b1728}.metric{padding:13px 17px;min-width:0}.metric+.metric{border-left:1px solid var(--line)}.metric-label{font:9px 'DM Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}.metric-value{font:400 21px/1.3 'DM Mono',monospace;letter-spacing:-.03em;margin:6px 0 2px}.metric-value small{font-size:10px;color:var(--muted);letter-spacing:0}.metric-note{font-size:10px;color:var(--muted)}
+.scene-card{background:radial-gradient(ellipse at 85% 0,#14223f80,transparent 55%),#0a1424;border:1px solid var(--line);border-radius:8px;overflow:hidden}.scene-toolbar{padding:13px 16px;display:flex;gap:10px;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);flex-wrap:wrap}.view-tabs{display:flex;gap:3px}.view-tabs button{padding:7px 10px;border:1px solid transparent;border-radius:4px;background:transparent;color:var(--muted);font-size:11px}.view-tabs button[aria-pressed=true]{border-color:#8aa4ff45;background:#8aa4ff14;color:var(--blue)}.view-tabs button:hover{color:var(--ink)}.scene-tools{display:flex;gap:6px}.scene-tools .btn{min-height:30px;padding:6px 9px}.sceneStage{width:100%;overflow:hidden;background-image:linear-gradient(#8aa4ff04 1px,transparent 1px),linear-gradient(90deg,#8aa4ff04 1px,transparent 1px);background-size:26px 26px}
+svg{display:block;width:100%;height:auto;touch-action:pan-y}svg text{font-family:Manrope,system-ui,sans-serif;user-select:none;pointer-events:none}.dragTarget3D{cursor:grab;touch-action:none}.dragTarget3D.dragging{cursor:grabbing}.scene-foot{display:flex;gap:14px;justify-content:space-between;padding:10px 16px;border-top:1px solid var(--line);font:9px/1.6 'DM Mono',monospace;color:var(--muted)}.scene-key{color:var(--mint)}
+.viewActionBar{padding:14px 16px;background:#0c192b;border:1px solid var(--line);border-radius:7px;font-size:11px}.barRow{display:flex;align-items:center;gap:8px 14px;flex-wrap:wrap}.barRow+.barRow{margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}.barRow label{display:flex;gap:7px;align-items:center;flex-wrap:wrap}.barRow input[type=number]{width:67px}.barRow .btn{padding:7px 10px;min-height:32px}.barRow .row-label{font:9px 'DM Mono',monospace;color:var(--blue);text-transform:uppercase;letter-spacing:.08em}
+.statusStrip{padding:13px 16px;border:1px solid var(--line);border-left:3px solid var(--mint);border-radius:5px;background:#0d1e2b}.statusStrip.warn{border-left-color:var(--amber);background:#24231e}.statusStrip.bad{border-left-color:#f29292;background:#281d29}.statusHeadline{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.statusHeadline strong{font-size:11px;letter-spacing:.05em}.statusHeadline .summary{font-size:11px;color:var(--muted);flex:1}.statusHeadline .btn{font-size:10px;padding:5px 8px;min-height:28px}.statusDot{width:6px;height:6px;border-radius:50%;background:var(--mint)}.warn .statusDot{background:var(--amber)}.bad .statusDot{background:#f29292}
+.scope-status-details{margin-top:10px}.scope-status-details>summary{font-size:10px;cursor:pointer;color:var(--muted)}.scopeStatusGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:8px;margin-top:10px}.scopeStatusCard{background:#07111f66;border:1px solid var(--line);border-radius:5px;padding:10px;font-size:11px;color:var(--muted)}.scopeName{font-size:11px;margin-bottom:4px}.statusPill{float:right;font:9px 'DM Mono',monospace;color:var(--mint)}.scopeStatusCard.bad .statusPill{color:#f29292}.scopeStatusCard.warn .statusPill{color:var(--amber)}
+.optimizerNotice{font-size:11px;margin-top:10px}.ok,.optimizerNotice.safe{color:var(--mint)}.warn{color:var(--amber)}.bad,.optimizerNotice.bad{color:#f29292}.optimizerNotice.info{color:var(--blue)}
+#tablesPanel{min-width:0}.tableDrop{border:1px solid var(--line);border-radius:5px;background:#0b1728;margin-bottom:8px;overflow:hidden}.tableDrop>summary{padding:12px 15px;cursor:pointer;font-size:11px}.tableDropBody{padding:0 14px 14px;overflow:auto}.dataTable{border-collapse:collapse;font:10px 'DM Mono',monospace;width:100%;white-space:nowrap;color:var(--muted)}.dataTable th,.dataTable td{padding:8px;text-align:right;border-bottom:1px solid var(--line)}.dataTable th{color:var(--ink);font-weight:400;background:#122238}.dataTable th:first-child,.dataTable td:first-child{text-align:left}.auditTableGroup{overflow:auto}.auditSubhead{font-size:11px;margin:10px 0 6px}.clearanceLegendBg{fill:#102037;stroke:#30435d}.sweepTitle{fill:var(--ink);font-size:12px}
+.legend{display:grid;grid-template-columns:16px 1fr;gap:7px;font-size:11px;margin:12px 0}.sw{width:13px;height:8px;margin-top:5px;border-radius:2px}.mono{font-family:'DM Mono',monospace}.model-note{color:var(--muted);font-size:10px;margin:0;line-height:1.6}.page-footer{margin:0 32px;padding:18px 0 25px;border-top:1px solid var(--line);display:flex;gap:20px;justify-content:space-between;color:var(--muted);font:9px 'DM Mono',monospace}
+@media(min-width:1600px){.wrap{grid-template-columns:380px minmax(0,1fr)}}
+@media(max-width:1100px){.wrap{padding:0 20px 24px;gap:14px;grid-template-columns:300px minmax(0,1fr)}.site-header{padding:22px 20px}.hero{padding:25px 20px}.hero-actions{max-width:270px}.metric{padding:12px 10px}.metric-value{font-size:17px}.scene-toolbar{padding:12px}.view-tabs button{padding:7px}.scene-foot{flex-wrap:wrap;gap:4px}}
+@media(max-width:800px){.hero{align-items:flex-start;flex-direction:column;gap:18px}.hero-actions{max-width:none;justify-content:flex-start}.wrap{grid-template-columns:minmax(0,1fr)}.panel{position:static;max-height:410px}.control-section{padding:16px}.compactGrid{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:20px}.scopeBox .compactGrid{grid-template-columns:minmax(0,1fr)}.site-nav{gap:17px}.site-nav .optional{display:none}.metrics{grid-template-columns:1.5fr 1fr 1.2fr 1fr}.sceneStage{scroll-margin-top:10px}.page-footer{margin:0 20px;line-height:1.6}}
+@media(max-width:480px){.site-header{padding:20px 16px}.site-nav{gap:13px;font-size:10px}.hero{padding:25px 16px 20px}.hero p:not(.eyebrow){font-size:11px}.wrap{padding:0 12px 20px}.hero-actions{gap:6px}.hero-actions .btn{padding:9px 10px}.compactGrid{grid-template-columns:minmax(0,1fr)}.metrics{grid-template-columns:1fr 1fr}.metric:nth-child(3){border-left:0}.metric:nth-child(n+3){border-top:1px solid var(--line)}.metric-value{font-size:20px}.scene-toolbar{gap:8px}.view-tabs{width:100%;justify-content:space-between}.scene-tools{width:100%;justify-content:flex-end}.viewActionBar{padding:12px}.statusHeadline .summary{flex-basis:85%}.page-footer{flex-direction:column;gap:5px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+
+.horizon-card{margin-top:18px;padding-bottom:12px}.horizon-card p,.horizon-legend,.horizon-table{margin:12px 16px}.horizon-card select{max-width:240px}.horizon-table{overflow-x:auto}.horizon-table table{width:100%;white-space:nowrap;font-size:12px}.horizon-legend{display:flex;flex-wrap:wrap;gap:18px;font-size:12px}#wallHorizonPlot svg{color:var(--muted);min-height:150px}#wallHorizonPlot svg text{pointer-events:none}@media(max-width:600px){.horizon-card .scene-toolbar{align-items:flex-start;flex-direction:column;gap:10px}}
 </style>
+<!-- END GENERATED WORKSPACE CSS -->
 </head>
 <body>
-<div class="topActions">
-  <button class="togglePanelBtn" onclick="toggleLeftPanel()">Hide controls</button>
-  <span class="small">Drag the separators to resize the workspace. Detailed layout controls are collapsed below.</span>
+<a class="skip-link" href="#workspace">Skip to planner</a>
+<header class="site-header">
+  <a class="wordmark" href="https://hjs12345678900.github.io/" aria-label="Junsheng He — home"><span class="wordmark-dot"></span><span>JSH<span class="wordmark-slash">/</span>ASTRO</span></a>
+  <nav class="site-nav" aria-label="Primary navigation"><a class="optional" href="https://hjs12345678900.github.io/research/smbh-evolution/">Research</a><a href="https://hjs12345678900.github.io/astrophotography/">Photography ↗</a><a class="active" href="#workspace" aria-current="page">Observatory</a></nav>
+</header>
+<div class="hero">
+  <div><p class="eyebrow">Field tools / 01 · Remote observatory</p><h1>A place for <em>every telescope.</em></h1><p>Arrange your instruments. Explore their motion. Find the room to observe.</p></div>
+  <div class="hero-actions"><button class="btn subtle" onclick="document.getElementById('layoutFile').click()">Import layout</button><button class="btn" onclick="exportLayoutJSON()">Export JSON ↓</button><button class="btn primary" onclick="downloadHTML()">Save portable HTML ↓</button><input id="layoutFile" type="file" accept=".json,application/json" hidden onchange="importLayoutFile(this.files[0]);this.value=''" aria-label="Import layout JSON"><span id="fileActionStatus" role="status"></span></div>
 </div>
-<div class="wrap" id="mainWrap" style="--toolW:470px;--canvasW:1360px">
-  <div class="panel">
-    <h1>Observatory Layout &amp; Telescope Clearance Planner</h1>
-    <section class="startCard" id="globalSettingsDetails">
-      <h2>1. Define the observatory</h2>
-      <div class="small startHint">Start here. Set the clear internal room dimensions and wall height before defining telescopes and piers.</div>
+<main id="workspace">
+<div class="wrap" id="mainWrap" style="--toolW:360px">
+  <aside class="panel" aria-label="Planner controls">
+    <div data-no-translate style="padding:12px"><label for="plannerLanguage">语言 / Language </label><select id="plannerLanguage" onchange="setPlannerLanguage(this.value)"><option value="zh">中文</option><option value="en">English</option></select></div><div class="panel-heading"><strong>Layout settings</strong><span>v0.74.0</span></div>
+    <nav class="control-tabs" aria-label="Settings sections"><button data-control-tab="site" aria-pressed="true" onclick="selectControlSection('site')">Site</button><button data-control-tab="equipment" aria-pressed="false" onclick="selectControlSection('equipment')">Equipment</button><button data-control-tab="advanced" aria-pressed="false" onclick="selectControlSection('advanced')">Advanced</button></nav>
+    <div class="control-section" data-control-section="site"><div class="section-kicker">01 / THE OBSERVATORY</div>    <section class="startCard" id="globalSettingsDetails">
+      <h2>Room & site</h2>
+      <div class="small startHint">Set the room boundary, then arrange your instruments.</div>
         <div class="compactGrid">
           <label class="compactField">Room east–west <span><input id="g_roomW" type="number" min="1.50" max="12" step="0.05" value="2.85" onchange="setG('roomW',this.value)"> m</span></label>
           <label class="compactField">Room south–north <span><input id="g_roomH" type="number" min="1.50" max="12" step="0.05" value="2.85" onchange="setG('roomH',this.value)"> m</span></label>
-          <label class="compactField">Wall height <span><input id="g_wallH" type="number" min="0.30" max="3.50" step="0.01" value="1.50" onchange="setG('wallH',this.value)"> m</span></label>
+          <label class="compactField">Wall / roof limit <span><input id="g_wallH" type="number" min="0.30" max="3.50" step="0.01" value="1.70" onchange="setG('wallH',this.value)"> m</span></label>
           <label class="compactField">Latitude south <span><input id="g_lat" type="number" min="0" max="90" step="0.1" value="37" onchange="setG('lat',this.value)"> °</span></label>
           <label class="compactField">Safety gap <span><input id="g_safeGap" type="number" min="0" max="2" step="0.05" value="0.25" onchange="setG('safeGap',this.value)"> m</span></label>
         </div>
         <div class="compactChecks"><label><input id="showSpheres" type="checkbox" onchange="setShowSpheres(this.checked)" checked> Show safety envelopes</label><label><input id="showPolar" type="checkbox" onchange="setShowPolar(this.checked)"> Show polar axes</label></div>
-        <div class="small">Dimensions are clear internal measurements in metres. X follows east–west; Y follows south–north. Position limits update immediately.</div>
+        <div class="small site-note">Dimensions are clear internal measurements in metres. X follows east–west; Y follows south–north. Position limits update immediately.</div>
     </section>
 
-    <section id="statusDashboard" class="statusStrip" aria-live="polite"><div class="statusHeadline"><span class="statusDot"></span><strong>Calculating observatory status…</strong></div></section>
+</div>
+    <div class="control-section" data-control-section="equipment" hidden><div class="section-kicker">02 / THE INSTRUMENTS</div>    <div class="sectionTitle"><h2>Instruments & piers</h2><button class="btn" onclick="addTelescopeType()">+ Custom type</button></div>
+    <div class="small">Each setup has its own pier position, height and pointing. Arrays share one pier.</div>
+    <details class="collapsible"><summary>Add an instrument / array</summary><div class="collapsibleBody"><strong>Shared-pier arrays</strong><div class="preset-buttons"><button class="btn" onclick="addMultiArray(2)">Add 2 × 150PDS + 2 × SQA55</button><button class="btn" onclick="addMultiArray(3)">AM7: 3 × 150PDS + 2 × SQA55</button><button class="btn" onclick="addMultiArray(3,false)">AM7: current 3 × 150PDS</button></div><div class="small">Current AM7 triple: 445 mm bottom rail, 600×120×12 mm adapter and three 102×150×31.5 mm saddles. Outer saddles default to +16 mm (centres −238 / 0 / +238 mm), independently adjustable to 0/16/32 mm. Three cameras and focusers are included. The two-tube ST32 preset remains separate. Mount dimensions follow the shared mechanical settings; swept spheres are conservative bounds.</div><strong>Single instruments</strong><div class="preset-buttons"><button class="btn" onclick="addEquipmentPreset('rc10')">RC10 Carbon + miniCAM</button><button class="btn" onclick="addEquipmentPreset('sqa85')">SQA85 + miniCAM</button><button class="btn" onclick="addEquipmentPreset('sqa55')">SQA55 + miniCAM</button><button class="btn" onclick="addEquipmentPreset('s50pro')">S50 Pro</button><button class="btn" onclick="addEquipmentPreset('s30pro')">S30 Pro</button></div><div class="small">Each preset adds one setup; quantities are adjustable. RC10 uses a closed carbon-tube placeholder pending measured dimensions. External cameras use an estimated miniCAM8 envelope of Ø120 × 70 mm. Adapter lengths reserve space and do not specify optical backfocus. Seestar includes its internal camera, azimuth base and altitude joint. Official folded dimensions constrain the model; internal axis dimensions remain adjustable estimates. Alt-Az mode on a fixed pier; no tripod or EQ wedge.</div></div></details><div id="scopeControls"></div>
 
-    <div class="sectionTitle"><h2>2. Configure telescopes and piers</h2><button class="btn" onclick="addTelescopeType()">+ Add telescope type</button></div>
-    <div class="small">Choose a named preset below, or define custom telescope dimensions. Enter a name, tube length, and tube diameter, then choose how many identical copies to install. Every physical copy has its own adjustable pier height and position. Up to 16 telescope instances are supported.</div>
-    <div class="scopeBox"><strong>ST32 multi-telescope presets · shared pier</strong><div><button class="btn" onclick="addMultiArray(2)">Add 2 × 150PDS + 2 × SQA55</button><button class="btn" onclick="addMultiArray(3)">Add 3 × 150PDS + 2 × SQA55</button><button class="btn" onclick="addMultiArray(3,false)">Add 3 × 150PDS (no upper SQA55)</button></div><div class="small">The no-SQA55 preset retains all three 150PDS focusers and cameras, and removes both SQA55 telescopes and their cameras, adapters and upper supports. Single bolted crossbar: 445 mm for two tubes or 600 mm for three, with 230 mm tube spacing. ST32 dimensions are uncalibrated placeholders. Swept spheres are conservative bounds, not certified collision checks. Mount dimensions follow the mechanical settings. Expand a setup to adjust pier position, height and pointing.</div></div><div class="scopeBox"><strong>Single-telescope presets</strong><div><button class="btn" onclick="addEquipmentPreset('rc10')">RC10 Carbon + miniCAM</button><button class="btn" onclick="addEquipmentPreset('sqa85')">SQA85 + miniCAM</button><button class="btn" onclick="addEquipmentPreset('sqa55')">SQA55 + miniCAM</button><button class="btn" onclick="addEquipmentPreset('s50pro')">S50 Pro</button><button class="btn" onclick="addEquipmentPreset('s30pro')">S30 Pro</button></div><div class="small">Each preset adds one setup; quantities are adjustable. RC10 uses a closed carbon-tube placeholder pending measured dimensions. External cameras use an estimated miniCAM8 envelope of Ø120 × 70 mm. Adapter lengths reserve space and do not specify optical backfocus. Seestar includes its internal camera and uses an alt-az motion envelope without an external equatorial mount.</div></div><div id="scopeControls"></div><div class="small" id="plannerSaveStatus" role="status">Autosave enabled: settings are stored in this browser and restored when you reopen this page.</div>
-
-    <details class="collapsible advancedBox">
-      <summary>Advanced mechanical, safety, and view settings</summary>
+</div>
+    <div class="control-section" data-control-section="advanced" hidden><div class="section-kicker">03 / MODEL & DIAGNOSTICS</div>    <details class="collapsible advancedBox" open>
+      <summary>Mechanical model & camera</summary>
       <div class="collapsibleBody compactGrid">
         <label class="compactField">RA-axis travel <span><input id="g_flipBoundary" type="number" min="90" max="180" step="1" value="90" onchange="setG('flipBoundary',this.value)"> ±°</span></label>
         <label class="compactField">Sweep sample <span><input id="g_sweepStep" type="number" min="1" max="15" step="1" value="5" onchange="setG('sweepStep',this.value)"> °</span></label>
@@ -72,17 +110,8 @@ svg{touch-action:none} svg text{font-family:system-ui,Segoe UI,sans-serif;user-s
         <label class="compactField">3D zoom <span><input id="g_zoom" type="number" min="0.65" max="1.60" step="0.05" value="1" onchange="setG('zoom',this.value)"> ×</span></label>
         <label class="compactField">3D yaw <span><input id="g_viewYaw" type="number" min="-180" max="180" step="1" value="38" onchange="setG('viewYaw',this.value)"> °</span></label>
         <label class="compactField">3D pitch <span><input id="g_viewPitch" type="number" min="-80" max="-5" step="1" value="-28" onchange="setG('viewPitch',this.value)"> °</span></label>
-        <label class="compactField">Main width <span><input id="g_mainW" type="number" min="520" max="950" step="10" value="630" onchange="setG('mainW',this.value)"> px</span></label>
-        <label class="compactField">Main height <span><input id="g_mainH" type="number" min="360" max="650" step="10" value="430" onchange="setG('mainH',this.value)"> px</span></label>
-        <label class="compactField">Projection width <span><input id="g_projW" type="number" min="180" max="430" step="10" value="380" onchange="setG('projW',this.value)"> px</span></label>
       </div>
     </details>
-
-    <h2>3. Optimise and export</h2>
-    <button class="btn" onclick="optimiseTelescopePlacement()">Optimise telescope placement</button>
-    <button class="btn" id="undoPlacementBtn" onclick="undoOptimisedPlacement()" disabled>Undo optimisation</button>
-    <button class="btn" onclick="downloadHTML()">Download current HTML</button>
-    <button class="btn" onclick="resetAll()">Reset all settings/layout</button>
 
     <details class="collapsible advancedBox"><summary>About the mechanical model and detailed diagnostics</summary><div class="collapsibleBody">
       <div class="small">The corrected mount relationship is orange RA body → green flat DEC cylinder → cylindrical OTA. Swept safety envelopes are measured from each individual pier top, and the time drive tracks a fixed celestial target through stateful meridian flips.</div>
@@ -96,30 +125,60 @@ svg{touch-action:none} svg text{font-family:system-ui,Segoe UI,sans-serif;user-s
       </div>
       <div id="status" class="small mono" style="margin-top:9px"></div>
     </div></details>
-  </div>
-
-  <div class="resizeHandle" id="resizeHandle" title="Drag to resize controls"></div>
-  <div class="canvas">
-    <svg id="svg" width="1680" height="1160" viewBox="0 0 1680 1160"></svg>
-    <div id="projResizeHandle" class="projResizeHandle" title="Drag to resize projected views column"></div>
+<button class="btn deleteBtn" onclick="resetAll()">Reset all settings</button></div>
+    <div class="control-footer" id="plannerSaveStatus" role="status">Autosave enabled · stored in this browser</div>
+  </aside>
+  <section class="canvas" aria-label="Observatory workspace">
+    <div class="metrics">
+      <div class="metric"><div class="metric-label">Room / metres</div><div class="metric-value" id="roomMetric">2.85 × 2.85</div><div class="metric-note" id="areaMetric">8.12 m² floor area</div></div>
+      <div class="metric"><div class="metric-label">Installed piers</div><div class="metric-value" id="setupMetric">01</div><div class="metric-note">Independent setups</div></div>
+      <div class="metric"><div class="metric-label">Min. wall margin</div><div class="metric-value"><span id="wallMetric">—</span> <small>m</small></div><div class="metric-note">Horizontal motion bound</div></div>
+      <div class="metric"><div class="metric-label">Pair gap target</div><div class="metric-value"><span id="gapMetric">0.25</span> <small>m</small></div><div class="metric-note">Between envelopes</div></div>
+    </div>
+    <section id="statusDashboard" class="statusStrip" aria-label="Clearance status"></section>
+    <div class="scene-card">
+      <div class="scene-toolbar"><nav class="view-tabs" aria-label="View selection"><button data-view="all" aria-pressed="true" onclick="selectWorkspaceView('all')">All views</button><button data-view="3d" aria-pressed="false" onclick="selectWorkspaceView('3d')">3D</button><button data-view="top" aria-pressed="false" onclick="selectWorkspaceView('top')">Plan</button><button data-view="south" aria-pressed="false" onclick="selectWorkspaceView('south')">South</button><button data-view="west" aria-pressed="false" onclick="selectWorkspaceView('west')">West</button></nav><div class="scene-tools"><button class="btn subtle" onclick="resetWorkspaceCamera()">Reset view</button><button class="togglePanelBtn" aria-pressed="false" onclick="toggleLeftPanel()">Focus view</button></div></div>
+      <div class="sceneStage" id="sceneStage"><svg id="svg" width="950" height="540" viewBox="0 0 950 540" role="img" aria-label="Interactive telescope layout and swept safety envelopes"></svg></div>
+      <div class="scene-foot"><span>Drag 3D to orbit · switch views to inspect</span><span class="scene-key">Dashed regions: full-motion envelopes</span><span id="sceneCaption"></span></div>
+    </div>
+    <section class="scene-card horizon-card" aria-labelledby="parkingHeading">
+      <div class="scene-toolbar"><strong id="parkingHeading">Parking · 屋顶间隙</strong><label>停放模式 <select id="parkingMode" onchange="setParkingMode(this.value)"><option value="polar">朝南天极</option><option value="horizontal">水平朝南</option></select></label></div>
+      <div class="barRow" style="padding:12px 16px;display:flex;gap:16px;flex-wrap:wrap">
+        <label>南天极 ceiling offset <input id="parkingOffsetPolar" type="number" min="0" max="500" step="1" value="0" onchange="setParkingOffset('polar',this.value)"> cm</label>
+        <label>水平 ceiling offset <input id="parkingOffsetHorizontal" type="number" min="0" max="500" step="1" value="0" onchange="setParkingOffset('horizontal',this.value)"> cm</label>
+        <button class="btn" onclick="fitParkingHeights()">按 offset 调整立柱高度</button>
+      </div>
+      <p class="small">Ceiling offset = 设备最高点到屋顶限高面（墙高设置）的垂直间隙。两个模式分别保存；切换模式只改变姿态，点击按钮才调整立柱。立柱高度不含可选增高节。Seestar 同样朝南天极或水平朝南；无转动模型的固定设备保持原姿态。</p>
+      <div id="parkingHeightTable" class="horizon-table"></div><p id="parkingActionStatus" class="small" role="status"></p>
+    </section>
     <div id="viewActionBar" class="viewActionBar">
-      <div class="barRow">
-        <button class="btn" onclick="parkAll()">Park all</button>
-        <button class="btn" onclick="randomPoseAll()">Random above-horizon</button>
-        <button class="btn" onclick="resetPoseAll()">Reset RA0/DEC90</button>
+      <div class="barRow"><span class="row-label">Pose</span>
+        <button class="btn" onclick="parkAll()">应用停放姿态</button>
+        <button class="btn" onclick="randomPoseAll()">Random target</button>
+        <button class="btn" onclick="resetPoseAll()">Reset axes</button>
         <label><input id="timeDriveOn" type="checkbox" onchange="setTimeDrive(this.checked)"> Time drive</label>
         <button class="btn" id="animBtn" onclick="toggleAnimation()">Play animation</button>
       </div>
       <div class="barRow">
-        <label>Time <input id="g_timeHours_r" type="range" min="0" max="12" step="0.05" value="0" oninput="setG('timeHours',this.value)"> <input id="g_timeHours" type="number" step="0.05" value="0" oninput="if(this.value!=='')setG('timeHours',this.value)" onchange="setG('timeHours',this.value)"> hr</label>
+        <label>Time <input id="g_timeHours_r" type="range" min="0" max="12" step="0.05" value="0" oninput="setG('timeHours',this.value)"> <input id="g_timeHours" aria-label="Elapsed simulation time in hours" type="number" step="0.05" value="0" oninput="if(this.value!=='')setG('timeHours',this.value)" onchange="setG('timeHours',this.value)"> hr</label>
         <label>Speed <input id="g_animSpeed" type="number" min="0.05" max="5" step="0.05" value="1" onchange="setG('animSpeed',this.value)"> hr/sec</label>
         <label>Local sidereal time <input id="g_siderealHours" type="number" min="0" max="24" step="0.05" value="0" oninput="if(this.value!=='')setG('siderealHours',this.value)" onchange="setG('siderealHours',this.value)"> h</label>
-        <button class="btn" onclick="setTimeStartFromCurrent()">Set current LST as time zero</button>
+        <button class="btn" onclick="setTimeStartFromCurrent()">Set start LST</button>
         <button class="btn" onclick="resetTimeDrive()">Time 0</button>
       </div>
     </div>
-    <div id="tablesPanel" style="position:absolute;left:30px;top:645px;width:625px;background:rgba(255,255,255,.96);border:1px solid #bbb;border-radius:8px;padding:8px;z-index:3;">
-      <details class="tableDrop" id="sweepTableDrop" open>
+
+    <section class="scene-card horizon-card" aria-labelledby="wallHorizonHeading">
+      <div class="scene-toolbar"><strong id="wallHorizonHeading">方位角—最低仰角</strong><label>设备 / 光学通道 <select id="wallHorizonSelect" onchange="selectWallHorizon(this.value)" aria-label="高度角图的设备或通道"></select></label></div>
+      <p class="small" id="wallHorizonStatus" aria-live="polite">显示当前布局中所有设备的墙壁遮挡限角。</p>
+      <div id="wallHorizonPlot"></div>
+      <div id="wallHorizonLegend" class="horizon-legend"><span style="color:#a0aab8">━ 中心视线</span> <span style="color:#63b5ff">━ 完整口径无遮挡（口径按设备分别计算）</span></div>
+      <div id="wallHorizonTable" class="horizon-table"></div>
+      <p class="small">阵列按所有镜筒同时无遮挡计算，可单独选择每个通道；Seestar 包含长焦与广角镜头，自定义设备使用标明的外包络估算。采用当前实际布局，修改位置、立柱高度、墙高或增高节后自动重算。图示为从该仰角到天顶持续无遮挡的门槛；南天极附近的特殊低角度窗口不作为通用限角。优化固定立柱高度，以所有设备在30°至天顶无遮挡为软目标（10°方位、5°仰角采样），优先保留安全间距；本图用5°方位采样复核，不能保证采样间隙也满足。悬停曲线可查看数值。仅计墙壁，不含屋顶梁、树木或机械碰撞；照片等效几何存在透视误差。</p>
+    </section>
+
+    <div id="tablesPanel">
+      <details class="tableDrop" id="sweepTableDrop">
         <summary>Safety clearance details</summary>
         <div class="tableDropBody" id="sweepTableWrap"></div>
       </details>
@@ -128,15 +187,19 @@ svg{touch-action:none} svg text{font-family:system-ui,Segoe UI,sans-serif;user-s
         <div class="tableDropBody" id="altAzTableWrap"></div>
       </details>
     </div>
-  </div>
+
+    <p class="model-note">Layout study · Equatorial swept spheres and articulated Seestar cylinders conservatively bound model motion. Exact clearances, roof closure and structural capacity require separate checks.</p>
+  </section>
 </div>
+</main>
+<footer class="page-footer"><span>JUNSHENG HE / OBSERVATORY PLANNER</span><span>AM7 · current 50-hole assembly / v0.74.0</span><a href="https://hjs12345678900.github.io/astrophotography/">Back to photography ↗</a></footer>
 
 <script>
 const ROOM_W0=2.85, ROOM_H0=2.85;
 function roomW(){return G.roomW||ROOM_W0}
 function roomH(){return G.roomH||ROOM_H0}
-const G={roomW:2.85,roomH:2.85,lat:37,cube:.18,cylLen:.08,cylD:.12,wallH:1.50,sweepStep:5,safeGap:.25,decClock:0,otaClock:90,viewYaw:38,viewPitch:-28,zoom:1,mainW:630,mainH:430,projW:380,showPolar:false,showSpheres:true,showSweepTable:true,showPointingTable:true,timeDriveOn:false,timeHours:0,raRate:15,siderealHours:0,timeStartSiderealHours:0,flipBoundary:90,animSpeed:1,isAnimating:false,lastAnimTs:0};
-const TELESCOPE_COLORS=["#1f77b4","#2ca02c","#9467bd","#ff7f0e","#d62728","#17becf","#8c564b","#e377c2"];
+const G={roomW:2.85,roomH:2.85,lat:37,cube:.18,cylLen:.08,cylD:.12,wallH:1.70,parkMode:'polar',parkOffsetPolar:0,parkOffsetHorizontal:0,sweepStep:5,safeGap:.25,decClock:0,otaClock:90,viewYaw:38,viewPitch:-28,zoom:1,mainW:630,mainH:430,projW:380,showPolar:false,showSpheres:true,showSweepTable:true,showPointingTable:true,timeDriveOn:false,timeHours:0,raRate:15,siderealHours:0,timeStartSiderealHours:0,flipBoundary:90,animSpeed:1,isAnimating:false,lastAnimTs:0};
+const TELESCOPE_COLORS=["#8aa4ff","#9cd9c8","#bca3e6","#efad4b","#f29292","#79cfe1","#cfaf91","#e6a3d1"];
 // This object exists only for internal coordinate tests; it is never offered as
 // a user preset. Length, diameter, pier height, and position are in metres.
 const COORDINATE_TEST_SCOPE={typeId:"test",baseName:"test",name:"test",copyIndex:1,quantity:1,x:1,y:1,pierH:1,ra:0,dec:30,targetRaH:18,targetDec:-30,sideOfPier:"east",flipCount:0,controlMode:"sky",trackingStatus:"tracking",L:1,D:.2,color:"#000",mount:true};
@@ -176,9 +239,8 @@ function flipBoundary(){
 
 function normHours(h){
   h=parseFloat(h)||0;
-  while(h<0) h+=24;
-  while(h>=24) h-=24;
-  return h;
+  // Modulo stays constant-time even for long time-drive sessions.
+  return Number.isFinite(h)?((h%24)+24)%24:0;
 }
 function signedHourAngleDeg(targetRaH,lstHours=G.siderealHours){
   // H = 15 deg/hour * (LST - RA), wrapped to (-180,+180]. Positive H is west.
@@ -378,27 +440,30 @@ function baseScopeModel(s){
   const tubeQ=norm(cross(t,tubeSide));         // tube circular cross-section second axis
 
   const base=[s.x,s.y,s.pierH];
-  const cubeC=add(base,mul(pR,G.cube*.65));
+  const cubeC=add(add(base,[0,0,rcMountLift(s)]),mul(pR,G.cube*.65));
   const cubeFaceC=add(cubeC,mul(cylAxis,G.cube/2));
   const cylC=add(cubeFaceC,mul(cylAxis,G.cylLen/2));
   const innerCap=cubeFaceC;
   const outerCap=add(cubeFaceC,mul(cylAxis,G.cylLen));
   const contactC=outerCap;                     // green top flat face centre
-  const otaC=add(contactC,mul(tubeSide,s.D/2)); // OTA bottom face touches green top flat face
+  const otaC=add(add(contactC,mul(tubeSide,s.D/2)),mul(t,(s.equipment?.frontReach??s.L/2)-s.L/2)); // OTA bottom face touches green top flat face
 
   const baseBox=box(add(base,[0,0,-.05]),[1,0,0],[0,1,0],[0,0,1],.24,.24,.10);
-  const pier=box([s.x,s.y,s.pierH/2],[1,0,0],[0,1,0],[0,0,1],.14,.14,s.pierH);
+  const riserH=scopeRiserHeight(s),tripodH=Math.max(0,s.pierH-riserH);
+  const pier=box([s.x,s.y,tripodH/2],[1,0,0],[0,1,0],[0,0,1],.14,.14,tripodH);
+  const riserParts=riserH?[{name:'riser',pts:cylinderMesh([s.x,s.y,s.pierH-riserH/2],[0,0,1],.07,riserH,24).pts,stroke:'#334155',fill:'rgba(80,95,115,.22)'}]:[];
   const cube=box(cubeC,pR,cylAxis,norm(cross(pR,cylAxis)),G.cube,G.cube,G.cube);
   const cyl=cylinderMesh(cylC,cylAxis,G.cylD/2,G.cylLen,24);
   const physicalTube=cylinderMesh(otaC,t,s.D/2,s.L,32);
   const front=add(otaC,mul(t,s.L/2)), rear=add(otaC,mul(t,-s.L/2));
   const otaParts=otaVisualParts(s,otaC,t,tubeSide,tubeQ);
-  const all=[...baseBox,...pier,...cube,...cyl.pts,...physicalTube.pts];
+  const all=[...baseBox,...pier,...riserParts.flatMap(p=>p.pts),...cube,...cyl.pts,...physicalTube.pts];
   return{
     simple:false,p,cylAxis,pR,t,tubeSide,tubeQ,base,cubeC,cubeFaceC,cylC,innerCap,outerCap,contactC,otaC,front,rear,all,
     parts:[
       {name:"base",pts:baseBox,stroke:"#444",fill:"rgba(0,0,0,.04)"},
       {name:"pier",pts:pier,stroke:"#444",fill:"rgba(0,0,0,.04)"},
+      ...riserParts,
       {name:"orange RA body",pts:cube,stroke:"#ff9d00",fill:"rgba(255,176,0,.18)"},
       {name:"green DEC cylinder",pts:cyl.pts,stroke:"#2ca02c",fill:"rgba(44,160,44,.22)"},
       ...otaParts
@@ -467,7 +532,7 @@ function cylinderMesh(c,axis,r,len,n=24){
   return{pts,u,v};
 }
 function hull(points,proj){let pts=points.map(proj).sort((a,b)=>a[0]===b[0]?a[1]-b[1]:a[0]-b[0]);if(pts.length<2)return pts;const cr=(o,a,b)=>(a[0]-o[0])*(b[1]-o[1])-(a[1]-o[1])*(b[0]-o[0]);let lo=[],up=[];for(const p of pts){while(lo.length>=2&&cr(lo[lo.length-2],lo[lo.length-1],p)<=0)lo.pop();lo.push(p)}for(let i=pts.length-1;i>=0;i--){const p=pts[i];while(up.length>=2&&cr(up[up.length-2],up[up.length-1],p)<=0)up.pop();up.push(p)}up.pop();lo.pop();return lo.concat(up)}
-function el(tag,a){const e=document.createElementNS('http://www.w3.org/2000/svg',tag);for(const k in a)e.setAttribute(k,a[k]);return e}
+function el(tag,a){const e=document.createElementNS('http://www.w3.org/2000/svg',tag);for(const k in a)e.setAttribute(k,(k==='fill'||k==='stroke')?workspaceSvgColor(a[k]):a[k]);return e}
 function text(svg,x,y,t,size=12,anchor='middle',fill='#111'){const e=el('text',{x,y,'font-size':size,'text-anchor':anchor,fill});e.textContent=t;svg.appendChild(e)}
 function poly(pts){return pts.map(p=>p[0].toFixed(1)+','+p[1].toFixed(1)).join(' ')}
 function arrow(svg,a,b,col,w=2,label=''){svg.appendChild(el('line',{x1:a[0],y1:a[1],x2:b[0],y2:b[1],stroke:col,'stroke-width':w}));const ang=Math.atan2(b[1]-a[1],b[0]-a[0]),L=8,p1=[b[0]+L*Math.cos(ang+2.55),b[1]+L*Math.sin(ang+2.55)],p2=[b[0]+L*Math.cos(ang-2.55),b[1]+L*Math.sin(ang-2.55)];svg.appendChild(el('polygon',{points:poly([b,p1,p2]),fill:col}));if(label)text(svg,b[0]+6,b[1]-6,label,11,'start',col)}
@@ -480,17 +545,14 @@ function projectFactory(kind,x0,y0,w,h){
     return p=>[x0+(w-roomW()*sc)/2+p[0]*sc, y0+(h-roomH()*sc)/2+(roomH()-p[1])*sc];
   }
   if(kind==='south'){
-    const maxH=Math.max(1.55,G.wallH+0.25,maxPierHeight()+0.65); const sc=Math.min(w/roomW(),h/maxH)*0.92;
+    const maxH=Math.max(1.55,G.wallH+.25,...sweepRecords().map(r=>r.center[2]+(r.kind==='cylinder'?r.sweep.zMax:r.radius)+.15)); const sc=Math.min(w/roomW(),h/maxH)*0.92;
     return p=>[x0+(w-roomW()*sc)/2+p[0]*sc, y0+h-24-p[2]*sc];
   }
   if(kind==='west'){
-    const maxH=Math.max(1.55,G.wallH+0.25,maxPierHeight()+0.65); const sc=Math.min(w/roomH(),h/maxH)*0.92;
+    const maxH=Math.max(1.55,G.wallH+.25,...sweepRecords().map(r=>r.center[2]+(r.kind==='cylinder'?r.sweep.zMax:r.radius)+.15)); const sc=Math.min(w/roomH(),h/maxH)*0.92;
     return p=>[x0+(w-roomH()*sc)/2+p[1]*sc, y0+h-24-p[2]*sc];
   }
-  const yaw=rad(G.viewYaw),pitch=rad(G.viewPitch),sc=Math.min(w,h)/(3.65/G.zoom);
-  const cy=Math.cos(yaw),sy=Math.sin(yaw),cp=Math.cos(pitch),sp=Math.sin(pitch);
-  const cx=roomW()/2,cyc=roomH()/2,cz=.55;
-  return p=>{let x=p[0]-cx,y=p[1]-cyc,z=p[2]-cz;let x1=Math.cos(yaw)*x+Math.sin(yaw)*y,y1=-Math.sin(yaw)*x+Math.cos(yaw)*y,z1=z;let y2=cp*y1-sp*z1,z2=sp*y1+cp*z1;const d=4.2,k=d/(d-z2);return[x0+w/2+x1*sc*k,y0+h/2-y2*sc*k]}
+  return projectWorkspacePerspective(x0,y0,w,h);
 }
 
 function drawRoom(svg,P,kind,x,y,w,h){
@@ -507,9 +569,10 @@ function drawRoom(svg,P,kind,x,y,w,h){
     }
     text(svg,(a[0]+b[0])/2,b[1]+16,'North ↑',11); text(svg,(a[0]+b[0])/2,a[1]-8,'South ↓',11);
     text(svg,a[0]+15,(a[1]+b[1])/2,'W',11); text(svg,b[0]-15,(a[1]+b[1])/2,'E',11);
+    if(w>=340&&h>=180){
     text(svg,(a[0]+b[0])/2,a[1]+16,roomW().toFixed(2)+' m',12,'middle','#111');
     text(svg,a[0]-10,(a[1]+b[1])/2,roomH().toFixed(2)+' m',12,'middle','#111');
-    text(svg,b[0]-8,b[1]+32,'wall height '+G.wallH.toFixed(2)+' m',11,'end','#8a5a00');
+    text(svg,b[0]-8,b[1]+32,'wall height '+G.wallH.toFixed(2)+' m',11,'end','#8a5a00');}
   } else if(kind==='3d'){
     const floor=[[0,0,0],[roomW(),0,0],[roomW(),roomH(),0],[0,roomH(),0]];
     const top=floor.map(p=>[p[0],p[1],G.wallH]);
@@ -522,7 +585,7 @@ function drawRoom(svg,P,kind,x,y,w,h){
     text(svg,(edgeX0[0]+edgeX1[0])/2,(edgeX0[1]+edgeX1[1])/2+14,roomW().toFixed(2)+' m',11,'middle','#555');
     text(svg,(edgeX0[0]+edgeY1[0])/2-12,(edgeX0[1]+edgeY1[1])/2,roomH().toFixed(2)+' m',11,'middle','#555');
     const wh=P([roomW(),roomH(),G.wallH]);
-    text(svg,wh[0]+6,wh[1]-6,'wall '+G.wallH.toFixed(2)+' m',11,'start','#8a5a00');
+    text(svg,Math.min(x+w-10,wh[0]-6),wh[1]-6,'wall '+G.wallH.toFixed(2)+' m',10,'end','#8a5a00');
   } else {
     const floor0=P([0,0,0]), floor1=kind==='south'?P([roomW(),0,0]):P([0,roomH(),0]);
     svg.appendChild(el('line',{x1:floor0[0],y1:floor0[1],x2:floor1[0],y2:floor1[1],stroke:'#111','stroke-width':1.5}));
@@ -536,7 +599,7 @@ function drawRoom(svg,P,kind,x,y,w,h){
 function sweepRecords(){
   return scopes.map(s=>{
     const sw=sweptPierRadius(s);
-    return {s, center:[s.x,s.y,s.pierH], radius:sw.r, sweep:sw};
+    return {s, center:[s.x,s.y,s.pierH], radius:sw.r, kind:sw.kind||'sphere', sweep:sw};
   });
 }
 function sphereSafety(records){
@@ -545,7 +608,8 @@ function sphereSafety(records){
   for(let i=0;i<records.length;i++){
     for(let j=i+1;j<records.length;j++){
       const a=records[i], b=records[j];
-      const cdist=Math.sqrt(dot(sub(a.center,b.center),sub(a.center,b.center)));
+      // A cylinder uses conservative horizontal separation; no height-staggering credit.
+      const cdist=(a.kind==='cylinder'||b.kind==='cylinder')?Math.hypot(a.center[0]-b.center[0],a.center[1]-b.center[1]):Math.sqrt(dot(sub(a.center,b.center),sub(a.center,b.center)));
       const edge=cdist-a.radius-b.radius;
       if(edge<G.safeGap){
         unsafe.add(a.s.name); unsafe.add(b.s.name);
@@ -881,24 +945,23 @@ function drawTopClearanceLabels(svg,P,x,y,w,h,records){
 
 function panel(svg,kind,x,y,w,h,title){
   const P=projectFactory(kind,x,y,w,h), data=allModelData();
-  const subtitle={
-    top:'Observatory footprint / X-Y clearance',
-    south:'South elevation: X-Z side view',
-    west:'West elevation: Y-Z side view',
-    '3d':'Free-angle view · shaded regions = full-motion clearance, not equipment size'
-  }[kind] || '';
-  // Titles sit outside/above the view box. The render() layout leaves headroom
-  // so these labels do not overlap the drawing or floating UI.
-  text(svg,x+w/2,y-28,title,14,'middle','#111');
-  text(svg,x+12,y-11,subtitle,11,'start','#555');
+  const compact=w<340||h<180;
+  text(svg,x+4,y-10,title,10,'start','#a1adbe');
   svg.appendChild(el('rect',{x,y,width:w,height:h,rx:8,fill:'#fff',stroke:'#aaa'}));
 
+  // Clip each view independently so off-room geometry cannot cover adjacent views.
+  const clip=el('clipPath',{id:'view-clip-'+kind});
+  clip.appendChild(el('rect',{x,y,width:w,height:h,rx:8}));svg.appendChild(clip);
+  const layer=el('g',{'clip-path':'url(#view-clip-'+kind+')'});svg.appendChild(layer);svg=layer;
   drawRoom(svg,P,kind,x,y,w,h);
 
   const records=sweepRecords();
   const safety=sphereSafety(records);
-  for(const rec of records) drawSphereProjection(svg,P,kind,rec.center,rec.radius,sphereStyle(rec,safety));
-  if(kind==='top') drawTopClearanceLabels(svg,P,x,y,w,h,records);
+  for(const rec of records){
+    if(rec.kind==='cylinder')drawSeestarEnvelope(svg,P,kind,rec,sphereStyle(rec,safety));
+    else drawSphereProjection(svg,P,kind,rec.center,rec.radius,sphereStyle(rec,safety));
+  }
+  if(kind==='top'&&!compact) drawTopClearanceLabels(svg,P,x,y,w,h,records);
 
   // Draw parts.
   for(const d of data){
@@ -924,9 +987,9 @@ function panel(svg,kind,x,y,w,h,title){
       svg.appendChild(el('line',{x1:gc[0],y1:gc[1],x2:P(spEnd)[0],y2:P(spEnd)[1],stroke:'#2ca02c','stroke-width':2.5,'stroke-linecap':'round'}));
     }
     arrow(svg,P(m.rear),P(m.front),s.color,2.2,'');
-    if(kind==='top'){
+    if(kind==='top'&&!compact){
       const c=P(m.otaC);
-      text(svg,c[0],c[1]-12,s.name,11,'middle',s.color);
+      text(svg,c[0],c[1]-12,s.name.length>24?s.name.slice(0,23)+'…':s.name,10,'middle',s.color);
     }
   }
 }
@@ -1031,13 +1094,13 @@ function updateStatus(){
     const s=d.s,m=d.m,bb=bboxXY(m.all);
     boxes.push({name:s.name,bb});
     let altTxt='—', azTxt='—', pointingError=null;
-    if(!m.simple){
+    if(!m.simple||m.articulated){
       const al=deg(Math.asin(Math.max(-1,Math.min(1,m.t[2]))));
       let z=deg(Math.atan2(m.t[0],m.t[1])); if(z<0)z+=360;
       altTxt=al.toFixed(1)+'°';
       azTxt=z.toFixed(1)+'°';
       const ha=s._p3d?.hourAngleDeg??signedHourAngleDeg(s.targetRaH);
-      pointingError=angularSeparationDeg(m.t,equatorialToHorizontalVector(ha,s.targetDec));
+      if(s.mount)pointingError=angularSeparationDeg(m.t,equatorialToHorizontalVector(ha,s.targetDec));
     }
     const rec=recordByName.get(s.name);
     const sweep=rec.sweep;
@@ -1057,7 +1120,7 @@ function updateStatus(){
     if(cardClass==='bad') dashboardBad++;
     else if(cardClass==='warn') dashboardWarn++;
     if(!clearanceBad) clearanceSafeCount++;
-    dashboardCards.push('<div class="scopeStatusCard '+cardClass+'"><span class="statusPill">'+(clearanceBad?'CHECK':trackingWarn?'NOTICE':'CLEAR')+'</span><div class="scopeName" style="color:'+s.color+'">'+escapeHtml(s.name)+'</div><div><b>Pier:</b> '+s.pierH.toFixed(2)+' m</div><div><b>Clearance:</b> '+margins.min.toFixed(3)+' m wall margin</div>'+(s.mount?'<div><b>Pointing:</b> Alt '+altTxt+', '+(s.sideOfPier||'east')+' pier side</div><div><b>Status:</b> '+trackingLabel+'</div>':'<div><b>Status:</b> fixed compact setup</div>')+'</div>');
+    dashboardCards.push('<div class="scopeStatusCard '+cardClass+'"><span class="statusPill">'+(clearanceBad?'CHECK':trackingWarn?'NOTICE':'CLEAR')+'</span><div class="scopeName" style="color:'+s.color+'">'+escapeHtml(s.name)+'</div><div><b>Pier:</b> '+s.pierH.toFixed(2)+' m</div><div><b>Clearance:</b> '+margins.min.toFixed(3)+' m wall margin</div>'+(s.mount?'<div><b>Pointing:</b> Alt '+altTxt+', '+(s.sideOfPier||'east')+' pier side</div><div><b>Status:</b> '+trackingLabel+'</div>':(isArticulatedSeestar(s)?'<div><b>Pointing:</b> Alt '+altTxt+', Az '+azTxt+'</div><div><b>Status:</b> articulated Alt-Az · full-travel bound</div>':'<div><b>Status:</b> fixed compact setup</div>'))+'</div>');
 
     tableRows.push({
       name:s.name,
@@ -1084,14 +1147,14 @@ function updateStatus(){
       az:azTxt
     });
     let state = stateText==='inside + safe' ? '<span class="ok">'+stateText+'</span>' : '<span class="bad">'+stateText+'</span>';
-    rows.push('<b>'+escapeHtml(s.name)+'</b>: sphere wall margin '+margins.min.toFixed(3)+' m; current footprint x '+bb.minx.toFixed(2)+'..'+bb.maxx.toFixed(2)+', y '+bb.miny.toFixed(2)+'..'+bb.maxy.toFixed(2)+' '+state);
+    rows.push('<b>'+escapeHtml(s.name)+'</b>: envelope wall margin '+margins.min.toFixed(3)+' m; current footprint x '+bb.minx.toFixed(2)+'..'+bb.maxx.toFixed(2)+', y '+bb.miny.toFixed(2)+'..'+bb.maxy.toFixed(2)+' '+state);
   }
   for(let i=0;i<boxes.length;i++)for(let j=i+1;j<boxes.length;j++){
     if(boxesOverlap(boxes[i].bb,boxes[j].bb)) rows.push('<span class="bad">XY overlap:</span> '+escapeHtml(boxes[i].name)+' / '+escapeHtml(boxes[j].name));
   }
   if(safety.pairs.length){
     for(const p of safety.pairs){
-      rows.push('<span class="bad">Sphere clearance unsafe:</span> '+escapeHtml(p.a)+' / '+escapeHtml(p.b)+' edge gap '+p.edge.toFixed(3)+' m < '+G.safeGap.toFixed(2)+' m');
+      rows.push('<span class="bad">Envelope clearance unsafe:</span> '+escapeHtml(p.a)+' / '+escapeHtml(p.b)+' edge gap '+p.edge.toFixed(3)+' m < '+G.safeGap.toFixed(2)+' m');
     }
   }
   rows.push('<span class="warn">Mount rule:</span> orange cube follows RA only; green cylinder and cylindrical OTA spin together in DEC; OTA bottom is attached to green top flat face.');
@@ -1106,12 +1169,13 @@ function updateStatus(){
   if(dashboard){
     const optimiserNotice=placementOptimisationStatus?'<div class="optimizerNotice '+(placementOptimisationStatus.kind==='failure'?'bad':placementOptimisationStatus.kind==='success'?'safe':'info')+'">'+escapeHtml(placementOptimisationStatus.message)+(Number.isFinite(placementOptimisationStatus.elapsedMs)?' Solver time: '+placementOptimisationStatus.elapsedMs.toFixed(0)+' ms.':'')+'</div>':'';
     const undoButton=lastPlacementSnapshot?'<button class="btn" onclick="undoOptimisedPlacement()">Undo optimisation</button>':'';
+    const detailsOpen=dashboard.querySelector('.scope-status-details')?.open;
     dashboard.className='statusStrip '+overallClass;
-    dashboard.innerHTML='<div class="statusHeadline"><span class="statusDot"></span><strong>'+overallTitle+'</strong><span class="summary">'+clearanceSafeCount+'/'+records.length+' telescope instances have safe wall/pair clearance · audits: coordinates '+coordinateAuditResult.passed+'/'+coordinateAuditResult.total+', placement '+placementAuditResult.passed+'/'+placementAuditResult.total+'</span><button class="btn" style="margin-left:auto" onclick="optimiseTelescopePlacement()">Optimise placement</button>'+undoButton+'</div>'+optimiserNotice+'<div class="scopeStatusGrid">'+dashboardCards.join('')+'</div>';
+    dashboard.innerHTML='<div class="statusHeadline"><span class="statusDot"></span><strong>'+overallTitle+'</strong><span class="summary">'+clearanceSafeCount+'/'+records.length+' setups within wall/pair bounds'+'</span><button class="btn" style="margin-left:auto" onclick="optimiseTelescopePlacement()">Optimise placement</button>'+undoButton+'</div>'+optimiserNotice+'<details class="scope-status-details" '+(detailsOpen?'open':'')+'><summary>Per-setup clearance & pointing</summary><div class="scopeStatusGrid">'+dashboardCards.join('')+'</div></details>';
   }
   rows.push((auditOK?'<span class="ok">':'<span class="bad">')+'Coordinate self-audit: '+coordinateAuditResult.passed+'/'+coordinateAuditResult.total+' passed; maximum optical-vector error '+(Number.isFinite(coordinateAuditResult.maxPointingErrorDeg)?coordinateAuditResult.maxPointingErrorDeg.toExponential(2):'—')+'°.</span>');
   rows.push((placementAuditOK?'<span class="ok">':'<span class="bad">')+'Placement self-audit: '+placementAuditResult.passed+'/'+placementAuditResult.total+' passed.</span>');
-  const pierSummary=scopes.length?scopes.map(s=>s.name+' '+s.pierH.toFixed(2)+' m').join(', '):'none';
+  const pierSummary=scopes.length?scopes.map(s=>escapeHtml(s.name)+' '+s.pierH.toFixed(2)+' m').join(', '):'none';
   rows.push('Per-instance pier heights: '+pierSummary+'; wall height: '+G.wallH.toFixed(2)+' m; mechanical RA-axis travel ±'+flipBoundary().toFixed(0)+'° (90° flips at the meridian; larger values permit tracking past it); random targets are constrained to Alt > 5°; polar arrows '+(G.showPolar?'shown':'hidden')+'; spheres '+(G.showSpheres?'shown, green=safe red=unsafe/outside':'hidden')+'; room '+roomW().toFixed(2)+' m × '+roomH().toFixed(2)+' m; signed HA is west-positive; local sidereal time '+(G.siderealHours||0).toFixed(2)+' h; time drive '+(G.timeDriveOn?'on':'off')+', animation '+(G.isAnimating?'playing':'paused')+', t='+G.timeHours.toFixed(2)+' hr; below-horizon targets are retained and flagged.');
   document.getElementById('status').innerHTML=rows.join('<br>');
   renderSweepTable(tableRows);
@@ -1121,8 +1185,8 @@ function updateStatus(){
 function renderSweepTable(tableRows){
   const wrap=document.getElementById('sweepTableWrap');
   if(!wrap) return;
-  let html='<div style="font-weight:700;font-size:12px;margin:0 0 3px 0;">Swept envelope from pier top (arrays: conservative bound)</div>';
-  html+='<table class="dataTable"><thead><tr><th>Setup</th><th>Sphere radius</th><th>RA at max</th><th>DEC at max</th><th>Furthest X</th><th>Y</th><th>Z</th><th>Wall margin</th><th>Status</th></tr></thead><tbody>';
+  let html='<div style="font-weight:700;font-size:12px;margin:0 0 3px 0;">Motion bounds: spheres for equatorial setups; cylinders for articulated Seestar</div>';
+  html+='<table class="dataTable"><thead><tr><th>Setup</th><th>Plan bound radius</th><th>RA at max</th><th>DEC at max</th><th>Furthest X</th><th>Y</th><th>Z</th><th>Wall margin</th><th>Status</th></tr></thead><tbody>';
   for(const r of tableRows){
     const p=r.point||[NaN,NaN,NaN];
     html+='<tr>'+
@@ -1138,7 +1202,7 @@ function renderSweepTable(tableRows){
     '</tr>';
   }
   html+='</tbody></table>';
-  html+='<div class="small" style="margin-top:4px;">Sampling step: '+G.sweepStep+'°. Mechanical RA axis sampled across ±'+flipBoundary().toFixed(0)+'°. Safety gap: '+G.safeGap.toFixed(2)+' m. Inside/outside uses sphere edge vs room walls.</div>';
+  html+='<div class="small" style="margin-top:4px;">Sampling step: '+G.sweepStep+'°. Mechanical RA axis sampled across ±'+flipBoundary().toFixed(0)+'°. Safety gap: '+G.safeGap.toFixed(2)+' m. Inside/outside uses the horizontal motion bound vs room walls.</div>';
   wrap.innerHTML=html;
 }
 function renderAltAzTable(rows){
@@ -1360,11 +1424,12 @@ function buildControls(){
       <div class="scopeHeader"><h3 style="color:${model.color}">Telescope type ${typeIndex+1}</h3><button class="btn deleteBtn" onclick="removeTelescopeType('${model.typeId}')">Delete type</button></div>
       <label class="typeNameField">Name <input id="type_${model.typeId}_name" type="text" maxlength="60" placeholder="Enter telescope name" value="${escapeHtml(model.baseName)}" onchange="setTelescopeType('${model.typeId}','baseName',this.value)"></label>
       <div class="compactGrid">
-        <label class="compactField">Tube length <span><input id="type_${model.typeId}_L" type="number" min="0.05" max="3" step="0.01" placeholder="metres" value="${Number.isFinite(model.L)?model.L:''}" onchange="setTelescopeType('${model.typeId}','L',this.value)"> m</span></label>
-        <label class="compactField">Tube diameter <span><input id="type_${model.typeId}_D" type="number" min="0.04" max="1.2" step="0.005" placeholder="metres" value="${Number.isFinite(model.D)?model.D:''}" onchange="setTelescopeType('${model.typeId}','D',this.value)"> m</span></label>
+        <label class="compactField">${model.equipment?.smart?"Reference body height":"Tube length"} <span><input ${model.equipment?.smart?"disabled":""} id="type_${model.typeId}_L" type="number" min="0.05" max="3" step="0.01" placeholder="metres" value="${Number.isFinite(model.L)?model.L:''}" onchange="setTelescopeType('${model.typeId}','L',this.value)"> m</span></label>
+        <label class="compactField">${model.equipment?.smart?"Reference body width":"Tube diameter"} <span><input ${model.equipment?.smart?"disabled":""} id="type_${model.typeId}_D" type="number" min="0.04" max="1.2" step="0.005" placeholder="metres" value="${Number.isFinite(model.D)?model.D:''}" onchange="setTelescopeType('${model.typeId}','D',this.value)"> m</span></label>
         ${quantityControl}
       </div>
       ${equipmentControls(model)}
+      ${tripleArrayControls(model)}
       <div class="small boundHint">${valid?(quantity?'Shared tube dimensions apply to every copy; pier height and position remain independent.':'Ready — set a positive quantity to install copies.'):'Complete all three fields before setting a positive quantity.'}</div>
     </div>`;
     for(const s of group){
@@ -1380,8 +1445,9 @@ function buildControls(){
       <div class="compactGrid">
         <label class="compactField">Position X <span><input id="s_${i}_x" type="number" min="0" max="${roomW()}" step="0.01" value="${s.x.toFixed(2)}" onchange="setS(${i},'x',this.value)"> m</span></label>
         <label class="compactField">Position Y <span><input id="s_${i}_y" type="number" min="0" max="${roomH()}" step="0.01" value="${s.y.toFixed(2)}" onchange="setS(${i},'y',this.value)"> m</span></label>
-        <label class="compactField"><b>Pier height</b> <span><input id="s_${i}_pierH" type="number" min="0.20" max="3.50" step="0.01" value="${s.pierH.toFixed(2)}" onchange="setS(${i},'pierH',this.value)"> m</span></label>
+        <label class="compactField"><b>${scopeRiserHeight(s)?'Mount base height (includes riser)':'Pier height'}</b> <span><input id="s_${i}_pierH" type="number" min="0.20" max="3.50" step="0.01" value="${s.pierH.toFixed(2)}" onchange="setS(${i},'pierH',this.value)"> m</span></label>
         ${skyControls}
+        ${smartPoseControls(s,i)}
       </div>
       ${modeLine}
       <div class="small boundHint" id="s_${i}_bounds">Allowed centre: X 0–${roomW().toFixed(2)} m; Y 0–${roomH().toFixed(2)} m.</div>
@@ -1404,7 +1470,9 @@ function optimiseTelescopePlacement(){
   const records=sweepRecords();
   const radii=records.map(r=>r.radius);
   const original=scopes.map(s=>({x:s.x,y:s.y}));
-  const result=solveTelescopePlacement(roomW(),roomH(),radii,G.safeGap,original);
+  let result=solveTelescopePlacement(roomW(),roomH(),radii,G.safeGap,original);
+  try{result=refineSkyPlacement(result,radii,roomW(),roomH(),G.safeGap,original,scopes);}
+  catch(error){placementOptimisationStatus={kind:'failure',message:'高度角优化未执行：'+error.message};render();return {feasible:false,reason:error.message};}
 
   if(scopes.length===0){
     lastPlacementSnapshot=null;
@@ -1443,7 +1511,7 @@ function optimiseTelescopePlacement(){
   );
   placementOptimisationStatus={
     kind:'success',
-    message:'Placement optimised: minimum wall margin '+verifiedMetrics.minWallMargin.toFixed(3)+' m; minimum pair clearance '+verifiedMetrics.minPairClearance.toFixed(3)+' m (required '+G.safeGap.toFixed(3)+' m).',
+    message:(result.metrics.skyWorst>1e-6?'30° 全天空目标尚未满足；已优先减小最差方向遮挡。':'30° 目标通过优化采样检查；请查看下方完整高度角结果。')+' Placement optimised: minimum wall margin '+verifiedMetrics.minWallMargin.toFixed(3)+' m; minimum pair clearance '+verifiedMetrics.minPairClearance.toFixed(3)+' m (required '+G.safeGap.toFixed(3)+' m).',
     elapsedMs:performance.now()-started,
     metrics:verifiedMetrics,
     result
@@ -1462,8 +1530,7 @@ function undoOptimisedPlacement(){
 }
 
 
-let panelResize=null;
-const layoutState={toolW:470,mainW:630,mainH:430,projW:380};
+const layoutState={toolW:360,mainW:630,mainH:430,projW:380};
 function clamp(v,min,max){return Math.max(min,Math.min(max,parseFloat(v)||min));}
 function syncLayoutInputs(){
   const pairs=[
@@ -1477,17 +1544,6 @@ function syncLayoutInputs(){
     if(r) r.value=layoutState[key];
   }
 }
-function applyWorkspaceLayout(){
-  const wrap=document.getElementById('mainWrap');
-  if(!wrap) return;
-  const canvasW=layoutState.mainW+layoutState.projW+260;
-  wrap.style.setProperty('--toolW',layoutState.toolW+'px');
-  wrap.style.setProperty('--canvasW',canvasW+'px');
-  G.mainW=layoutState.mainW;
-  G.mainH=layoutState.mainH;
-  G.projW=layoutState.projW;
-  syncLayoutInputs();
-}
 function setLayoutColumn(k,v){
   if(k==='toolW') layoutState.toolW=clamp(v,260,900);
   if(k==='mainW') layoutState.mainW=clamp(v,520,950);
@@ -1496,110 +1552,7 @@ function setLayoutColumn(k,v){
   applyWorkspaceLayout();
   render();
 }
-function toggleLeftPanel(){
-  const wrap=document.getElementById('mainWrap');
-  const btn=document.querySelector('.togglePanelBtn');
-  wrap.classList.toggle('leftHidden');
-  if(btn) btn.textContent=wrap.classList.contains('leftHidden')?'Show controls':'Hide controls';
-}
-function initLeftPanelResize(){
-  const handle=document.getElementById('resizeHandle');
-  if(!handle) return;
-  handle.addEventListener('pointerdown',ev=>{
-    panelResize={id:ev.pointerId,x:ev.clientX,w:layoutState.toolW};
-    handle.setPointerCapture(ev.pointerId);
-    ev.preventDefault();
-    ev.stopPropagation();
-  });
-  handle.addEventListener('pointermove',ev=>{
-    if(!panelResize||panelResize.id!==ev.pointerId) return;
-    setLayoutColumn('toolW',panelResize.w + ev.clientX - panelResize.x);
-    ev.preventDefault();
-    ev.stopPropagation();
-  });
-  function end(ev){
-    if(panelResize&&panelResize.id===ev.pointerId){
-      panelResize=null;
-      try{handle.releasePointerCapture(ev.pointerId)}catch(e){}
-      ev.preventDefault();
-      ev.stopPropagation();
-    }
-  }
-  handle.addEventListener('pointerup',end);
-  handle.addEventListener('pointercancel',end);
-}
-
 let drag3D=null;
-function add3DDragLayer(svg,x,y,w,h){
-  const r=el('rect',{
-    x,y,width:w,height:h,
-    fill:'rgba(255,255,255,0)',
-    stroke:'none',
-    class:'dragTarget3D'
-  });
-  r.style.pointerEvents='all';
-  r.addEventListener('pointerdown',ev=>{
-    drag3D={id:ev.pointerId,x:ev.clientX,y:ev.clientY,yaw:G.viewYaw,pitch:G.viewPitch};
-    r.setPointerCapture(ev.pointerId);
-    r.classList.add('dragging');
-    ev.preventDefault();
-    ev.stopPropagation();
-  });
-  r.addEventListener('pointermove',ev=>{
-    if(!drag3D || drag3D.id!==ev.pointerId) return;
-    const dx=ev.clientX-drag3D.x;
-    const dy=ev.clientY-drag3D.y;
-    // Horizontal drag direction is intentionally reversed, per earlier request.
-    G.viewYaw=drag3D.yaw-dx*.45;
-    G.viewPitch=Math.max(-80,Math.min(-5,drag3D.pitch+dy*.35));
-    render();
-    ev.preventDefault();
-    ev.stopPropagation();
-  });
-  function end(ev){
-    if(drag3D && drag3D.id===ev.pointerId){
-      drag3D=null;
-      try{r.releasePointerCapture(ev.pointerId)}catch(e){}
-      r.classList.remove('dragging');
-      ev.preventDefault();
-      ev.stopPropagation();
-    }
-  }
-  r.addEventListener('pointerup',end);
-  r.addEventListener('pointercancel',end);
-  svg.appendChild(r);
-}
-
-let projResize=null;
-function initProjectionResize(){
-  const h=document.getElementById('projResizeHandle');
-  if(!h) return;
-  h.addEventListener('pointerdown',ev=>{
-    projResize={id:ev.pointerId,x:ev.clientX,mainW:layoutState.mainW,projW:layoutState.projW};
-    h.setPointerCapture(ev.pointerId);
-    ev.preventDefault();
-  });
-  h.addEventListener('pointermove',ev=>{
-    if(!projResize||projResize.id!==ev.pointerId) return;
-    const dx=ev.clientX-projResize.x;
-    // Dragging the handle right gives the main view more width and the projected
-    // views less width. Dragging left reverses that.
-    layoutState.mainW=Math.max(520,Math.min(950,projResize.mainW+dx));
-    layoutState.projW=Math.max(180,Math.min(430,projResize.projW-dx));
-    applyWorkspaceLayout();
-    render();
-    ev.preventDefault();
-  });
-  function end(ev){
-    if(projResize&&projResize.id===ev.pointerId){
-      projResize=null;
-      try{h.releasePointerCapture(ev.pointerId)}catch(e){}
-    }
-  }
-  h.addEventListener('pointerup',end);
-  h.addEventListener('pointercancel',end);
-}
-
 
 function updateTableVisibility(){
   // Tables are now controlled by native <details> dropdowns.
@@ -1608,56 +1561,6 @@ function updateTableVisibility(){
   if(panel) panel.style.display='block';
 }
 
-function positionFloatingPanels(mainX,mainY,mainW,mainH){
-  const bar=document.getElementById('viewActionBar');
-  const tables=document.getElementById('tablesPanel');
-  const left=mainX+10;
-  const width=Math.max(480,mainW-20);
-  let barTop=mainY+mainH+11;
-  let tableTop=mainY+mainH+198;
-  if(bar){
-    bar.style.left=left+'px';
-    bar.style.top=barTop+'px';
-    bar.style.width=width+'px';
-  }
-  if(tables){
-    tables.style.left=left+'px';
-    tables.style.top=tableTop+'px';
-    tables.style.width=width+'px';
-    tables.style.maxHeight='360px';
-    tables.style.overflow='auto';
-  }
-}
-
-function render(){
-  // Advance tracking exactly once. All subsequent model and drawing functions
-  // are read-only consumers of the same state snapshot.
-  applyTimeDrive();
-  const svg=document.getElementById('svg');svg.innerHTML='';
-  const mainX=20, mainY=62, mainW=G.mainW, mainH=G.mainH;
-  const gap=30;
-  const projX=mainX+mainW+gap;
-  const projW=G.projW;
-  const projHandle=document.getElementById('projResizeHandle');
-  if(projHandle){
-    projHandle.style.left=(mainX+mainW+7)+'px';
-    projHandle.style.top=mainY+'px';
-    projHandle.style.height=mainH+'px';
-  }
-  const topH=Math.max(175, Math.min(250, Math.round(mainH*.54)));
-  const elevH=Math.max(155, Math.min(225, Math.round(mainH*.48)));
-  const topY=62, southY=topY+topH+42, westY=southY+elevH+42;
-
-  panel(svg,'3d',mainX,mainY,mainW,mainH,'MAIN 3D MECHANICAL VIEW');
-  panel(svg,'top',projX,topY,projW,topH,'TOP VIEW');
-  panel(svg,'south',projX,southY,projW,elevH,'SOUTH ELEVATION');
-  panel(svg,'west',projX,westY,projW,elevH,'WEST ELEVATION');
-  add3DDragLayer(svg,mainX,mainY,mainW,mainH);
-  positionFloatingPanels(mainX,mainY,mainW,mainH);
-  updateStatus();
-  syncInputs();
-  queuePlannerSave();
-}
 function syncInputs(){
   const cb=document.getElementById('showPolar');
   if(cb) cb.checked=!!G.showPolar;
@@ -1677,6 +1580,7 @@ function syncInputs(){
     if(r&&document.activeElement!==r)r.value=G[k];
   }
   scopes.forEach((s,i)=>{
+    syncSmartPoseInputs(s,i);
     const b=flipBoundary();
     if(s.copyIndex===1){
       const quantity=document.getElementById(`q_${s.typeId}`);
@@ -1710,6 +1614,7 @@ function clampScopePositionsToRoom(){
   }
 }
 function setG(k,v){
+  if(!Number.isFinite(parseFloat(v))){const input=document.getElementById('g_'+k);if(input)input.value=G[k];return false;}
   if(k==='mainW'||k==='mainH'||k==='projW'){setLayoutColumn(k,v);return;}
   if(['roomW','roomH','safeGap','cube','cylLen','cylD','sweepStep','flipBoundary'].includes(k)) invalidatePlacementOptimisation();
   G[k]=parseFloat(v);
@@ -1739,10 +1644,11 @@ function setShowSpheres(v){G.showSpheres=!!v;render()}
 function setS(i,k,v){
   let val=parseFloat(v);
   const selected=scopes[i];
+  if(!selected||!Number.isFinite(val)){const input=document.getElementById('s_'+i+'_'+k);if(input&&selected)input.value=selected[k];return false;}
   if(['x','y','pierH'].includes(k)) invalidatePlacementOptimisation();
   if(k==='x') val=Math.max(0,Math.min(roomW(),val));
   if(k==='y') val=Math.max(0,Math.min(roomH(),val));
-  if(k==='pierH') val=Math.max(.20,Math.min(3.50,val));
+  if(k==='pierH') val=Math.max(Math.max(.20,scopeRiserHeight(selected)),Math.min(3.50,val));
   if(k==='ra') val=Math.max(-flipBoundary(),Math.min(flipBoundary(),val));
   if(k==='targetRaH') val=normHours(val);
   if(k==='targetDec') val=Math.max(-90,Math.min(90,val));
@@ -1768,27 +1674,9 @@ function seedSkyCoordinatesFromMechanicalPose(s){
   s.trackingStatus='manual pose';
   s._p3d={reachable:true,ra:s.ra,dec:s.dec,hourAngleDeg:sky.ha,side:s.sideOfPier};
 }
-function parkAll(){
-  stopAnimation();
-  G.timeDriveOn=false;
-  G.timeHours=0;
-  const parkDec=90-G.lat;
-  scopes.forEach(s=>{
-    if(s.mount){
-      // Park is an explicit manual motor pose; its equivalent sky coordinates
-      // are retained only for diagnostics and do not re-enable tracking.
-      s.ra=90;
-      s.dec=parkDec;
-      s.sideOfPier='east';
-      s.flipCount=0;
-      seedSkyCoordinatesFromMechanicalPose(s);
-    }
-  });
-  render();
-}
-
 function randomPoseAll(){
   scopes.forEach(s=>{
+    if(isArticulatedSeestar(s)){s.smartAz=Math.random()*360;s.smartAlt=5+Math.random()*85;}
     if(s.mount){
       const target=randomAboveHorizonTarget();
       s.targetRaH=target.targetRaH;
@@ -1802,6 +1690,7 @@ function randomPoseAll(){
 }
 function resetPoseAll(){
   scopes.forEach(s=>{
+    if(isArticulatedSeestar(s)){s.smartAz=0;s.smartAlt=45;}
     if(s.mount){
       s.ra=0;
       s.dec=90;
@@ -1815,9 +1704,9 @@ function resetPoseAll(){
 function resetAll(){
   stopAnimation();
   invalidatePlacementOptimisation();
-  Object.assign(layoutState,{toolW:470,mainW:630,mainH:430,projW:380});
+  Object.assign(layoutState,{toolW:360,mainW:630,mainH:430,projW:380});
   applyWorkspaceLayout();
-  Object.assign(G,{roomW:2.85,roomH:2.85,lat:37,cube:.18,cylLen:.08,cylD:.12,wallH:1.50,sweepStep:5,safeGap:.25,decClock:0,otaClock:90,viewYaw:38,viewPitch:-28,zoom:1,mainW:630,mainH:430,projW:380,showPolar:false,showSpheres:true,showSweepTable:true,showPointingTable:true,timeDriveOn:false,timeHours:0,raRate:15,siderealHours:0,timeStartSiderealHours:0,flipBoundary:90,animSpeed:1,isAnimating:false,lastAnimTs:0});
+  Object.assign(G,{roomW:2.85,roomH:2.85,lat:37,cube:.18,cylLen:.08,cylD:.12,wallH:1.70,parkMode:'polar',parkOffsetPolar:0,parkOffsetHorizontal:0,sweepStep:5,safeGap:.25,decClock:0,otaClock:90,viewYaw:38,viewPitch:-28,zoom:1,mainW:630,mainH:430,projW:380,showPolar:false,showSpheres:true,showSweepTable:true,showPointingTable:true,timeDriveOn:false,timeHours:0,raRate:15,siderealHours:0,timeStartSiderealHours:0,flipBoundary:90,animSpeed:1,isAnimating:false,lastAnimTs:0});
   telescopeTypes=[];
   nextTelescopeTypeId=1;
   scopes=[];
@@ -1830,11 +1719,12 @@ function resetAll(){
 // v60: one mechanical mount and tracking solution carries all optical tubes.
 // Array coordinates are metres: x transverse, y along optical axis, z away from saddle.
 function addMultiArray(n,includeSqa=true){
- const model={typeId:'array_'+nextTelescopeTypeId++,baseName:'ST32 '+n+'×150PDS'+(includeSqa?' + 2×SQA55':' (no upper SQA55)'),L:.690,D:.182,color:TELESCOPE_COLORS[telescopeTypes.length%TELESCOPE_COLORS.length],mount:true,arraySpec:{count:n,pitch:.230,bar:n===2?.445:.600,includeSqa}};
+ const model={typeId:'array_'+nextTelescopeTypeId++,baseName:(n===3?'AM7 ':'ST32 ')+n+'×150PDS'+(includeSqa?' + 2×SQA55':' (no upper SQA55)'),L:.690,D:.182,color:TELESCOPE_COLORS[telescopeTypes.length%TELESCOPE_COLORS.length],mount:true,arraySpec:n===3?currentTripleSpec({includeSqa}):{count:n,pitch:.230,bar:.445,includeSqa}};
  telescopeTypes.push(model);setScopeQuantity(model.typeId,1);
 }
 function arrayScopeModel(s){
  const m=baseScopeModel(s);if(!s.arraySpec||m.simple)return m;
+ if(s.arraySpec.count===3)return tripleScopeModel(s,m);
  const a=s.arraySpec,parts=m.parts.filter(p=>p.name!=='OTA cylinder');
  const O=m.contactC,X=m.tubeQ,Y=m.t,Z=m.tubeSide;
  const at=(x,y,z)=>add(O,add(mul(X,x),add(mul(Y,y),mul(Z,z))));
@@ -1877,7 +1767,7 @@ function mountedEnvelopeRadius(s){
  // RA rotation preserves this distance. This bounds all DEC poses without
  // adding offsets that cannot simultaneously point in the same direction.
  const m=scopeModel(s),a=G.cube*.65,b=G.cube/2+G.cylLen;
- const payload=m.parts.filter(p=>!['base','pier','orange RA body','green DEC cylinder'].includes(p.name));
+ const payload=m.parts.filter(p=>!['base','pier','riser','orange RA body','green DEC cylinder'].includes(p.name));
  let r=0;
  for(const v of payload.flatMap(p=>p.pts)){
    const w=sub(v,m.contactC),z=dot(w,m.cylAxis);
@@ -1887,6 +1777,8 @@ function mountedEnvelopeRadius(s){
  // Exact mount-box corner / cylinder bounds; 2 mm accommodates mesh facets
  // at the supplied preset dimensions. This is not a construction tolerance.
  r=Math.max(r,Math.hypot(a+G.cube/2,G.cube/2,G.cube/2),Math.hypot(a+G.cylD/2,b),Math.hypot(.12,.12,.10))+.002;
+ r+=Math.abs(rcMountLift(s));
+ r=Math.max(r,Math.hypot(scopeRiserHeight(s),.07));
  return {r,ra:s.ra,dec:s.dec,point:null,conservative:true};
 }
 function arraySweptPierRadius(s){
@@ -1895,7 +1787,7 @@ function arraySweptPierRadius(s){
 
 
 const EQUIPMENT_PRESETS={
- rc10:{name:'RC10 Carbon (closed tube)',L:.620,D:.320,mass:null,focuser:.100,adapter:.050,note:'Closed carbon tube: 620 × 320 mm tube, 100 mm focuser and 50 mm adapter are placeholders pending measurement. Measure tube length to the focuser mounting face to avoid counting the focuser twice.'},
+ rc10:{name:'RC10 Carbon (closed tube)',L:.620,D:.320,mass:null,...rcPhotoMeasurements(),focuser:.100,adapter:.050,note:'Photo-equivalent RC10: 220 mm riser optional, default off; saddle height and effective front reach fit the 2026-11-21 photograph at 37 degrees. Perspective uncorrected. Total axial length remains 870 mm; diameter remains an assumed 320 mm. Effective front reach is not the earlier measured 800 mm.'},
  sqa85:{name:'SQA85',L:.439,D:.130,mass:4.62,adapter:.055,note:'Extended length: 439 mm. The 130 mm mounting diameter is an estimate; verify rings and handle dimensions.'},
  sqa55:{name:'SQA55',L:.316,D:.110,mass:2.18,adapter:.055,note:'Length: 316 mm. The 110 mm envelope diameter is an estimate.'},
  s50pro:{name:'Seestar S50 Pro',L:.268,D:.149,mass:2.8,smart:true,radius:.200,height:.380,note:'Published folded dimensions: 140 × 149 × 268 mm. The Ø400 × 380 mm motion envelope is a provisional estimate, not a manufacturer sweep specification.'},
@@ -1905,6 +1797,11 @@ function addEquipmentPreset(key){
  const p=EQUIPMENT_PRESETS[key];if(!p)return;
  const model={typeId:'preset_'+nextTelescopeTypeId++,baseName:p.name,L:p.L,D:p.D,color:TELESCOPE_COLORS[telescopeTypes.length%TELESCOPE_COLORS.length],mount:!p.smart,equipment:{...p,cameraL:p.smart?0:.070,cameraD:p.smart?0:.120,cameraMass:p.smart?0:.480,cable:p.smart?0:.030}};
  telescopeTypes.push(model);setScopeQuantity(model.typeId,1);
+ if(key==='rc10'){
+  G.wallH=1.70;G.lat=37;
+  for(const s of scopes.filter(s=>s.typeId===model.typeId)){fitRcPolarPark(s);rememberScopeTemplate(s);}
+  buildControls();render();
+ }
 }
 function setEquipment(typeId,key,value){
  const model=telescopeType(typeId);if(!model?.equipment)return;
@@ -1916,12 +1813,15 @@ function setEquipment(typeId,key,value){
 }
 function equipmentControls(model){
  const e=model.equipment;if(!e)return '';
+ if(e.kinematics)return smartGeometryControls(model);
  const field=(k,label)=>`<label class="compactField">${label}<span><input type="number" min="0" max="2" step="0.005" value="${e[k]}" onchange="setEquipment('${model.typeId}','${k}',this.value)"> m</span></label>`;
- const fields=e.smart?field('radius','Motion envelope radius')+field('height','Motion envelope height'):(e.focuser!==undefined?field('focuser','Focuser extension at imaging focus'):'')+field('adapter','Adapter / corrector allowance')+field('cameraL','Camera body length')+field('cameraD','Camera body diameter')+field('cable','Rear cable allowance');
+ const measured=e.frontReach!==undefined?field('frontReach','Effective front reach (photo envelope fit)')+field('mountHeight','Base to saddle: polar park, vertical')+rcRiserControls(model)+(e.includeRiser?field('riserHeight','Full riser height, incl. end plates'):''):'';
+ const fields=measured+(e.smart?field('radius','Motion envelope radius')+field('height','Motion envelope height'):(e.focuser!==undefined?field('focuser','Focuser extension at imaging focus'):'')+field('adapter','Adapter / corrector allowance')+field('cameraL','Camera body length')+field('cameraD','Camera body diameter')+field('cable','Rear cable allowance'));
  const mass=e.mass===null?'Tube mass pending measurement':(e.mass+e.cameraMass).toFixed(2)+' kg (equipment + camera; excludes extra brackets and adapters)';
- return `<div class="small">${escapeHtml(e.note)} ${mass}. ${e.smart?'Internal camera included. This mode checks the occupied envelope and does not simulate internal Seestar motion.':'External camera included in the geometry and swept envelope.'}</div><div class="compactGrid">${fields}</div>`;
+ return `<div class="small">${escapeHtml(e.note)} ${mass}. ${e.smart?'Internal camera included. This mode checks the occupied envelope and does not simulate internal Seestar motion.':'External camera included in the geometry and swept envelope.'}</div><div class="compactGrid">${fields}</div>${e.frontReach!==undefined?rcHeightSummary(model):''}`;
 }
 function scopeModel(s){
+ if(isArticulatedSeestar(s))return seestarScopeModel(s);
  if(!s.equipment)return arrayScopeModel(s);
  const e=s.equipment;
  if(e.smart){
@@ -1939,16 +1839,12 @@ function scopeModel(s){
  return {...m,parts,all:parts.flatMap(p=>p.pts),rear:edge};
 }
 function sweptPierRadius(s){
+ if(isArticulatedSeestar(s))return seestarSweptRadius(s);
  if(!s.equipment)return arraySweptPierRadius(s);
  if(s.equipment.smart)return {r:Math.hypot(s.equipment.radius,s.equipment.height),ra:0,dec:0,point:null,conservative:true};
  return mountedEnvelopeRadius(s);
 }
 
-function downloadHTML(){
-  const blob=new Blob(['<!doctype html>\n'+document.documentElement.outerHTML],{type:'text/html'});
-  const url=URL.createObjectURL(blob),a=document.createElement('a');
-  a.href=url; a.download='observatory_layout_v63_optional_sqa.html'; a.click(); URL.revokeObjectURL(url);
-}
 // Store only durable inputs, excluding computed geometry and tracking caches.
 const PLANNER_STORAGE_KEY='observatory-planner:v63:settings:1';
 let plannerSaveTimer=null;
@@ -1958,6 +1854,7 @@ function plannerSnapshot(){
 }
 function plannerSaveStatus(message){
  const node=document.getElementById('plannerSaveStatus');if(node)node.textContent=message;
+ const fileStatus=document.getElementById('fileActionStatus');if(fileStatus&&/import|export|embedded/i.test(message))fileStatus.textContent=message;
 }
 function savePlannerSettings(){
  if(plannerSaveTimer!==null){clearTimeout(plannerSaveTimer);plannerSaveTimer=null;}
@@ -1975,30 +1872,1349 @@ function restorePlannerSettings(){
   if(data.version!==1||!record(data.globals)||!record(data.layout)||!Array.isArray(data.types)||!Array.isArray(data.scopes)||data.scopes.length>MAX_TOTAL_SCOPE_INSTANCES||!Array.isArray(data.templates)||!Number.isInteger(data.nextId)||data.nextId<1)throw Error('Invalid saved settings');
   if(!data.types.every(t=>record(t)&&typeof t.typeId==='string')||!data.scopes.every(s=>record(s)&&data.types.some(t=>t.typeId===s.typeId)&&['x','y','pierH','L','D','ra','dec'].every(k=>Number.isFinite(s[k]))))throw Error('Invalid equipment');
   if(!data.templates.every(pair=>Array.isArray(pair)&&pair.length===2&&typeof pair[0]==='string'&&record(pair[1])))throw Error('Invalid templates');
+  data.globals=normalizedParkingGlobals(data.globals);
   for(const key of Object.keys(G))if(typeof data.globals[key]!==typeof G[key]||(typeof G[key]==='number'&&!Number.isFinite(data.globals[key])))throw Error('Invalid global parameter');
   for(const key of Object.keys(layoutState))if(!Number.isFinite(data.layout[key])||data.layout[key]<=0)throw Error('Invalid layout');
+  for(const item of [...data.types,...data.scopes,...data.templates.map(p=>p[1])])if(item.equipment?.kinematics)validateSeestarSpec(item.equipment.kinematics);
   // Commit only after validation. Playback remains paused, preserving the pose.
   for(const key of Object.keys(G))G[key]=data.globals[key];
   G.isAnimating=false;G.lastAnimTs=0;
   for(const key of Object.keys(layoutState))layoutState[key]=data.layout[key];
   telescopeTypes=data.types;scopes=data.scopes;scopeTemplates=new Map(data.templates);nextTelescopeTypeId=data.nextId;
-  plannerSaveStatus('Previous settings restored · animation paused');return true;
+  const upgraded=upgradeSavedTripleArrays();
+  upgradeSavedSeestars();upgradeSavedRcMeasurements();
+  plannerSaveStatus('Previous settings restored · animation paused'+(upgraded?' · triple arrays updated to current 50-hole assembly':''));return true;
  }catch(error){plannerSaveStatus('Saved settings could not be read; using the initial configuration');return false;}
 }
 window.addEventListener('pagehide',savePlannerSettings);
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')savePlannerSettings();});
 
-const initialArray={typeId:'array_'+nextTelescopeTypeId++,baseName:'ST32 2×150PDS + 2×SQA55',L:.690,D:.182,color:TELESCOPE_COLORS[0],mount:true,arraySpec:{count:2,pitch:.230,bar:.445}};
+// BEGIN GENERATED TRIPLE PAYLOAD
+/* Current three-channel payload envelope; coordinates in metres, mass in kg.
+ * Source: manufacturing_handoff_20261002 (50-hole CAD) and
+ * adapter_stiffness_20261002/parameters.json (conditional mass budget).
+ * Local axes: X across plate, Y along tubes, Z away from mount contact.
+ * Holes do not affect the room-scale exterior envelope; CAD remains authoritative.
+ */
+const TRIPLE_REVISION='50holes-20261002';
+const TRIPLE_PAYLOAD={plate:[.600,.120,.012],rail:[.445,.080,.015],saddle:[.102,.150,.0315],
+ basePitch:.222,detentsMm:[0,16,32],channelKg:7.2,saddleKg:.884,railKg:.8511,
+ plateKg:2.2974797021142206,hardwareKg:.3,clampLength:.200,
+ filters:[['u','g','r','R','G','Hα','He II','L'],['g','i','z','G','B','Hα','O III','Ar III'],['u','r','i','z','R','B','O III','S II']]};
+
+/** Return a current triple spec, preserving SQA choice and valid detents.
+ * Input/output are serializable records; offsets are mm, pitch/bar are metres.
+ * Missing offsets default to 16 mm. Invalid values cannot enter the geometry.
+ */
+function currentTripleSpec(previous={}){
+ const detent=v=>TRIPLE_PAYLOAD.detentsMm.includes(Number(v))?Number(v):16;
+ return {...previous,count:3,revision:TRIPLE_REVISION,pitch:.222,bar:.600,
+  includeSqa:previous.includeSqa===true,leftMm:detent(previous.leftMm),rightMm:detent(previous.rightMm)};
+}
+
+/** Return the three X centres in metres; outer detents independently move outward. */
+function tripleCentres(spec){
+ const a=currentTripleSpec(spec);
+ return [-TRIPLE_PAYLOAD.basePitch-a.leftMm/1000,0,TRIPLE_PAYLOAD.basePitch+a.rightMm/1000];
+}
+
+/** Estimated installed payload excluding AM7, pier and optional upper telescopes.
+ * Channel mass already includes camera/accessories; do not add camera mass again.
+ */
+function triplePayloadMass(){
+ const p=TRIPLE_PAYLOAD;
+ return 3*(p.channelKg+p.saddleKg)+p.railKg+p.plateKg+p.hardwareKg;
+}
+
+/** Build exterior primitives from a scope record (L,D in metres, arraySpec).
+ * Returns local boxes/cylinders, centres and assumed optical-axis height in m.
+ * Purchased rail height is estimated. Tube/ring/focuser/camera geometry inherits
+ * the prior planner envelope, translated by the changed mounting stack height.
+ * This optical envelope is not the centre-of-gravity model used for stiffness.
+ */
+function triplePayloadPrimitives(scope){
+ const a=currentTripleSpec(scope.arraySpec),xs=tripleCentres(a),p=TRIPLE_PAYLOAD,parts=[];
+ const boxPart=(name,x,y,z,w,l,h,color)=>parts.push({kind:'box',name,c:[x,y,z],size:[w,l,h],color});
+ const tube=(name,x,y,z,d,l,color,axis='Y')=>parts.push({kind:'cylinder',name,c:[x,y,z],d,l,color,axis});
+ const plateTop=p.rail[2]+p.plate[2],supportTop=plateTop+p.saddle[2];
+ const lift=supportTop-.020,axisZ=.152+lift+(scope.D-.182)/2;
+ boxPart('445 mm bottom dovetail rail (height estimated)',0,0,.0075,...p.rail,'#777777');
+ boxPart('600 x 120 x 12 adapter / 8 clearance + 42 M6 taps',0,0,.021,...p.plate,'#555555');
+ xs.forEach((x,i)=>{
+  boxPart('Saddle '+(i+1),x,0,plateTop+p.saddle[2]/2,...p.saddle,'#ca8b2c');
+  boxPart('Existing telescope dovetail '+(i+1),x,0,.026+lift,.044,.320,.012,'#268052');
+  for(const y of [-.130,.130]){
+   boxPart('Ring foot '+(i+1),x,y,.0395+lift,.040,.024,.015,'#777777');
+   tube('Ring envelope '+(i+1),x,y,axisZ,scope.D+.028,.024,'#777777');
+  }
+  tube('150PDS '+String.fromCharCode(65+i),x,0,axisZ,scope.D,scope.L,'#356db5');
+  const radialChange=(scope.D-.182)/2;
+  if(i!==1){const sign=i===0?-1:1;
+   boxPart('Focuser '+(i+1),x+sign*(.126+radialChange),.250,axisZ,.070,.045,.045,'#444444');
+   tube('QHY MiniCam8M '+(i+1),x+sign*(.196+radialChange),.250,axisZ,.120,.070,'#8761a9','X');
+  }else{
+   boxPart('Focuser 2',x,.250,axisZ+.126+radialChange,.045,.045,.070,'#444444');
+   tube('QHY MiniCam8M 2',x,.250,axisZ+.196+radialChange,.120,.070,'#8761a9','Z');
+  }
+ });
+ if(a.includeSqa)for(const x of [xs[0],xs[2]]){
+  boxPart('Upper bridge (optional)',x,0,.262+lift,.050,.320,.010,'#bd821c');
+  boxPart('SQA55 foot',x,-.060,.272+lift,.050,.100,.010,'#bd821c');
+  tube('SQA55',x,-.060,.332+lift,.110,.316,'#b64242');
+  boxPart('Camera adapter envelope',x,-.2455,.332+lift,.040,.055,.040,'#444444');
+  tube('Optional upper camera',x,-.308,.332+lift,.120,.070,'#8761a9');
+ }
+ return {parts,xs,axisZ};
+}
+
+/* Connect the current payload to the existing room renderer and durable UI state. */
+function tripleScopeModel(s,m){
+ const payload=triplePayloadPrimitives(s),O=m.contactC,X=m.tubeQ,Y=m.t,Z=m.tubeSide;
+ const at=v=>add(O,add(mul(X,v[0]),add(mul(Y,v[1]),mul(Z,v[2]))));
+ // Keep mount/pier primitives only; remove every generic OTA visual component.
+ const parts=m.parts.filter(p=>['base','pier','riser','orange RA body','green DEC cylinder'].includes(p.name));
+ for(const p of payload.parts){
+  const centre=at(p.c),axis={X,Y,Z}[p.axis];
+  const pts=p.kind==='box'?box(centre,X,Y,Z,...p.size):cylinderMesh(centre,axis,p.d/2,p.l,24).pts;
+  parts.push({name:p.name,pts,stroke:p.color,fill:p.color+'22'});
+ }
+ const c=at([0,0,payload.axisZ]);
+ return {...m,parts,all:parts.flatMap(p=>p.pts),otaC:c,
+  front:add(c,mul(Y,s.L/2)),rear:add(c,mul(Y,-s.L/2)),payloadMassKg:triplePayloadMass()};
+}
+
+function tripleArrayControls(model){
+ if(model.arraySpec?.count!==3)return '';
+ const a=currentTripleSpec(model.arraySpec),xs=tripleCentres(a);
+ const select=(key,label)=>`<label class="compactField">${label}<select id="array_${model.typeId}_${key}" onchange="setTripleDetent('${model.typeId}','${key}',this.value)">${TRIPLE_PAYLOAD.detentsMm.map(v=>`<option value="${v}" ${a[key]===v?'selected':''}>${v} mm</option>`).join('')}</select></label>`;
+ const filters=TRIPLE_PAYLOAD.filters.map((f,i)=>`<div>${'ABC'[i]}: ${f.join(' / ')}</div>`).join('');
+ return `<div class="small"><b>AM7 · current 50-hole assembly</b><br>Bottom rail 445×80×~15; adapter 600×120×12; 3 saddles 102×150×31.5 mm.<br>8 × Ø6.5 clearance + 42 × M6×1 tapped holes. All 0/16/32 mm patterns remain present.<br>Tube centres X: ${xs.map(x=>(x*1000).toFixed(0)).join(' / ')} mm. Estimated payload ${triplePayloadMass().toFixed(2)} kg ${a.includeSqa?'before optional SQA55 equipment (extra mass not budgeted)':'including three cameras/accessories; excludes mount and pier'}.</div>
+ <div class="compactGrid">${select('leftMm','Left outward')}${select('rightMm','Right outward')}</div>
+ <div class="small"><a href="downloads/150pds_adapter_machining.pdf" target="_blank">Adapter drawing (PDF)</a> · <a href="downloads/150pds_manufacturing_50holes.zip" download>STEP + manufacturing package</a></div>
+ <details><summary>Three-channel configuration & measurement notes</summary><div class="small">3 × QHY MiniCam8M; focal length 750 mm, pixel 3.76 μm. Filter assignment:${filters}<br>AM7 clamp length ~200 mm (user estimate); mount dimensions still follow shared mechanical settings. Rail height, camera/ring envelopes and mounting-seat offset require measurement. Holes are in the linked CAD; room views use exterior envelopes. Swept clearance is a conservative bound, not a stiffness or collision certification.</div></details>`;
+}
+
+function setTripleDetent(typeId,key,value){
+ if(!['leftMm','rightMm'].includes(key)||!TRIPLE_PAYLOAD.detentsMm.includes(Number(value)))return false;
+ const model=telescopeType(typeId);if(model?.arraySpec?.count!==3)return false;
+ model.arraySpec={...currentTripleSpec(model.arraySpec),[key]:Number(value)};
+ for(const s of [...scopes.filter(s=>s.typeId===typeId),scopeTemplates.get(typeId)].filter(Boolean)){
+  s.arraySpec={...model.arraySpec};delete s._sweepCache;
+ }
+ invalidatePlacementOptimisation();buildControls();render();return true;
+}
+
+/** Upgrade triples only; preserve pier locations, pointing and optional SQA flags.
+ * Legacy absent includeSqa meant true. New preset defaults are handled separately.
+ * The existing storage key is retained so saved room layouts are not discarded.
+ */
+function upgradeSavedTripleArrays(){
+ let updated=0;
+ for(const s of [...telescopeTypes,...scopes,...scopeTemplates.values()]){
+  if(s.arraySpec?.count!==3)continue;
+  const old=s.arraySpec;
+  if(old.revision!==TRIPLE_REVISION)updated++;
+  s.arraySpec=currentTripleSpec({...old,includeSqa:old.includeSqa!==false});
+  if(typeof s.baseName==='string'&&s.baseName.startsWith('ST32 '))s.baseName=s.baseName.replace(/^ST32 /,'AM7 ');
+  delete s._sweepCache;
+ }
+ for(const t of telescopeTypes)if(t.arraySpec?.count===3)refreshScopeGroupIdentity(t.typeId);
+ return updated;
+}
+// END GENERATED TRIPLE PAYLOAD
+
+// BEGIN GENERATED WORKSPACE JS
+/* Responsive presentation for the existing physical-layout model.
+ * Pixel dimensions describe the viewport only; room/payload geometry stays in metres.
+ * This module does not change the swept-envelope or placement calculations.
+ */
+let workspaceView='all';
+
+function workspaceSvgColor(value){
+  const colors={'#fff':'#0b182a','#111':'#dce3f0','#333':'#c1ccdd','#444':'#93a2b7',
+    '#555':'#a1adbe','#777':'#62758e','#999':'#3e536f','#aaa':'#293d59','#ddd':'#20324a',
+    '#8a5a00':'#efad4b','#1f77b4':'#8aa4ff','#1f77ff':'#8aa4ff','#2ca02c':'#9cd9c8',
+    '#064':'#9cd9c8','rgba(255,255,255,.85)':'#102037',
+    'rgba(0,0,0,.10)':'rgba(170,190,220,.10)','rgba(0,0,0,.04)':'rgba(170,190,220,.06)'};
+  return colors[value]||value;
+}
+
+/** Fit a perspective camera to the room, payloads and swept-envelope extents.
+ * Inputs and output screen coordinates are CSS pixels; reference points are in
+ * metres. The fitted scale changes presentation only, preserving the yaw/pitch
+ * rotation and the user zoom factor. Camera distance grows with the scene so
+ * large rooms cannot cross the perspective plane.
+ */
+function projectWorkspacePerspective(x0,y0,w,h){
+  const records=sweepRecords();
+  const points=[];
+  for(const x of [0,roomW()])for(const y of [0,roomH()])for(const z of [0,G.wallH])points.push([x,y,z]);
+  for(const {m} of allModelData())points.push(...m.all);
+  if(G.showSpheres)for(const record of records){
+    for(const a of [-1,1])for(const b of [-1,1])for(const c of [-1,1])
+      points.push([record.center[0]+a*record.radius,record.center[1]+b*record.radius,record.center[2]+(record.kind==='cylinder'?(c<0?record.sweep.zMin:record.sweep.zMax):c*record.radius)]);
+  }
+  const yaw=rad(G.viewYaw),pitch=rad(G.viewPitch),centre=[roomW()/2,roomH()/2,G.wallH/2];
+  const distance=Math.max(4,3*Math.max(...points.map(p=>Math.hypot(...sub(p,centre)))));
+  const project=p=>{
+    const [x,y,z]=sub(p,centre),u=Math.cos(yaw)*x+Math.sin(yaw)*y,v=-Math.sin(yaw)*x+Math.cos(yaw)*y;
+    const depth=Math.sin(pitch)*v+Math.cos(pitch)*z,k=distance/(distance-depth);
+    return [u*k,-(Math.cos(pitch)*v-Math.sin(pitch)*z)*k];
+  };
+  const projected=points.map(project),xs=projected.map(p=>p[0]),ys=projected.map(p=>p[1]);
+  const minX=Math.min(...xs),maxX=Math.max(...xs),minY=Math.min(...ys),maxY=Math.max(...ys);
+  const scale=Math.min(w*.86/Math.max(.1,maxX-minX),h*.82/Math.max(.1,maxY-minY))*G.zoom;
+  return p=>{const [x,y]=project(p);return [x0+w/2+(x-(minX+maxX)/2)*scale,y0+h/2+(y-(minY+maxY)/2)*scale];};
+}
+
+function add3DDragLayer(svg,x,y,w,h){
+  const target=el('rect',{x,y,width:w,height:h,fill:'transparent',class:'dragTarget3D'});
+  target.addEventListener('pointerdown',event=>{
+    drag3D={id:event.pointerId,x:event.clientX,y:event.clientY,yaw:G.viewYaw,pitch:G.viewPitch};
+    // Capture on the stable SVG, as its drawing children are replaced on render.
+    svg.setPointerCapture(event.pointerId);event.preventDefault();
+  });
+  svg.appendChild(target);
+}
+
+function applyWorkspaceLayout(){
+  const wrap=document.getElementById('mainWrap');
+  if(!wrap)return;
+  wrap.style.setProperty('--toolW',Math.min(380,Math.max(300,layoutState.toolW))+'px');
+  syncLayoutInputs();
+}
+
+function selectControlSection(section){
+  document.querySelectorAll('[data-control-section]').forEach(node=>{
+    node.hidden=node.dataset.controlSection!==section;
+  });
+  document.querySelectorAll('[data-control-tab]').forEach(button=>{
+    button.setAttribute('aria-pressed',String(button.dataset.controlTab===section));
+  });
+}
+
+function selectWorkspaceView(view){
+  if(!['all','3d','top','south','west'].includes(view))return;
+  workspaceView=view;
+  document.querySelectorAll('[data-view]').forEach(button=>{
+    button.setAttribute('aria-pressed',String(button.dataset.view===view));
+  });
+  render();
+}
+
+function resetWorkspaceCamera(){
+  G.viewYaw=38;G.viewPitch=-28;G.zoom=1;
+  render();
+}
+
+function toggleLeftPanel(){
+  const wrap=document.getElementById('mainWrap');
+  const hidden=wrap.classList.toggle('leftHidden');
+  const button=document.querySelector('.togglePanelBtn');
+  button.textContent=hidden?'Show controls':'Focus view';
+  button.setAttribute('aria-pressed',String(hidden));
+  render();
+}
+
+/** Display summary measurements from conservative horizontal motion bounds.
+ * Wall margin is the minimum envelope-to-wall distance in metres, not a
+ * certification of exact solid-body clearance. An empty layout has no margin.
+ */
+function updateWorkspaceSummary(){
+  const records=sweepRecords();
+  const values={
+    roomMetric:roomW().toFixed(2)+' × '+roomH().toFixed(2),
+    areaMetric:(roomW()*roomH()).toFixed(2)+' m² floor area',
+    setupMetric:String(records.length).padStart(2,'0'),
+    wallMetric:records.length?Math.min(...records.map(sphereWallMargins).map(x=>x.min)).toFixed(3):'—',
+    gapMetric:G.safeGap.toFixed(2),
+    sceneCaption:records.length+' pier'+(records.length===1?'':'s')+' · '+G.lat.toFixed(1)+'° S · metres'
+  };
+  for(const [id,value] of Object.entries(values)){
+    const node=document.getElementById(id);if(node)node.textContent=value;
+  }
+}
+
+function render(){
+ refreshParkingControls();
+ refreshRcHeightSummaries();
+ refreshWallHorizon();
+  // Tracking advances once per frame; every view consumes that same pose.
+  applyTimeDrive();
+  const svg=document.getElementById('svg');
+  const stage=document.getElementById('sceneStage');
+  const width=Math.max(280,Math.round(stage?.clientWidth||950));
+  const narrow=width<680;
+  const mainHeight=narrow?350:Math.min(450,Math.max(380,width*.44));
+  let height=mainHeight+48;
+  svg.innerHTML='';
+  const views=[];
+  if(workspaceView==='all'){
+    if(narrow){
+      views.push(['3d',12,32,width-24,mainHeight,'PERSPECTIVE']);
+      const h=245;
+      ['top','south','west'].forEach((kind,i)=>views.push([kind,12,mainHeight+86+i*(h+45),width-24,h,['PLAN · NORTH UP','SOUTH ELEVATION','WEST ELEVATION'][i]]));
+      height=mainHeight+3*(h+45)+64;
+    }else{
+      const side=Math.min(310,Math.max(215,width*.29));
+      const mainWidth=width-side-40;
+      views.push(['3d',12,32,mainWidth,mainHeight,'PERSPECTIVE']);
+      const h=(mainHeight-64)/3;
+      ['top','south','west'].forEach((kind,i)=>views.push([kind,mainWidth+28,32+i*(h+32),side,h,['PLAN · NORTH UP','SOUTH ELEVATION','WEST ELEVATION'][i]]));
+    }
+  }else{
+    const titles={'3d':'PERSPECTIVE',top:'PLAN · NORTH UP',south:'SOUTH ELEVATION',west:'WEST ELEVATION'};
+    views.push([workspaceView,12,32,width-24,mainHeight,titles[workspaceView]]);
+  }
+  svg.setAttribute('viewBox',`0 0 ${width} ${height}`);
+  svg.setAttribute('width',width);svg.setAttribute('height',height);
+  for(const [kind,x,y,w,h,title] of views){
+    panel(svg,kind,x,y,w,h,title);
+    if(kind==='3d')add3DDragLayer(svg,x,y,w,h);
+  }
+  updateStatus();
+  updateWorkspaceSummary();
+  syncInputs();
+  queuePlannerSave();
+}
+
+function initWorkspace(){
+  selectControlSection('site');
+  selectWorkspaceView(window.innerWidth<760?'3d':'all');
+  let timer;
+  const observer=new ResizeObserver(()=>{
+    clearTimeout(timer);timer=setTimeout(render,70);
+  });
+  observer.observe(document.getElementById('sceneStage'));
+  const svg=document.getElementById('svg');
+  svg.addEventListener('pointermove',event=>{
+    if(!drag3D||drag3D.id!==event.pointerId)return;
+    G.viewYaw=wrapDegrees180(drag3D.yaw-(event.clientX-drag3D.x)*.45);
+    G.viewPitch=Math.max(-80,Math.min(-5,drag3D.pitch+(event.clientY-drag3D.y)*.35));
+    render();event.preventDefault();
+  });
+  const endDrag=event=>{if(drag3D?.id===event.pointerId){drag3D=null;if(svg.hasPointerCapture(event.pointerId))svg.releasePointerCapture(event.pointerId);}};
+  svg.addEventListener('pointerup',endDrag);svg.addEventListener('pointercancel',endDrag);
+}
+
+/* Portable planner snapshots: validate external JSON before replacing browser state.
+ * Schema 1 uses metres for geometry, degrees for mount angles, hours for RA/LST,
+ * and pixels for workspace dimensions. This layer does not compute clearances.
+ */
+const PLANNER_FILE_MAX_BYTES=2*1024*1024;
+
+/** Return a detached schema-1 snapshot, or throw without changing the planner.
+ * Empty/incomplete telescope types and zero-quantity templates are retained.
+ * IDs and colours are constrained because the inherited UI inserts them in HTML.
+ */
+function validatePlannerSnapshot(input){
+ const fail=message=>{throw Error(message);};
+ const record=v=>v!==null&&typeof v==='object'&&!Array.isArray(v);
+ const finite=(v,min=-1e15,max=1e15)=>typeof v==='number'&&Number.isFinite(v)&&v>=min&&v<=max;
+ // Names/notes are literal text; renderers must HTML-escape them at output sinks.
+ const safeText=v=>typeof v==='string'&&v.length<=4096&&!/[\u0000-\u0008\u000b\u000c\u000e-\u001f]/.test(v);
+ const identifier=v=>typeof v==='string'&&/^[a-z][a-z0-9_-]{0,79}$/i.test(v);
+ const walk=(v,depth=0)=>{
+  if(depth>12)fail('Layout data is nested too deeply.');
+  if(typeof v==='number'&&!finite(v))fail('Layout contains an invalid number.');
+  if(typeof v==='string'&&!safeText(v))fail('Layout contains unsupported text.');
+  if(v!==null&&typeof v==='object')for(const [k,value] of Object.entries(v)){
+   if(['__proto__','prototype','constructor'].includes(k))fail('Layout contains an unsupported field.');
+   walk(value,depth+1);
+  }
+  else if(!['string','number','boolean','object'].includes(typeof v))fail('Layout contains unsupported data.');
+ };
+ walk(input);
+ if(!record(input)||input.version!==1||!record(input.globals)||!record(input.layout)||!Array.isArray(input.types)||!Array.isArray(input.scopes)||!Array.isArray(input.templates)||!Number.isInteger(input.nextId)||input.nextId<1)fail('This is not a supported planner layout.');
+ input={...input,globals:normalizedParkingGlobals(input.globals)};
+ if(input.types.length>256||input.templates.length>256||input.scopes.length>MAX_TOTAL_SCOPE_INSTANCES)fail('Layout contains too many telescope entries.');
+ for(const [key,value] of Object.entries(G))if(typeof input.globals[key]!==typeof value||(typeof value==='number'&&!finite(input.globals[key])))fail('A global parameter is missing or invalid.');
+ // Keep derived sidereal hours bounded even with the legacy loop-based wrapper.
+ // The 10,000-hour duration permits long planning runs; raRate is degrees/hour.
+ const bounds={roomW:[.1,100],roomH:[.1,100],wallH:[0,100],lat:[-90,90],cube:[.01,5],cylLen:[0,5],cylD:[.001,5],sweepStep:[1,15],safeGap:[0,100],zoom:[.1,10],flipBoundary:[90,180],siderealHours:[0,24],timeStartSiderealHours:[0,24],timeHours:[0,1e4],raRate:[.001,360],animSpeed:[.001,100]};
+ for(const [key,limits] of Object.entries(bounds))if(!finite(input.globals[key],...limits))fail('Global parameter outside supported range: '+key+'.');
+ for(const key of Object.keys(layoutState))if(!finite(input.layout[key],1,5000))fail('Invalid workspace dimensions.');
+ const ids=new Set();
+ const equipment=e=>{
+  if(e===null||e===undefined)return;
+  if(!record(e)||!safeText(e.name)||!safeText(e.note)||!(e.mass===null||finite(e.mass,0,1000))||!finite(e.cameraMass,0,1000))fail('Invalid equipment specification.');
+  for(const key of e.smart?['radius','height']:['adapter','cameraL','cameraD','cable'])if(!finite(e[key],0,10))fail('Invalid equipment envelope.');
+  for(const key of ['frontReach','mountHeight','riserHeight'])if(e[key]!==undefined&&!finite(e[key],0,2))fail('Invalid measured RC10 geometry.');
+  if(e.focuser!==undefined&&!finite(e.focuser,0,10))fail('Invalid focuser envelope.');
+  if(e.kinematics!==undefined){if(!e.smart)fail('Joint geometry requires a smart telescope.');validateSeestarSpec(e.kinematics);}
+  if(e.includeRiser!==undefined&&typeof e.includeRiser!=='boolean')fail('Invalid riser option.');
+  if(e.smart!==undefined&&typeof e.smart!=='boolean')fail('Invalid equipment mode.');
+ };
+ const array=a=>{
+  if(a===null||a===undefined)return;
+  if(!record(a)||![2,3].includes(a.count)||!finite(a.pitch,.001,10)||!finite(a.bar,.001,10))fail('Invalid telescope array.');
+  if(a.includeSqa!==undefined&&typeof a.includeSqa!=='boolean')fail('Invalid upper-telescope option.');
+  for(const key of ['leftMm','rightMm'])if(a[key]!==undefined&&![0,16,32].includes(a[key]))fail('Invalid saddle detent.');
+ };
+ const common=(s,allowIncomplete=false)=>{
+  if(!record(s)||!identifier(s.typeId)||!safeText(s.baseName)||typeof s.mount!=='boolean'||typeof s.color!=='string'||!/^#[0-9a-f]{6}$/i.test(s.color))fail('Invalid telescope identity or colour.');
+  for(const key of ['L','D'])if(!(allowIncomplete&&s[key]===null)&&!finite(s[key],.001,10))fail('Invalid telescope dimensions.');
+  equipment(s.equipment);array(s.arraySpec);
+ };
+ for(const t of input.types){common(t,true);if(ids.has(t.typeId))fail('Duplicate telescope type.');ids.add(t.typeId);}
+ const instance=s=>{
+  common(s);
+  if(!ids.has(s.typeId)||!safeText(s.name)||!Number.isInteger(s.copyIndex)||s.copyIndex<1||s.copyIndex>MAX_SCOPE_QUANTITY)fail('Invalid telescope instance.');
+  for(const key of ['x','y','pierH','ra','dec'])if(!finite(s[key]))fail('Invalid telescope position or angle.');
+  for(const [key,limits] of [['smartAz',[0,360]],['smartAlt',[-90,90]]])if(s[key]!==undefined&&!finite(s[key],...limits))fail('Invalid smart joint angle.');
+  if(s.pierH<=0||s.x<0||s.y<0)fail('Invalid pier geometry.');
+  if(s.targetRaH!==undefined&&!finite(s.targetRaH,0,24))fail('Invalid target right ascension.');
+  if(s.targetDec!==undefined&&!finite(s.targetDec,-90,90))fail('Invalid target declination.');
+  if(s.controlMode!==undefined&&!['manual','sky'].includes(s.controlMode))fail('Invalid tracking mode.');
+  if(s.sideOfPier!==undefined&&!['east','west'].includes(s.sideOfPier))fail('Invalid pier side.');
+  if(s.trackingStatus!==undefined&&!['tracking','below horizon','RA-axis limit','manual pose'].includes(s.trackingStatus))fail('Invalid tracking status.');
+  if(s.flipCount!==undefined&&(!Number.isInteger(s.flipCount)||s.flipCount<0||s.flipCount>1e9))fail('Invalid meridian-flip count.');
+ };
+ const copies=new Set();
+ for(const s of input.scopes){instance(s);const id=s.typeId+':'+s.copyIndex;if(copies.has(id))fail('Duplicate telescope copy.');copies.add(id);}
+ const templates=new Set();
+ for(const pair of input.templates){
+  if(!Array.isArray(pair)||pair.length!==2||!ids.has(pair[0])||templates.has(pair[0])||pair[1]?.typeId!==pair[0])fail('Invalid saved telescope template.');
+  instance(pair[1]);templates.add(pair[0]);
+ }
+ for(const id of ids){const suffix=Number(id.match(/_(\d+)$/)?.[1]);if(Number.isFinite(suffix)&&suffix>=input.nextId)fail('Invalid next telescope identifier.');}
+ // Drop runtime caches even when a third-party exporter included them.
+ return JSON.parse(JSON.stringify(input,(key,value)=>key.startsWith('_')?undefined:value));
+}
+
+/** Apply a validated snapshot atomically; playback always resumes paused.
+ * refresh=false is for startup, before controls and numerical audits are built.
+ * Throws on invalid input before touching live state or browser storage.
+ */
+function applyPlannerSnapshot(input,{refresh=true}={}){
+ const data=validatePlannerSnapshot(input);
+ stopAnimation();
+ for(const key of Object.keys(G))G[key]=data.globals[key];
+ G.isAnimating=false;G.lastAnimTs=0;
+ for(const key of Object.keys(layoutState))layoutState[key]=data.layout[key];
+ telescopeTypes=data.types;scopes=data.scopes;scopeTemplates=new Map(data.templates);nextTelescopeTypeId=data.nextId;
+ upgradeSavedTripleArrays();upgradeSavedSeestars();upgradeSavedRcMeasurements();invalidatePlacementOptimisation();
+ if(refresh){coordinateAuditResult=runCoordinateSelfTests();buildControls();applyWorkspaceLayout();render();}
+ return true;
+}
+
+function downloadPlannerBlob(content,type,name){
+ const url=URL.createObjectURL(new Blob([content],{type})),link=document.createElement('a');
+ link.href=url;link.download=name;link.click();
+ // Retain the URL through the browser's asynchronous download dispatch.
+ setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+
+/** Download complete schema-1 JSON, including unused types and saved templates. */
+function exportLayoutJSON(){
+ try{
+  const snapshot=validatePlannerSnapshot(plannerSnapshot());
+  downloadPlannerBlob(JSON.stringify(snapshot,null,2)+'\n','application/json','observatory-layout-'+new Date().toISOString().slice(0,10)+'.json');
+  plannerSaveStatus('Layout JSON exported.');return true;
+ }catch(error){plannerSaveStatus('Export failed: '+error.message);return false;}
+}
+
+/** Import a browser File (maximum 2 MiB); resolve false without mutation on bad data. */
+async function importLayoutFile(file){
+ if(!file)return false;
+ try{
+  if(!Number.isFinite(file.size)||file.size>PLANNER_FILE_MAX_BYTES)throw Error('Choose a layout JSON file smaller than 2 MiB.');
+  const content=await file.text();
+  if(content.length>PLANNER_FILE_MAX_BYTES)throw Error('Layout file is too large.');
+  applyPlannerSnapshot(JSON.parse(content));
+  const saved=savePlannerSettings();
+  plannerSaveStatus('Layout imported · animation paused'+(saved?' · saved in this browser.':'. Browser storage is unavailable.'));
+  return true;
+ }catch(error){plannerSaveStatus('Import failed: '+error.message);return false;}
+}
+
+/** Restore a self-contained HTML export before trying this origin's localStorage.
+ * Returns false when absent/invalid; startup can then use normal saved settings.
+ */
+function restoreEmbeddedPlannerLayout(){
+ const node=document.getElementById('embeddedPlannerState');
+ if(!node)return false;
+ try{applyPlannerSnapshot(JSON.parse(node.textContent),{refresh:false});plannerSaveStatus('Embedded layout restored · animation paused.');return true;}
+ catch(error){plannerSaveStatus('Embedded layout could not be read: '+error.message);return false;}
+}
+
+/** Download the current HTML with a portable JSON snapshot ahead of its scripts.
+ * Existing embedded data is replaced in the clone only. Escaping '<' prevents a
+ * JSON string from terminating its script element when the HTML is reopened.
+ */
+function downloadHTML(){
+ try{
+  const data=validatePlannerSnapshot(plannerSnapshot()),copy=document.documentElement.cloneNode(true);
+  copy.querySelectorAll('#embeddedPlannerState').forEach(node=>node.remove());
+  const state=document.createElement('script');state.type='application/json';state.id='embeddedPlannerState';
+  state.textContent=JSON.stringify(data).replace(/[<>&\u2028\u2029]/g,ch=>'\\u'+ch.charCodeAt(0).toString(16).padStart(4,'0'));
+  copy.querySelector('head').prepend(state);
+  downloadPlannerBlob('<!doctype html>\n'+copy.outerHTML,'text/html','observatory-layout-current.html');
+  plannerSaveStatus('Current layout exported as portable HTML.');return true;
+ }catch(error){plannerSaveStatus('HTML export failed: '+error.message);return false;}
+}
+
+// END GENERATED WORKSPACE JS
+
+// BEGIN GENERATED SEESTAR PAYLOAD
+/* Articulated Seestar exterior geometry, metres and degrees, Alt-Az only.
+ * Origin: mounting screw on the support plane; +Z up, +Y optical forward
+ * at altitude=0 and azimuth=0, +X along the altitude bearing.
+ * Official outer dimensions: S30 Pro manual printed p10; S50 Pro p50.
+ * Internal partition/axis dimensions are estimates, explicitly exposed in UI.
+ * Boxes bound rounded housings; this is not a reverse-engineered CAD model.
+ */
+const SEESTAR_SPECS={
+ s30pro:{version:1,modelKey:'s30pro',width:.140,depth:.080,foldedHeight:.2095,
+  screwFromBack:.070,baseHeight:.055,armWidth:.085,bodyWidth:.055,bodyDepth:.080,
+  pivotHeight:.170,pivotX:.0425,frontReach:.100,rearReach:.0395,
+  cableReach:.030,allowance:.020,aperture:.030},
+ s50pro:{version:1,modelKey:'s50pro',width:.149,depth:.140,foldedHeight:.268,
+  screwFromBack:.0597,baseHeight:.070,armWidth:.080,bodyWidth:.069,bodyDepth:.140,
+  pivotHeight:.205,pivotX:.0548,frontReach:.123,rearReach:.063,
+  cableReach:.030,allowance:.020,aperture:.050}
+};
+const SEESTAR_MANUALS={
+ s30pro:'https://i.zwoastro.com/wp-content/uploads/2026/01/779193e9ce7a1f0f1b7db9da8a752e49.pdf',
+ s50pro:'https://i.zwoastro.com/wp-content/uploads/2026/08/9cdcf7965665984d64c1d1c4c61eef11.pdf'
+};
+const SeestarGeometry=(()=>{
+ const radians=d=>d*Math.PI/180;
+ const transform=(p,az)=>{const a=radians(az);return [p[0]*Math.cos(a)+p[1]*Math.sin(a),-p[0]*Math.sin(a)+p[1]*Math.cos(a),p[2]];};
+ const box=(c,size)=>[-1,1].flatMap(x=>[-1,1].flatMap(y=>[-1,1].map(z=>c.map((v,i)=>v+[x,y,z][i]*size[i]/2))));
+ function cylinder(c,axis,r,length){
+  const along=axis==='x'?0:1,across=axis==='x'?[1,2]:[0,2],pts=[];
+  // Circumscribed facets enclose the continuous cylinder, rather than cutting in.
+  for(const end of [-1,1])for(let i=0;i<24;i++){
+   const a=2*Math.PI*i/24,p=c.slice(),rr=r/Math.cos(Math.PI/24);
+   p[along]+=end*length/2;p[across[0]]+=rr*Math.cos(a);p[across[1]]+=rr*Math.sin(a);pts.push(p);
+  }return pts;
+ }
+ /** Return labelled convex exterior parts, each with Nx3 vertices in metres.
+  * Azimuth rotates the whole upper assembly about Z. Altitude rotates only
+  * optics about the transverse bearing: (u,v)->(u cos h-v sin h,u sin h+v cos h).
+  * h=-90 is stow, h=0 horizon, h=90 zenith; limits bound travel, not firmware.
+  * The connector box is a 30 mm planning allowance, not a sourced cable CAD.
+  */
+ function parts(k,az=0,alt=45){
+  const h=radians(alt),x0=-k.screwFromBack,x1=k.width-k.screwFromBack;
+  const pivot=[k.pivotX,0,k.pivotHeight],out=[];
+  const fixed=(name,c,size,color)=>out.push({name,color,pts:box(c,size),moving:false});
+  fixed('azimuth base',[(x0+x1)/2,0,k.baseHeight/2],[k.width,k.depth,k.baseHeight],'#c7d4df');
+  fixed('single support arm',[x0+k.armWidth/2,0,(k.baseHeight+k.foldedHeight)/2],
+   [k.armWidth,k.depth,k.foldedHeight-k.baseHeight],'#dce5eb');
+  fixed('USB connector / cable reserve',[x0-k.cableReach/2,0,k.baseHeight*.6],
+   [k.cableReach,.020,.020],'#7e8893');
+  const posed=p=>[p[0]+pivot[0],p[1]*Math.cos(h)-p[2]*Math.sin(h),pivot[2]+p[1]*Math.sin(h)+p[2]*Math.cos(h)];
+  const moving=(name,pts,color)=>out.push({name,color,pts:pts.map(posed),moving:true});
+  moving('optical housing',box([0,(k.frontReach-k.rearReach)/2,0],
+   [k.bodyWidth,k.frontReach+k.rearReach,k.bodyDepth]),'#a5bfd5');
+  moving('altitude bearing',cylinder([0,0,0],'x',Math.min(k.rearReach,k.bodyDepth/2)*.92,k.bodyWidth),'#dca849');
+  const face=k.frontReach-.001;
+  moving('telephoto aperture',cylinder([0,face,k.bodyDepth*.12],'y',k.aperture/2,.002),'#142a3b');
+  moving('wide-angle aperture',cylinder([0,face,-k.bodyDepth*.32],'y',.003,.002),'#142a3b');
+  for(const part of out)part.pts=part.pts.map(p=>transform(p,az));
+  return out;
+ }
+ const cache=new Map();
+ /** Return a full-travel vertical cylinder {r,zMin,zMax}, in metres.
+  * Scan altitude -90..90 at 1 degree, including stow; azimuth is analytically
+  * eliminated since rho=hypot(x,y) and Z are invariant under its rotation.
+  * Between samples every moving point travels <= reach*deltaAngle/2. Adding
+  * this Lipschitz bound guarantees containment for continuous travel, in
+  * addition to the explicit user-specified geometric uncertainty allowance.
+  * The bound covers the model, not undocumented accessories or EQ tilt.
+  */
+ function sweep(k){
+  const key=JSON.stringify(k);if(cache.has(key))return {...cache.get(key)};
+  let r=0,zMin=Infinity,zMax=-Infinity;
+  for(let alt=-90;alt<=90;alt++)for(const p of parts(k,0,alt).flatMap(part=>part.pts)){
+   r=Math.max(r,Math.hypot(p[0],p[1]));zMin=Math.min(zMin,p[2]);zMax=Math.max(zMax,p[2]);
+  }
+  const reach=Math.hypot(Math.max(k.frontReach,k.rearReach),k.bodyDepth/2);
+  const samplingPad=reach*radians(1)/2,pad=samplingPad+k.allowance;
+  const result={r:r+pad,zMin:zMin-pad,zMax:zMax+pad,samplingPad,allowance:k.allowance};
+  if(cache.size>128)cache.clear();cache.set(key,result);return {...result};
+ }
+ return {parts,sweep,transform};
+})();
+
+/** Validate the versioned joint specification atomically, before state changes.
+ * Distances are metres, modelKey is a fixed preset identifier. Bounds prevent
+ * pathological geometry/sampling costs; they are not physical certification.
+ */
+function validateSeestarSpec(k){
+ const fail=()=>{throw Error('Invalid Seestar joint geometry; check positive dimensions, axis location and housing proportions.');};
+ if(!k||k.version!==1||!['s30pro','s50pro'].includes(k.modelKey))fail();
+ for(const key of Object.keys(SEESTAR_SPECS[k.modelKey])){
+  if(['version','modelKey'].includes(key))continue;
+  if(typeof k[key]!=='number'||!Number.isFinite(k[key])||k[key]<0||k[key]>1)fail();
+ }
+ for(const key of ['width','depth','foldedHeight','baseHeight','armWidth','bodyWidth','bodyDepth','frontReach','rearReach','aperture'])if(k[key]<.001)fail();
+ if(k.baseHeight>=k.foldedHeight||k.armWidth>k.width||k.screwFromBack>k.width||k.pivotHeight>k.foldedHeight||k.pivotX>k.width||k.aperture>Math.min(k.bodyWidth,k.bodyDepth))fail();
+ return k;
+}
+
+/* Connect articulated smart instruments to the existing portable planner.
+ * All dimensions are metres; manual Alt-Az angles are per instrument.
+ * Packing uses the cylinder's horizontal projection. Height never creates
+ * a fictitious reduction in plan separation from another instrument.
+ */
+function isArticulatedSeestar(s){return !!s.equipment?.smart&&!!s.equipment.kinematics;}
+function seestarScopeModel(s){
+ const k=s.equipment.kinematics,az=s.smartAz??0,alt=s.smartAlt??45;
+ const origin=[s.x,s.y,s.pierH],h=[0,0,1],q=[1,0,0];
+ const t=SeestarGeometry.transform([0,Math.cos(rad(alt)),Math.sin(rad(alt))],az);
+ const parts=SeestarGeometry.parts(k,az,alt).map(p=>({name:p.name,pts:p.pts.map(v=>add(origin,v)),stroke:p.color,fill:p.color+'bb'}));
+ parts.unshift({name:'pier',pts:box([s.x,s.y,s.pierH/2],[1,0,0],[0,1,0],h,.14,.14,s.pierH),stroke:'#777',fill:'#77777722'});
+ const pivot=add(origin,SeestarGeometry.transform([k.pivotX,0,k.pivotHeight],az));
+ return {simple:true,articulated:true,c:pivot,otaC:pivot,t,q,h,parts,all:parts.flatMap(p=>p.pts),front:add(pivot,mul(t,k.frontReach)),rear:add(pivot,mul(t,-k.rearReach))};
+}
+function seestarSweptRadius(s){
+ const sw=SeestarGeometry.sweep(s.equipment.kinematics);
+ // Include the fixed 140 mm square pier footprint in the planning projection.
+ return {...sw,r:Math.max(sw.r,Math.hypot(.07,.07)),kind:'cylinder',conservative:true,point:null,ra:0,dec:0};
+}
+function drawSeestarEnvelope(svg,P,kind,rec,style){
+ if(!G.showSpheres)return;
+ const z0=rec.center[2]+rec.sweep.zMin,z1=rec.center[2]+rec.sweep.zMax;
+ const pts=cylinderMesh([rec.center[0],rec.center[1],(z0+z1)/2],[0,0,1],rec.radius,z1-z0,64).pts;
+ svg.appendChild(el('polygon',{points:poly(hull(pts,P)),fill:kind==='3d'?style.fill3d:style.fill2d,stroke:style.stroke,'stroke-width':1.5,'stroke-dasharray':'6 4'}));
+}
+function smartPoseControls(s,i){
+ if(!isArticulatedSeestar(s))return '';
+ return `<label class="compactField">Azimuth joint <span><input id="smart_${i}_az" type="number" min="0" max="360" step="1" value="${s.smartAz??0}" onchange="setSmartPose(${i},'smartAz',this.value)"> °</span></label>
+ <label class="compactField">Altitude joint <span><input id="smart_${i}_alt" type="number" min="-90" max="90" step="1" value="${s.smartAlt??45}" onchange="setSmartPose(${i},'smartAlt',this.value)"> °</span></label>
+ <div class="small">Alt-Az mode · −90° stowed, 0° horizon, +90° zenith. Clearance covers the full joint travel at every displayed pose.</div>`;
+}
+function setSmartPose(i,key,value){
+ const s=scopes[i],v=Number(value);if(!isArticulatedSeestar(s)||!Number.isFinite(v)||!['smartAz','smartAlt'].includes(key))return;
+ s[key]=key==='smartAz'?Math.max(0,Math.min(360,v)):Math.max(-90,Math.min(90,v));
+ if(s.copyIndex===1)rememberScopeTemplate(s);render();
+}
+function smartGeometryControls(model){
+ const k=model.equipment.kinematics,sw=SeestarGeometry.sweep(k);
+ const fields=[['pivotHeight','Altitude-axis height (estimate)'],['pivotX','Optics centre along hinge (estimate)'],['frontReach','Axis to lens end (estimate)'],['rearReach','Axis to rear end (estimate)'],['bodyWidth','Moving housing width'],['bodyDepth','Moving housing depth'],['baseHeight','Base height (estimate)'],['armWidth','Support width (estimate)'],['screwFromBack','Screw from back edge'],['cableReach','Connector / cable reserve'],['allowance','Dimension uncertainty allowance']];
+ return `<div class="small">Articulated ${escapeHtml(model.equipment.name)} · Alt-Az. Official folded body: ${(k.width*1000).toFixed(1)} × ${(k.depth*1000).toFixed(1)} × ${(k.foldedHeight*1000).toFixed(1)} mm. <a href="${SEESTAR_MANUALS[k.modelKey]}" target="_blank" rel="noopener">Official dimension drawing</a> (${k.modelKey==='s30pro'?'p10':'p50'}). Axis location and housing partition are estimated; measure before installation. No EQ wedge or tripod is included.</div>
+ <div class="small boundHint">Full-motion plan radius: <b>${sw.r.toFixed(3)} m</b>; height relative to mounting plane: ${sw.zMin.toFixed(3)}…${sw.zMax.toFixed(3)} m. Includes ${(k.allowance*1000).toFixed(0)} mm dimension allowance.</div>
+ <details class="scopeAdvanced"><summary>Calibrate joints and housing dimensions</summary><div class="compactGrid">${fields.map(([key,label])=>`<label class="compactField">${label}<span><input type="number" min="0" max="1" step="0.001" value="${k[key]}" onchange="setSmartGeometry('${model.typeId}','${key}',this.value)"> m</span></label>`).join('')}</div></details>`;
+}
+function setSmartGeometry(typeId,key,value){
+ const model=telescopeType(typeId),v=Number(value);
+ if(!model?.equipment?.kinematics||!Number.isFinite(v)||!(key in SEESTAR_SPECS[model.equipment.kinematics.modelKey])||['version','modelKey','aperture'].includes(key))return;
+ const k={...model.equipment.kinematics,[key]:v};
+ try{validateSeestarSpec(k);}catch(error){placementOptimisationStatus={kind:'failure',message:error.message};buildControls();render();return;}
+ model.equipment.kinematics=k;
+ for(const s of scopes.filter(s=>s.typeId===typeId))s.equipment=JSON.parse(JSON.stringify(model.equipment));
+ const template=scopeTemplates.get(typeId);if(template)template.equipment=JSON.parse(JSON.stringify(model.equipment));
+ invalidatePlacementOptimisation();buildControls();render();
+}
+function upgradeSavedSeestars(){
+ // Preserve custom legacy cylinders. Only untouched named presets are migrated.
+ let changed=false;
+ for(const collection of [telescopeTypes,scopes,[...scopeTemplates.values()]])for(const s of collection){
+  const e=s.equipment;if(!e?.smart||e.kinematics)continue;
+  const key=e.name==='Seestar S30 Pro'?'s30pro':e.name==='Seestar S50 Pro'?'s50pro':null;
+  if(!key||e.radius!==(key==='s30pro'?.12:.2)||e.height!==(key==='s30pro'?.25:.38))continue;
+  e.kinematics={...SEESTAR_SPECS[key]};changed=true;
+ }return changed;
+}
+for(const key of ['s30pro','s50pro']){
+ EQUIPMENT_PRESETS[key].kinematics={...SEESTAR_SPECS[key]};
+ EQUIPMENT_PRESETS[key].note='Official folded dimensions; articulated Alt-Az model. Joint positions are estimates with a 20 mm dimension allowance; calibrate before installation.';
+}
+
+function syncSmartPoseInputs(s,i){
+ for(const [suffix,key,fallback] of [['az','smartAz',0],['alt','smartAlt',45]]){
+  const node=document.getElementById(`smart_${i}_${suffix}`);
+  if(node&&document.activeElement!==node)node.value=(s[key]??fallback).toFixed(1);
+ }
+}
+// END GENERATED SEESTAR PAYLOAD
+
+// BEGIN GENERATED RC HEIGHT
+/** Photo-equivalent geometry, metres, calibrated at latitude 37 degrees.
+ * Source: runs/rc10_photo_20261121/calibration.json, image-y ratio 220/205 mm/px.
+ * Front reach solves Htop = Hsaddle + front*sin(37) + D*cos(37).
+ * This is an EFFECTIVE envelope fit including the top rail, not a new axial
+ * measurement. D=0.320 m and total axial length 0.870 m remain prior assumptions.
+ */
+function rcPhotoMeasurements(){
+ const mountHeight=.220*(1025-781)/205,top=.220*(1025-295)/205;
+ return {mountHeight,frontReach:(top-mountHeight-.320*Math.cos(rad(37)))/Math.sin(rad(37)),
+  riserHeight:.220,includeRiser:false,measurementRevision:'photo-riser-20261121'};
+}
+/** Metres of separately rendered riser below the mount base (pierH). */
+function scopeRiserHeight(s){return s.equipment?.includeRiser===true?(s.equipment.riserHeight||0):0;}
+/** Set the photographed polar pose and zero-clearance ceiling height.
+ * pierH retains its storage meaning: ground to mount base, including riser.
+ */
+function fitRcPolarPark(s){
+ Object.assign(s,mountedParkPose(s));
+ s.pierH=G.wallH-rcHeightLimits(s).park;
+ seedSkyCoordinatesFromMechanicalPose(s);
+ delete s._sweepCache;
+}
+/* RC10 height model, metres. Photo-scale calibration adopted on 2026-11-21.
+ * Single-view estimates are approximate and have uncorrected perspective error.
+ * Pure geometry uses planner vector operations; no storage or DOM access.
+ */
+/** Calibrate mount base to the equipment mountHeight vertically in polar park.
+ * The upward DEC-axis projection is cos(latitude); this is not a radial length.
+ */
+function rcMountLift(s){
+ if(s.equipment?.mountHeight===undefined)return 0;
+ const axis=clockVec(0);
+ return s.equipment.mountHeight-G.cube*.65*polar()[2]-(G.cube/2+G.cylLen)*axis[2];
+}
+/** Mechanical angles (degrees) for polar pointing with the OTA above the mount.
+ * RA aligns the DEC adapter with the upward projection perpendicular to polar().
+ * DEC then aligns the optical axis with polar(); honours both clock settings.
+ * This is a destination pose, not a collision-checked slew trajectory.
+ */
+function mountedParkPose(s){
+ const ra=wrapDegrees180(-G.decClock);
+ const m=baseScopeModel({...s,ra,dec:0}),p=polar();
+ const dec=deg(Math.atan2(dot(m.cylAxis,cross(m.t,p)),dot(m.t,p)));
+ return {ra,dec};
+}
+/** Cylinders in OTA coordinates: axial endpoints y0,y1 and radius r, metres.
+ * The OTA axis is D/2 above the saddle; frontReach is its axial projection.
+ * Total length is L + focuser + adapter + cameraL + cable, independent of reach.
+ */
+function rcCylinders(s){
+ const e=s.equipment,front=e.frontReach;let edge=front-s.L;
+ const parts=[{y0:edge,y1:front,r:s.D/2}];
+ for(const [length,r] of [[e.focuser||0,.05],[e.adapter,Math.min(.100,s.D)/2],[e.cameraL,e.cameraD/2],[e.cable,e.cameraD/2]]){
+  parts.push({y0:edge-length,y1:edge,r});edge-=length;
+ }
+ return parts;
+}
+/** Return height above mount base for full mechanical motion and Park all.
+ * DEC spans a complete turn; RA spans +/-flipBoundary (no sky/horizon cut).
+ * For each cylinder rim, z=lift+a*p_z+d*c+rho*sqrt(1-c*c), where
+ * a=.65*cube, d=.5*cube+cylLen+D/2+r*cos(theta), rho=hypot(y,r*sin(theta)),
+ * and c is the vertical DEC-axis component. Maximise c analytically on its
+ * reachable interval, then sample theta at 0.05 deg. The missed rim maximum
+ * is bounded by r*deltaTheta/2 (<0.070 mm for the nominal 160 mm radius).
+ * Park uses exact continuous-cylinder support, not faceted render vertices.
+ * Returns {full, fullUpper, park, angularError}, all metres; no safety margin.
+ */
+function rcHeightLimits(s){
+ const a=G.cube*.65,b=G.cube/2+G.cylLen,p=polar(),lift=rcMountLift(s);
+ const lo=-flipBoundary(),hi=flipBoundary(),phase=G.decClock;
+ const angles=[lo,hi];
+ for(let k=-4;k<=4;k++){const x=180*k-phase;if(x>=lo&&x<=hi)angles.push(x);}
+ const cs=angles.map(x=>rot(clockVec(phase),p,x)[2]);
+ const cmin=Math.min(...cs),cmax=Math.max(...cs),parts=rcCylinders(s);
+ let full=-Infinity;
+ for(const part of parts)for(const y of [part.y0,part.y1])for(let i=0;i<7200;i++){
+  const theta=2*Math.PI*i/7200,d=b+s.D/2+part.r*Math.cos(theta),rho=Math.hypot(y,part.r*Math.sin(theta));
+  const c=Math.max(cmin,Math.min(cmax,d/Math.hypot(d,rho)));
+  full=Math.max(full,lift+a*p[2]+d*c+rho*Math.sqrt(Math.max(0,1-c*c)));
+ }
+ const parked={...s,...mountedParkPose(s)},m=baseScopeModel(parked);
+ let park=-Infinity;
+ for(const part of parts){
+  const centre=add(m.contactC,mul(m.cylAxis,s.D/2));
+  park=Math.max(park,centre[2]-s.pierH+Math.max(part.y0*m.t[2],part.y1*m.t[2])+part.r*Math.sqrt(Math.max(0,1-m.t[2]**2)));
+ }
+ const angularError=Math.max(...parts.map(x=>x.r))*Math.PI/7200;
+ return {full,fullUpper:full+angularError,park,angularError};
+}
+/* Adopt the requested photo calibration once for named RC10 presets.
+ * Lengths and x/y positions are retained. RC10 instances are parked at the
+ * requested 1.70 m ceiling, latitude 37, zero margin; later edits survive reload.
+ */
+function upgradeSavedRcMeasurements(){
+ let count=0;
+ const changed=new Set();
+ for(const s of [...telescopeTypes,...scopes,...scopeTemplates.values()]){
+  const e=s.equipment;
+  if(e?.name!==EQUIPMENT_PRESETS.rc10.name)continue;
+  // Earlier photo layouts had a mandatory riser; adopt the requested no-riser
+  // default once without resetting their geometry, pointing or mount-base height.
+  if(e.includeRiser===undefined){s.equipment={...e,includeRiser:false};delete s._sweepCache;}
+  if(e.measurementRevision==='photo-riser-20261121')continue;
+  s.equipment={...e,...rcPhotoMeasurements(),note:EQUIPMENT_PRESETS.rc10.note};
+  delete s._sweepCache;changed.add(s);count++;
+ }
+ if(count){
+  G.wallH=1.70;G.lat=37;
+  for(const s of [...scopes,...scopeTemplates.values()])if(changed.has(s))fitRcPolarPark(s);
+ }
+ return count;
+}
+/* Separate tripod, riser and mount-base height references in the RC10 controls. */
+function rcHeightSummaryContent(model){
+ const s=scopes.find(x=>x.typeId===model.typeId)||{...model,x:0,y:0,pierH:0,ra:0,dec:0};
+ const h=rcHeightLimits(s),riser=scopeRiserHeight(s),cm=x=>(100*x).toFixed(2),p=parkingHeightLimit(s,'polar'),q=parkingHeightLimit(s,'horizontal');
+ return `<div class="small"><b>Active photo calibration · 37° reference:</b> effective geometry fitted to the 220 mm riser photograph. Perspective uncorrected; an approximate envelope, not a measured 3D reconstruction. <a href="runs/rc10_photo_20261121/report.html" target="_blank">Landmarks and scale</a>.</div>
+ <div class="small"><b>Parking tripod limits (exclude riser):</b><br>
+ Southern pole: ${cm(p.tripod)} cm at ceiling offset ${cm(p.offset)} cm.<br>
+ Horizontal south: ${cm(q.tripod)} cm at ceiling offset ${cm(q.offset)} cm.<br>
+ Current tripod/support height: ${cm(s.pierH-riser)} cm; mount base: ${cm(s.pierH)} cm.<br>
+ Any separate adapter above the tripod must also be subtracted from the tripod-only height.<br>
+ Schematic full-motion tripod bound: ${cm(G.wallH-h.fullUpper-riser)} cm (photo does not validate full-motion geometry).</div>`;
+}
+
+function rcHeightSummary(model){
+ return `<div id="rc_height_${model.typeId}">${rcHeightSummaryContent(model)}</div>`;
+}
+/** Refresh only when geometry, ceiling or support height changes, not per pose. */
+function refreshRcHeightSummaries(){
+ for(const model of telescopeTypes){
+  if(model.equipment?.frontReach===undefined||model.equipment.smart)continue;
+  const node=document.getElementById('rc_height_'+model.typeId);
+  if(!node?.dataset)continue;
+  const s=scopes.find(x=>x.typeId===model.typeId)||model;
+  const key=JSON.stringify([s.pierH,s.L,s.D,s.equipment,G.wallH,G.lat,G.cube,G.cylLen,G.decClock,G.otaClock,G.flipBoundary,G.parkOffsetPolar,G.parkOffsetHorizontal]);
+  if(node.dataset.geometryKey===key)continue;
+  node.innerHTML=rcHeightSummaryContent(model);node.dataset.geometryKey=key;
+ }
+}
+
+/** Toggle the riser at fixed mount-base height; the designed tripod height
+ * changes by the opposite amount. Apply to instances and saved templates.
+ */
+function setRcRiser(typeId,enabled){
+ const model=telescopeType(typeId);
+ if(!model?.equipment||typeof enabled!=='boolean')return false;
+ model.equipment.includeRiser=enabled;
+ for(const s of [...scopes.filter(s=>s.typeId===typeId),scopeTemplates.get(typeId)].filter(Boolean)){
+  s.equipment={...s.equipment,includeRiser:enabled};delete s._sweepCache;
+ }
+ invalidatePlacementOptimisation();buildControls();render();return true;
+}
+function rcRiserControls(model){
+ return `<label class="compactField"><span><input type="checkbox" ${model.equipment.includeRiser?'checked':''} onchange="setRcRiser('${model.typeId}',this.checked)"> Include riser (220 mm default)</span></label>
+ <div class="small">Optional riser, default off. Toggling keeps the mount-base height fixed and adjusts the designed tripod height.</div>`;
+}
+// END GENERATED RC HEIGHT
+
+// BEGIN GENERATED WALL HORIZON
+/* Optical entrance centres for wall-only horizon calculation, metres.
+ * Known nominal apertures are distinct from exterior body diameters. Array
+ * offsets follow rendered primitives; custom devices use labelled envelope proxies.
+ */
+function horizonOptics(s){
+ if(s._horizonOptics)return s._horizonOptics;
+ let channels=[];
+ if(s.arraySpec?.count===3){
+  channels=triplePayloadPrimitives(s).parts.filter(p=>p.kind==='cylinder'&&(/150PDS/.test(p.name)||p.name==='SQA55')).map((p,i)=>({
+   name:p.name+(p.name==='SQA55'?' '+(i-2):''),local:[p.c[0],p.c[1]+p.l/2,p.c[2]],diameter:p.name==='SQA55'?.055:.150}));
+ }else if(s.arraySpec){
+  const a=s.arraySpec;
+  for(let i=0;i<a.count;i++)channels.push({name:'150PDS '+(i+1),local:[(i-(a.count-1)/2)*a.pitch,.345,.152],diameter:.150});
+  if(a.includeSqa!==false)for(const sign of [-1,1])channels.push({name:'SQA55 '+(sign<0?'1':'2'),local:[sign*(a.count-1)*a.pitch/2,.098,.332],diameter:.055});
+ }else if(isArticulatedSeestar(s)){
+  const k=s.equipment.kinematics;
+  channels=[{name:'长焦镜头',local:[0,k.frontReach,k.bodyDepth*.12],diameter:k.aperture},
+   {name:'广角镜头',local:[0,k.frontReach,-k.bodyDepth*.32],diameter:.006,estimated:true}];
+ }else{
+  const name=s.equipment?.name||s.baseName||s.name||'';
+  const nominal=/RC10/.test(name)?.254:/SQA85/.test(name)?.085:/SQA55/.test(name)?.055:/150PDS/.test(name)?.150:null;
+  channels=[{name:nominal?'主镜':'自定义外包络估算',diameter:nominal||s.D,estimated:!nominal||!s.mount}];
+ }
+ return Number.isInteger(s._horizonChannel)?[channels[s._horizonChannel]].filter(Boolean):channels;
+}
+/** Return optical centres (world metres) for a posed mount or Alt-Az device.
+ * For fixed custom bodies, use a pivot at body mid-height with freely pointing
+ * aperture as an explicitly approximate proxy; no hidden physical joints implied.
+ */
+function horizonOpticalCentres(s,m,az,alt,u){
+ const channels=horizonOptics(s);
+ if(isArticulatedSeestar(s)){
+  const k=s.equipment.kinematics,h=rad(alt);
+  return channels.map(c=>{
+   const [x,y,z]=c.local;
+   const local=[k.pivotX+x,y*Math.cos(h)-z*Math.sin(h),k.pivotHeight+y*Math.sin(h)+z*Math.cos(h)];
+   return {...c,centre:add([s.x,s.y,s.pierH],SeestarGeometry.transform(local,az))};
+  });
+ }
+ if(!s.mount){
+  const height=s.equipment?.smart?s.equipment.height/2:s.D/2;
+  return channels.map(c=>({...c,centre:[s.x,s.y,s.pierH+height]}));
+ }
+ return channels.map(c=>({...c,centre:c.local?
+  add(m.contactC,add(mul(m.tubeQ,c.local[0]),add(mul(m.t,c.local[1]),mul(m.cylAxis,c.local[2])))):m.front}));
+}
+
+/* Wall-only horizon for the current planner geometry, metres and degrees.
+ * Does not model roof beams, terrain, atmospheric extinction or mount collisions.
+ * Requires the planner's vector, coordinate and baseScopeModel functions.
+ */
+/** Evaluate the least wall-top clearance for an aperture disc facing az/alt.
+ * s: planner telescope, including ground-to-mount-base pierH in metres.
+ * az: degrees clockwise from north (0=N,90=E); alt: degrees above horizon.
+ * radius: metres; 0 for central rays, null for each channel nominal aperture.
+ * All channels on one mount must clear at the same reachable mechanical pose.
+ * width/depth: rectangular room internal dimensions; wall: wall-top metres.
+ * Both reachable GEM branches are evaluated (current RA travel constraint).
+ * At a wall x_i=B the ray height is z+(B-x_i)*u_z/u_i. For a disc normal to
+ * u, its minimum is the central-ray height - radius*sqrt(1+(u_z/u_i)^2).
+ * Taking the minimum over forward walls accounts exactly for corner exits.
+ * Aperture discs must lie wholly inside the room; otherwise throws.
+ * Returns {clearance,side,ra,dec,axisHeight}; positive clearance is unobscured.
+ */
+function wallClearanceAt(s,az,alt,radius,width,depth,wall){
+ const A=rad(az),h=rad(alt),u=[Math.cos(h)*Math.sin(A),Math.cos(h)*Math.cos(A),Math.sin(h)];
+ const p=polar(),delta=deg(Math.asin(Math.max(-1,Math.min(1,-dot(u,p)))));
+ const H=deg(Math.atan2(-u[0],u[1]*Math.sin(rad(G.lat))+u[2]*Math.cos(rad(G.lat))));
+ const candidates=s.mount?Object.values(mechanicalCandidates(H,delta)).filter(candidateWithinRaTravel):[{side:'altaz',ra:0,dec:0}];
+ let best={clearance:-Infinity};
+ for(const pose of candidates){
+  const m=s.mount?baseScopeModel({...s,...pose}):null;
+  if(m&&angularSeparationDeg(m.t,u)>1e-4)throw Error('Pointing convention mismatch');
+  let clearance=Infinity;
+  const optics=horizonOpticalCentres(s,m,az,alt,u);
+  for(const optic of optics){
+   const c=optic.centre,r=radius===null?optic.diameter/2:radius;
+   for(const [i,bound] of [[0,width],[1,depth]]){
+    const projected=r*Math.sqrt(Math.max(0,1-u[i]*u[i]));
+    if(c[i]-projected<0||c[i]+projected>bound)throw Error('Aperture extends outside room');
+   }
+   for(const [i,bound] of [[0,width],[1,depth]]){
+    if(Math.abs(u[i])<1e-10)continue;
+    const B=u[i]>0?bound:0,q=u[2]/u[i];
+    clearance=Math.min(clearance,c[2]+(B-c[i])*q-r*Math.hypot(1,q)-wall);
+   }
+  }
+  if(clearance>best.clearance)best={clearance,side:pose.side,ra:pose.ra,dec:pose.dec,axisHeight:m?m.otaC[2]:optics[0]?.centre[2]};
+ }
+ return best;
+}
+/** Find clear altitude intervals on [0,90] at one compass azimuth.
+ * 1-degree bracketing plus 32 bisections per sign change. Returned angles are
+ * degrees; intervals under 1 degree could be missed if two crossings coincide
+ * in one bracket. Test convergence separately with a finer scan when needed.
+ */
+function wallHorizonAt(s,az,radius,width,depth,wall,step=1){
+ const evaluate=h=>wallClearanceAt(s,az,h,radius,width,depth,wall).clearance;
+ let low=0,old=evaluate(0),start=old>=0?0:null;const intervals=[];
+ for(let h=step;h<90+step;h+=step){
+  const high=Math.min(h,90),value=evaluate(high);
+  if((old>=0)!==(value>=0)){
+   let a=low,b=high;
+   for(let n=0;n<32;n++){const mid=(a+b)/2;if((evaluate(mid)>=0)===(old>=0))a=mid;else b=mid;}
+   const crossing=(a+b)/2;
+   if(value>=0)start=crossing;else{intervals.push([start,crossing]);start=null;}
+  }
+  low=high;old=value;if(high===90)break;
+ }
+ if(start!==null)intervals.push([start,90]);
+ // The first clear sample may be an isolated celestial-pole orientation or a
+ // low-altitude window followed by renewed obstruction. A normal horizon mask
+ // must use the final clear interval that remains open through the zenith.
+ const last=intervals.at(-1);
+ return {az,radius,minimum:intervals.length?intervals[0][0]:null,
+  continuousMinimum:last&&last[1]===90?last[0]:null,intervals};
+}
+
+/* Compare every installed setup, with selectable optical channels for arrays.
+ * Geometry-only cache keys and cancellable timers keep pointing animation cheap.
+ */
+let wallHorizonSelection='all',wallHorizonKey='',wallHorizonGeneration=0;
+function selectWallHorizon(value){wallHorizonSelection=value;wallHorizonKey='';refreshWallHorizon();}
+function horizonInstanceKey(s){return s.typeId+':'+s.copyIndex;}
+function wallHorizonEntries(){
+ return scopes.flatMap(s=>{
+  const id=horizonInstanceKey(s),channels=horizonOptics(s);
+  const base={id,s,label:s.name,channels};
+  return [base,...(channels.length>1?channels.map((channel,i)=>({id:id+'#'+i,s,label:s.name+' / '+channel.name,channels:[channel]})):[])];
+ });
+}
+function refreshWallHorizon(){
+ const select=document.getElementById('wallHorizonSelect'),status=document.getElementById('wallHorizonStatus');
+ if(!select||!status)return;
+ const entries=wallHorizonEntries();
+ const options='<option value="all">全部设备（各阵列全部通道）</option>'+entries.map(e=>`<option value="${escapeHtml(e.id)}">${escapeHtml(e.label)}</option>`).join('');
+ if(select.innerHTML!==options)select.innerHTML=options;
+ if(wallHorizonSelection!=='all'&&!entries.some(e=>e.id===wallHorizonSelection))wallHorizonSelection='all';
+ select.value=wallHorizonSelection;
+ const chosen=wallHorizonSelection==='all'?entries.filter(e=>!e.id.includes('#')):entries.filter(e=>e.id===wallHorizonSelection);
+ const key=JSON.stringify([wallHorizonSelection,chosen.map(({s,channels,label})=>[s.typeId,s.copyIndex,label,s.x,s.y,s.pierH,s.L,s.D,s.mount,s.equipment,s.arraySpec,channels]),
+  G.roomW,G.roomH,G.wallH,G.lat,G.cube,G.cylLen,G.cylD,G.decClock,G.otaClock,G.flipBoundary]);
+ if(key===wallHorizonKey)return;
+ wallHorizonKey=key;const generation=++wallHorizonGeneration;
+ for(const id of ['wallHorizonPlot','wallHorizonTable','wallHorizonLegend']){const n=document.getElementById(id);if(n)n.innerHTML='';}
+ if(!chosen.length){status.textContent='添加设备后显示当前布局的墙壁遮挡限角。';return;}
+ const width=roomW(),depth=roomH(),wall=G.wallH;
+ const jobs=chosen.map(e=>({label:e.label,scope:JSON.parse(JSON.stringify({...e.s,_horizonOptics:e.channels})),rows:[],error:null}));
+ let jobIndex=0;status.textContent='正在计算全部选中设备…';
+ const finish=()=>{
+  drawWallHorizon(jobs);
+  const good=jobs.filter(j=>!j.error),bad=jobs.filter(j=>j.error);
+  const details=jobs.length===1?(()=>{const s=jobs[0].scope,r=scopeRiserHeight(s);return `${s.name} · 立柱 ${(100*(s.pierH-r)).toFixed(1)} cm · 增高节 ${(100*r).toFixed(0)} cm；距东/南/西/北墙 ${(width-s.x).toFixed(2)} / ${s.y.toFixed(2)} / ${s.x.toFixed(2)} / ${(depth-s.y).toFixed(2)} m。`;})():`已计算 ${good.length}/${jobs.length} 套设备（${jobs.reduce((n,j)=>n+j.scope._horizonOptics.length,0)} 个光学通道）。`;
+  const targetReport=good.map(j=>{const failed=j.rows.filter(r=>!Number.isFinite(r.aperture)||r.aperture>30+.01);const worst=j.rows.reduce((a,r)=>!Number.isFinite(r.aperture)||r.aperture>(a.aperture??-Infinity)?r:a,j.rows[0]);return j.label+'：'+(failed.length?`未达30°目标，最差方位 ${worst.az}° / ${Number.isFinite(worst.aperture)?worst.aperture.toFixed(1)+'°':'无法持续通视至天顶'}`:'全部采样方位满足30°目标');}).join('；');
+  status.textContent=targetReport+'。 '+`${details} 墙高 ${(100*wall).toFixed(0)} cm。`+bad.map(j=>j.label+'：'+j.error).join('；');
+ };
+ const compute=()=>{
+  if(generation!==wallHorizonGeneration)return;
+  const job=jobs[jobIndex],s=job.scope;
+  try{
+   if(s.mount&&(G.decClock!==0||G.otaClock!==90))throw Error('赤道仪图目前要求 DEC clock = 0°、OTA clock = 90°');
+   const az=job.rows.length*5;
+   const values=[0,null].map(r=>wallHorizonAt(s,az,r,width,depth,wall));
+   job.rows.push({az,centre:values[0].continuousMinimum,aperture:values[1].continuousMinimum,extraWindows:values.some(v=>v.intervals.length>1)});
+  }catch(error){job.error=error.message==='Aperture extends outside room'?'镜口在部分姿态伸出墙面，无法生成此设备曲线':error.message;}
+  status.textContent=`正在计算 ${jobIndex+1}/${jobs.length}：${job.label} ${job.rows.length}/73`;
+  if(job.error||job.rows.length===73)jobIndex++;
+  if(jobIndex<jobs.length)setTimeout(compute,0);else finish();
+ };
+ setTimeout(compute,150);
+}
+/** SVG paths break where no continuously clear altitude interval exists. */
+function wallHorizonPath(rows,key){
+ let pen=false;
+ return rows.map(r=>{
+  if(!Number.isFinite(r[key])){pen=false;return '';}
+  const point=`${(55+r.az*810/360).toFixed(2)},${(275-r[key]*240/90).toFixed(2)}`;
+  const cmd=pen?'L':'M';pen=true;return cmd+point;
+ }).join(' ');
+}
+function drawWallHorizon(jobs){
+ const valid=jobs.filter(j=>!j.error),single=jobs.length===1;
+ const directions=['北','东北','东','东南','南','西南','西','西北','北'];
+ const palette=['#63b5ff','#f5bd65','#69d9ab','#ed93ca','#bca0ff','#ff967b','#90d9ea'];
+ const X=a=>55+a*810/360,Y=h=>275-h*240/90;
+ let grid='',paths=`<line x1="55" x2="865" y1="${Y(30)}" y2="${Y(30)}" stroke="#ef8e8e" stroke-width="2" stroke-dasharray="7 5"/><text x="860" y="${Y(30)-7}" fill="#ef8e8e" text-anchor="end">30° target</text>`,points='',table='',legend='';
+ for(let h=0;h<=90;h+=15)grid+=`<line x1="55" x2="865" y1="${Y(h)}" y2="${Y(h)}" stroke="currentColor" opacity=".15"/><text x="46" y="${Y(h)+4}" text-anchor="end">${h}°</text>`;
+ for(let i=0;i<9;i++)grid+=`<text x="${X(i*45)}" y="297" text-anchor="middle">${directions[i]}</text>`;
+ valid.forEach((job,i)=>{
+  const colour=palette[i%palette.length],dash=i>=palette.length?'stroke-dasharray="6 3"':'';
+  const label=escapeHtml(job.label),channels=job.scope._horizonOptics;
+  const description=channels.map(c=>`${c.name} Ø${(c.diameter*1000).toFixed(0)} mm${c.estimated?'（估算）':''}`).join('；');
+  legend+=`<span style="color:${colour}">━ ${label}：${escapeHtml(description)}</span>`;
+  if(single)paths+=`<path d="${wallHorizonPath(job.rows,'centre')}" fill="none" stroke="#a0aab8" stroke-width="2"/>`;
+  paths+=`<path d="${wallHorizonPath(job.rows,'aperture')}" fill="none" stroke="${colour}" stroke-width="3" ${dash}/>`;
+  points+=job.rows.filter(r=>Number.isFinite(r.aperture)).map(r=>`<circle cx="${X(r.az)}" cy="${Y(r.aperture)}" r="6" fill="transparent" pointer-events="all"><title>${label} · 方位 ${r.az}°：完整口径 ${r.aperture.toFixed(1)}°${r.extraWindows?'；另有低角度窗口':''}</title></circle>`).join('');
+  const compass=job.rows.filter(r=>r.az%45===0&&r.az<360);
+  for(const [key,name] of (single?[['centre','中心视线'],['aperture','全部所选口径']]:[['aperture',label]]))table+=`<tr><th>${name}</th>${compass.map(r=>`<td>${Number.isFinite(r[key])?r[key].toFixed(1)+'°':'—'}</td>`).join('')}</tr>`;
+ });
+ document.getElementById('wallHorizonPlot').innerHTML=valid.length?`<svg viewBox="0 0 900 325" role="img" aria-label="所有选中设备的方位角与最低连续无遮挡仰角"><g fill="currentColor" font-size="13">${grid}<text x="55" y="20">最低仰角（水平面 = 0°）</text><text x="460" y="321" text-anchor="middle">方位角：北 → 东 → 南 → 西</text></g>${paths}${points}</svg>`:'';
+ document.getElementById('wallHorizonTable').innerHTML=valid.length?`<table><thead><tr><th>设备 / 方向</th>${directions.slice(0,8).map(d=>`<th>${d}</th>`).join('')}</tr></thead><tbody>${table}</tbody></table>`:'';
+ const node=document.getElementById('wallHorizonLegend');if(node)node.innerHTML=(single?'<span style="color:#a0aab8">━ 中心视线</span>':'')+legend;
+}
+
+// END GENERATED WALL HORIZON
+
+// BEGIN GENERATED PARKING MODES
+/* Parking orientations and ceiling-referenced support heights, metres/degrees.
+ * Modes do not redefine the RC10 saddle calibration, which remains polar-park.
+ */
+function parkingOffset(mode=G.parkMode){return mode==='horizontal'?G.parkOffsetHorizontal:G.parkOffsetPolar;}
+/** Horizontal south-pointing GEM pose, using the model's actual clock axes.
+ * RA travel is respected; a destination pose does not certify the slew path.
+ */
+function horizontalParkPose(s){
+ const u=[0,-1,0],p=polar(),clock=clockVec(G.decClock),crossAxis=cross(u,p);
+ if(dot(crossAxis,crossAxis)<1e-12)return mountedParkPose(s);
+ for(const sign of [1,-1]){
+  const axis=mul(norm(crossAxis),sign);
+  const ra=wrapDegrees180(deg(Math.atan2(dot(p,cross(clock,axis)),dot(clock,axis))));
+  if(Math.abs(ra)>flipBoundary()+1e-8)continue;
+  const m=baseScopeModel({...s,ra,dec:0});
+  const dec=deg(Math.atan2(dot(m.cylAxis,cross(m.t,u)),dot(m.t,u)));
+  return {ra,dec,sideOfPier:sign===1?'east':'west'};
+ }
+ throw Error('当前赤经轴行程无法达到水平朝南停放姿态');
+}
+function parkingPose(s,mode=G.parkMode){
+ if(s.mount)return mode==='horizontal'?horizontalParkPose(s):{...mountedParkPose(s),sideOfPier:'east'};
+ if(isArticulatedSeestar(s))return {smartAz:180,smartAlt:mode==='horizontal'?0:G.lat};
+ return {};
+}
+/** Exact continuous-cylinder upper support from the renderer's two-ring mesh.
+ * Other parts use their rendered vertices. Seestar circumscribed cylinders stay
+ * conservative; no claim about unmodelled hardware, cables or motion clearance.
+ */
+function parkingPartTop(part){
+ const pts=part.pts;
+ let top=Math.max(...pts.map(p=>p[2]));
+ if(pts.length===48||pts.length===64){
+  const n=pts.length/2;
+  const mean=rows=>rows.reduce((a,v)=>add(a,v),[0,0,0]).map(v=>v/n);
+  const a=mean(pts.slice(0,n)),b=mean(pts.slice(n)),axis=norm(sub(b,a));
+  const r=Math.hypot(...sub(pts[0],a));
+  top=Math.max(top,Math.max(a[2],b[2])+r*Math.sqrt(Math.max(0,1-axis[2]**2)));
+ }
+ return top;
+}
+/** Top height above mount base for a mode, independent of current pier height.
+ * pierH remains ground-to-mount-base. The optional riser extends below that plane.
+ */
+function parkingTopAboveBase(s,mode=G.parkMode){
+ const posed={...s,pierH:0,...parkingPose(s,mode)};
+ return Math.max(...scopeModel(posed).parts.map(parkingPartTop));
+}
+/** Max tripod height = ceiling - offset - parked top - optional riser.
+ * Offset is vertical from equipment's highest point to ceiling, never axis height.
+ * Negative results are returned for UI reporting; application validates feasibility.
+ */
+function parkingHeightLimit(s,mode=G.parkMode){
+ const top=parkingTopAboveBase(s,mode),offset=parkingOffset(mode),riser=scopeRiserHeight(s);
+ const mountBase=G.wallH-offset-top;
+ return {top,offset,riser,mountBase,tripod:mountBase-riser,currentGap:G.wallH-s.pierH-top};
+}
+
+/* Additive migration of parking settings in schema-1 JSON/browser layouts. */
+function normalizedParkingGlobals(globals){
+ const g={parkMode:'polar',parkOffsetPolar:0,parkOffsetHorizontal:0,...globals};
+ if(!['polar','horizontal'].includes(g.parkMode))throw Error('Invalid parking mode.');
+ for(const key of ['parkOffsetPolar','parkOffsetHorizontal']){
+  if(typeof g[key]!=='number'||!Number.isFinite(g[key])||g[key]<0||g[key]>5)throw Error('Invalid ceiling offset.');
+ }
+ return g;
+}
+
+/* Two parking modes with independent ceiling offsets and explicit height fitting. */
+let parkingSummaryKey='';
+function setParkingMode(value){
+ if(!['polar','horizontal'].includes(value))return false;
+ G.parkMode=value;parkAll();return true;
+}
+function setParkingOffset(mode,cm){
+ const value=Number(cm)/100;
+ if(!['polar','horizontal'].includes(mode)||!Number.isFinite(value)||value<0||value>5)return false;
+ G[mode==='polar'?'parkOffsetPolar':'parkOffsetHorizontal']=value;
+ render();return true;
+}
+/** Change pose only; simulated support height changes require the Fit button. */
+function parkAll(){
+ const poses=scopes.map(s=>parkingPose(s));
+ stopAnimation();G.timeDriveOn=false;G.timeHours=0;
+ scopes.forEach((s,i)=>{
+  Object.assign(s,poses[i]);
+  if(s.mount){s.flipCount=0;seedSkyCoordinatesFromMechanicalPose(s);}
+  if(s.copyIndex===1)rememberScopeTemplate(s);
+ });
+ render();
+}
+/** Fit every support atomically; impossible configurations leave all unchanged. */
+function fitParkingHeights(){
+ const node=document.getElementById('parkingActionStatus');
+ try{
+  const limits=scopes.map(s=>parkingHeightLimit(s));
+  if(!scopes.length)throw Error('请先添加设备');
+  for(let i=0;i<scopes.length;i++)if(limits[i].mountBase<Math.max(.20,limits[i].riser)||limits[i].mountBase>3.5)throw Error(scopes[i].name+' 的目标立柱高度超出可用范围；请减小 offset 或提高限高');
+  const poses=scopes.map(s=>parkingPose(s));
+  stopAnimation();G.timeDriveOn=false;G.timeHours=0;
+  scopes.forEach((s,i)=>{
+   s.pierH=limits[i].mountBase;Object.assign(s,poses[i]);delete s._sweepCache;
+   if(s.mount){s.flipCount=0;seedSkyCoordinatesFromMechanicalPose(s);}
+   if(s.copyIndex===1)rememberScopeTemplate(s);
+  });
+  invalidatePlacementOptimisation();buildControls();render();
+  if(node)node.textContent='已按所选停放模式和 ceiling offset 调整模拟中的立柱高度。';
+  return true;
+ }catch(error){if(node)node.textContent=error.message;return false;}
+}
+function refreshParkingControls(){
+ const select=document.getElementById('parkingMode');
+ if(!select)return;
+ select.value=G.parkMode;
+ for(const [id,key] of [['parkingOffsetPolar','parkOffsetPolar'],['parkingOffsetHorizontal','parkOffsetHorizontal']]){
+  const n=document.getElementById(id);if(n&&document.activeElement!==n)n.value=(G[key]*100).toFixed(1);
+ }
+ const key=JSON.stringify([G.parkMode,G.parkOffsetPolar,G.parkOffsetHorizontal,G.wallH,G.lat,G.cube,G.cylLen,G.cylD,G.decClock,G.otaClock,G.flipBoundary,
+  scopes.map(s=>[s.name,s.pierH,s.L,s.D,s.mount,s.arraySpec,s.equipment])]);
+ if(key===parkingSummaryKey)return;parkingSummaryKey=key;
+ const format=v=>(v*100).toFixed(1)+' cm';
+ const rows=scopes.map(s=>{
+  try{
+   const p=parkingHeightLimit(s,'polar'),h=parkingHeightLimit(s,'horizontal'),active=G.parkMode==='polar'?p:h;
+   return `<tr><th>${escapeHtml(s.name)}</th><td>${format(s.pierH-scopeRiserHeight(s))}</td><td>${format(p.tripod)}</td><td>${format(h.tripod)}</td><td>${format(active.currentGap)}</td></tr>`;
+  }catch(error){return `<tr><th>${escapeHtml(s.name)}</th><td colspan="4">${escapeHtml(error.message)}</td></tr>`;}
+ }).join('');
+ const table=document.getElementById('parkingHeightTable');
+ if(table)table.innerHTML=rows?`<table><thead><tr><th>设备</th><th>当前立柱</th><th>南天极立柱上限</th><th>水平立柱上限</th><th>当前立柱下的停放间隙</th></tr></thead><tbody>${rows}</tbody></table>`:'添加设备后显示两种模式的立柱高度。';
+ const status=document.getElementById('parkingActionStatus');if(status)status.textContent='';
+}
+
+// END GENERATED PARKING MODES
+
+// BEGIN GENERATED SKY OPTIMISATION
+/* Wall-only sky-access objective for fixed-height XY placement.
+ * Precompute aperture geometry; translations then require only affine planes.
+ * No roof, terrain, inter-telescope optical obstruction or slew certification.
+ */
+/** Build sampled clearance planes for each setup, azimuth 0..350 by 10 deg,
+ * altitude 30..90 by 5 deg. All channels share one reachable GEM branch.
+ * Inputs are planner setups (metres), not mutated. Unsupported clocks throw.
+ * Each plane [a,b,c] gives signed wall/aperture clearance a*x+b*y+c in metres.
+ */
+function buildSkyPlacementSamples(setups,width,depth){
+ return setups.map(s=>{
+  if(s.mount&&(G.decClock!==0||G.otaClock!==90))throw Error('高度角优化要求 DEC clock = 0°、OTA clock = 90°');
+  const origin={...s,x:0,y:0,_horizonOptics:horizonOptics({...s,_horizonOptics:undefined})};
+  const samples=[];
+  for(let az=0;az<360;az+=10)for(let alt=30;alt<=90;alt+=5){
+   const A=rad(az),h=rad(alt),u=[Math.cos(h)*Math.sin(A),Math.cos(h)*Math.cos(A),Math.sin(h)];
+   const delta=deg(Math.asin(Math.max(-1,Math.min(1,-dot(u,polar())))));
+   const H=deg(Math.atan2(-u[0],u[1]*Math.sin(rad(G.lat))+u[2]*Math.cos(rad(G.lat))));
+   const poses=s.mount?Object.values(mechanicalCandidates(H,delta)).filter(candidateWithinRaTravel):[null];
+   const branches=poses.map(pose=>{
+    const m=pose?baseScopeModel({...origin,...pose}):null,planes=[];
+    for(const optic of horizonOpticalCentres(origin,m,az,alt,u)){
+     const c=optic.centre,r=optic.diameter/2;
+     for(const [i,bound] of [[0,width],[1,depth]]){
+      const projected=r*Math.sqrt(Math.max(0,1-u[i]**2));
+      planes.push(i===0?[1,0,c[i]-projected]:[0,1,c[i]-projected]);
+      planes.push(i===0?[-1,0,bound-c[i]-projected]:[0,-1,bound-c[i]-projected]);
+      if(Math.abs(u[i])<1e-10)continue;
+      const q=u[2]/u[i],B=u[i]>0?bound:0;
+      planes.push([i===0?-q:0,i===1?-q:0,c[2]+(B-c[i])*q-r*Math.hypot(1,q)-G.wallH]);
+     }
+    }
+    return planes;
+   });
+   samples.push({az,alt,branches});
+  }
+  return samples;
+ });
+}
+/** Penalise excess continuous-horizon altitude above 30 degrees.
+ * For each azimuth, locate the last obstructed altitude and linearly interpolate
+ * clearance to the next clear sample. This rejects isolated polar windows.
+ * e_i = max(0, h_i - 30 deg); P_max = max_i e_i; P_mean = mean_i e_i^2.
+ * Here h_i is the interpolated final wall-clear crossing for setup/direction i.
+ * Returns worst excess (deg) and mean squared excess (deg^2) over ALL setups
+ * and directions. Unreachable/invalid zenith receives a 60-degree excess.
+ * This sampled surrogate is independently refined by the full horizon chart.
+ */
+function skyPlacementPenalty(positions,samples){
+ let worst=0,sum=0,count=0;
+ samples.forEach((rows,i)=>{
+  const {x,y}=positions[i];
+  let previous=null,horizon=30;
+  for(const row of rows){
+   if(!previous||previous.az!==row.az){previous=null;horizon=30;}
+   let best=-Infinity;
+   for(const branch of row.branches){
+    let clearance=Infinity;
+    for(const [a,b,c] of branch)clearance=Math.min(clearance,a*x+b*y+c);
+    best=Math.max(best,clearance);
+   }
+   if(best<0)horizon=row.alt;
+   else if(previous&&previous.clearance<0){
+    const fraction=Number.isFinite(previous.clearance)?-previous.clearance/(best-previous.clearance):1;
+    horizon=previous.alt+(row.alt-previous.alt)*fraction;
+   }
+   if(row.alt===90){
+    const loss=Math.max(0,horizon-30);
+    worst=Math.max(worst,loss);sum+=loss*loss;count++;
+   }
+   previous={az:row.az,alt:row.alt,clearance:best};
+  }
+ });
+ return {skyWorst:worst,skyPenalty:sum/Math.max(1,count)};
+}
+/** Refine a safe packing with sky penalties before surplus safety margin.
+ * Safety violations retain first priority. Heights and input arrays unchanged.
+ * Local deterministic search cannot prove feasibility or global optimality.
+ */
+function refineSkyPlacement(result,radii,width,depth,gap,reference,setups){
+ if(!result.feasible||!setups.length)return result;
+ const samples=buildSkyPlacementSamples(setups,width,depth);
+ const score=p=>({...placementClearanceMetrics(p,radii,width,depth,gap,reference),...skyPlacementPenalty(p,samples)});
+ const better=(a,b)=>{
+  if(a.feasible!==b.feasible)return a.feasible;
+  if(!a.feasible)return placementScoreIsBetter(a,b);
+  if(Math.abs(a.skyWorst-b.skyWorst)>1e-8)return a.skyWorst<b.skyWorst;
+  if(Math.abs(a.skyPenalty-b.skyPenalty)>1e-10)return a.skyPenalty<b.skyPenalty;
+  return placementScoreIsBetter(a,b);
+ };
+ let best=result.positions.map(p=>({...p})),metrics=score(best);
+ const starts=[best,reference];
+ for(const start of starts){
+  let current=repairPlacement(start,radii,width,depth,gap),value=score(current);
+  for(let step=Math.max(width,depth)/8;step>=.001;step/=2){
+   let changed=true,passes=0;
+   while(changed&&passes++<12){
+    changed=false;
+    for(let i=0;i<current.length;i++)for(const axis of ['x','y'])for(const sign of [-1,1]){
+     const trial=current.map(p=>({...p}));trial[i][axis]+=sign*step;
+     const candidate=clampPlacementToWalls(trial,radii,width,depth);
+     const safety=placementClearanceMetrics(candidate,radii,width,depth,gap,reference);
+     if(!safety.feasible)continue;
+     const next={...safety,...skyPlacementPenalty(candidate,samples)};
+     if(better(next,value)){current=candidate;value=next;changed=true;}
+    }
+   }
+  }
+  if(better(value,metrics)){best=current;metrics=value;}
+ }
+ return {...result,positions:best,metrics,skyTarget:30};
+}
+
+// END GENERATED SKY OPTIMISATION
+
+const initialArray={typeId:'array_'+nextTelescopeTypeId++,baseName:'AM7 3×150PDS (current 50-hole assembly)',L:.690,D:.182,color:TELESCOPE_COLORS[0],mount:true,arraySpec:currentTripleSpec()};
 telescopeTypes.push(initialArray);scopes.push(newScopeTemplateForType(initialArray));
-const restoredPlannerSettings=restorePlannerSettings();
+const restoredPlannerSettings=restoreEmbeddedPlannerLayout()||restorePlannerSettings();
 buildControls();
-initLeftPanelResize();
-initProjectionResize();
 applyWorkspaceLayout();
 if(!restoredPlannerSettings)scopes.forEach(s=>{if(s.mount) applyTrackingPose(s)});
 coordinateAuditResult=runCoordinateSelfTests();
 placementAuditResult=runPlacementSelfTests();
-render();
+initWorkspace();
+</script>
+<script>
+/* Presentation-only translation; numerical state and user-entered values stay intact. */
+const plannerTranslations = [
+["setups", "套设备"],
+["floor area", "地面面积"],
+["POSE", "姿态"],
+["FIELD TOOLS / 01 · REMOTE OBSERVATORY", "现场工具 / 01 · 远程观测站"],
+["01 / THE OBSERVATORY", "01 / 观测站"],
+["02 / THE INSTRUMENTS", "02 / 仪器"],
+["Per-setup clearance & pointing", "各设备间隙与指向"],
+["setups within wall/pair bounds", "套设备满足墙壁与间距限制"],
+["Drag 3D to orbit · switch views to inspect Dashed regions: full-motion envelopes", "拖动 3D 旋转视角 · 切换视图检查；虚线区域为完整运动包络"],
+["Layout study · Equatorial swept spheres and articulated Seestar cylinders conservatively bound model motion. Exact clearances, roof closure and structural capacity require separate checks.", "布局模拟 · 赤道仪球形包络及 Seestar 圆柱包络保守表示设备运动范围。精确间隙、关顶与结构承载需单独核实。"],
+["Horizon chart setup or channel", "高度角图的设备或通道"],
+["Azimuth and minimum continuous altitude for selected setups", "所有选中设备的方位角与最低连续无遮挡仰角"],
+["Arrays require every channel to clear simultaneously; individual channels can also be selected. Seestar includes both lenses; custom equipment uses labelled envelope estimates. Position, support height, wall height and riser changes recalculate the chart. The threshold remains clear through zenith; isolated low-altitude polar windows are excluded. Optimisation preserves support heights and targets unobstructed sky from 30 degrees to zenith (10-degree azimuth and 5-degree altitude samples), prioritising safe separation. This chart checks azimuth every 5 degrees; gaps between samples are not certified. Hover for values. Walls only: beams, trees and mechanical collisions are excluded. Photo-derived geometry has perspective uncertainty.", "阵列按所有镜筒同时无遮挡计算，可单独选择每个通道；Seestar 包含长焦与广角镜头，自定义设备使用标明的外包络估算。采用当前实际布局，修改位置、立柱高度、墙高或增高节后自动重算。图示为从该仰角到天顶持续无遮挡的门槛；南天极附近的特殊低角度窗口不作为通用限角。优化固定立柱高度，以所有设备在30°至天顶无遮挡为软目标（10°方位、5°仰角采样），优先保留安全间距；本图用5°方位采样复核，不能保证采样间隙也满足。悬停曲线可查看数值。仅计墙壁，不含屋顶梁、树木或机械碰撞；照片等效几何存在透视误差。"],
+['Layout settings','布局设置'],['Site','场地'],['Equipment','设备'],['Advanced','高级'],['Room & site','台房与场地'],['Room east–west','台房东西宽度'],['Room south–north','台房南北长度'],['Wall / roof limit','墙壁 / 屋顶限高'],['Latitude south','南纬'],['Safety gap','安全间距'],['Show safety envelopes','显示安全包络'],['Show polar axes','显示极轴'],['Optimise placement','优化布局'],['Undo optimisation','撤销优化'],['Import layout','导入布局'],['Export JSON','导出 JSON'],['Save portable HTML','保存离线 HTML'],['All views','全部视图'],['Plan','俯视'],['South','南侧'],['West','西侧'],['Reset view','重置视角'],['Focus view','聚焦视图'],['Random target','随机目标'],['Reset axes','重置转轴'],['Time drive','时间驱动'],['Play animation','播放动画'],['Pause animation','暂停动画'],['Local sidereal time','当地恒星时'],['Set start LST','设定起始恒星时'],['Speed','速度'],['Time','时间'],['Safety clearance details','安全间隙详情'],['Current telescope pointing and coordinate audit','当前指向与坐标校验'],['Research','科研'],['Photography','摄影'],['Observatory','观测站'],['Back to photography','返回摄影'],['A place for','为每一台'],['every telescope.','望远镜安排位置。'],['Arrange your instruments. Explore their motion. Find the room to observe.','安排设备，模拟运动，规划观测空间。'],['ROOM / METRES','台房 / 米'],['INSTALLED PIERS','已安装立柱'],['Independent setups','独立设备'],['MIN. WALL MARGIN','最小墙壁余量'],['Horizontal motion bound','水平运动边界'],['PAIR GAP TARGET','设备间距目标'],['Between envelopes','安全包络之间'],['NO FEASIBLE LAYOUT','尚未找到可行布局'],['ATTENTION REQUIRED','需要注意'],['Settings saved automatically in this browser','设置已自动保存在此浏览器'],['Previous settings restored · animation paused','已恢复上次设置 · 动画已暂停'],['Set the room boundary, then arrange your instruments.','设定台房边界，然后安排设备。'],['Dimensions are clear internal measurements in metres. X follows east–west; Y follows south–north. Position limits update immediately.','尺寸为室内净尺寸，单位为米。X 为东西方向，Y 为南北方向。位置范围随设置更新。'],
+['Parking · Ceiling clearance','Parking · 屋顶间隙'],['Parking mode','停放模式'],['South celestial pole','朝南天极'],['Horizontal south','水平朝南'],['Polar ceiling offset','南天极 ceiling offset'],['Horizontal ceiling offset','水平 ceiling offset'],['Fit support heights to offset','按 offset 调整立柱高度'],['Apply parking pose','应用停放姿态'],['Current support','当前立柱'],['Polar support limit','南天极立柱上限'],['Horizontal support limit','水平立柱上限'],['Parking clearance at current height','当前立柱下的停放间隙'],['Ceiling offset is the vertical gap from the highest equipment point to the roof limit (wall height). Each mode saves its own offset. Switching mode changes pose only; the fit button changes supports. Support heights exclude the optional riser. Seestar follows the selected direction; fixed models keep their orientation.','Ceiling offset = 设备最高点到屋顶限高面（墙高设置）的垂直间隙。两个模式分别保存；切换模式只改变姿态，点击按钮才调整立柱。立柱高度不含可选增高节。Seestar 同样朝南天极或水平朝南；无转动模型的固定设备保持原姿态。'],['Support heights fitted to the selected parking mode and ceiling offset.','已按所选停放模式和 ceiling offset 调整模拟中的立柱高度。'],
+['Azimuth — minimum altitude','方位角—最低仰角'],['Setup / optical channel','设备 / 光学通道'],['All setups (all array channels)','全部设备（各阵列全部通道）'],['Minimum altitude (horizontal = 0°)','最低仰角（水平面 = 0°）'],['Azimuth: N → E → S → W','方位角：北 → 东 → 南 → 西'],['Setup / direction','设备 / 方向'],['All sampled azimuths meet the 30° target','全部采样方位满足30°目标'],['30° target unmet; worst azimuth','未达30°目标，最差方位'],['Cannot remain clear through zenith','无法持续通视至天顶'],['Calculating all selected setups…','正在计算全部选中设备…'],['Full aperture','完整口径'],['Central ray','中心视线'],['All selected apertures','全部所选口径'],['Main telescope','主镜'],['Telephoto lens','长焦镜头'],['Wide-angle lens','广角镜头'],['estimated','估算'],['30° target not yet met; prioritised the worst obstruction.','30° 全天空目标尚未满足；已优先减小最差方向遮挡。'],['30° target passes optimisation samples; check the full horizon results below.','30° 目标通过优化采样检查；请查看下方完整高度角结果。'],['30° target','30° 目标'],['North-east','东北'],['South-east','东南'],['South-west','西南'],['North-west','西北'],['N','北'],['E','东'],['S','南'],['W','西'],['Setup','设备'],['Wall height','墙高'],['Support','立柱'],['Riser','增高节'],['Calculating','正在计算'],['Calculated','已计算'],['optical channels','个光学通道'],['azimuth','方位'],['Add equipment','添加设备'],['Quantity','数量'],['Remove','移除'],['Name','名称'],['Length','长度'],['Diameter','直径'],['Pier height','立柱高度'],['Position','位置'],['Target RA','目标赤经'],['Target DEC','目标赤纬'],['Mount','赤道仪'],['Tracking','跟踪'],['Mechanical model','机械模型'],['Custom telescope','自定义望远镜'],['Add custom telescope','添加自定义望远镜'],['Sweep sample','包络采样'],['RA travel limit','赤经轴行程限制'],['RA body size','赤经轴主体尺寸'],['DEC adapter length','赤纬轴转接长度'],['DEC adapter diameter','赤纬轴转接直径'],['Fixed polar axis','固定极轴'],['OTA centre','镜筒中心'],['Swept safety envelope','运动安全包络'],['3D yaw','3D 方位'],['3D pitch','3D 俯仰'],['3D zoom','3D 缩放']
+];
+let plannerLanguage='zh';
+try{plannerLanguage=localStorage.getItem('planner-language')==='en'?'en':'zh';}catch{}
+const languageOriginals=new WeakMap();
+function translatePlannerText(text,language){
+ const pairs=plannerTranslations.map(p=>language==='en'?[p[1],p[0]]:p).sort((a,b)=>b[0].length-a[0].length);
+ const exact=pairs.find(p=>p[0]===text.trim());
+ if(exact)return text.replace(text.trim(),exact[1]);
+ // Single compass letters and short English tokens are exact-only.
+ const fragments=pairs.filter(p=>p[0].length>2||(language==='en'&&/[\u4e00-\u9fff]/.test(p[0])&&p[0].length>=2));
+ const pattern=new RegExp(fragments.map(p=>p[0].replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|'),'g');
+ return text.replace(pattern,match=>fragments.find(p=>p[0]===match)[1]);
+}
+function applyPlannerLanguage(){
+ languageObserver.disconnect();
+ document.documentElement.lang=plannerLanguage==='zh'?'zh-CN':'en';
+ const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);
+ while(walker.nextNode()){
+  const n=walker.currentNode;
+  if(n.parentElement?.closest('script,style,input,textarea,[data-no-translate]'))continue;
+  const old=languageOriginals.get(n),source=old&&n.data===old.output?old.source:n.data;
+  const output=translatePlannerText(source,plannerLanguage);
+  if(n.data!==output)n.data=output;
+  languageOriginals.set(n,{source,output});
+ }
+ document.getElementById('plannerLanguage').value=plannerLanguage;
+ languageObserver.observe(document.body,{childList:true,subtree:true,characterData:true});
+}
+function setPlannerLanguage(language){
+ plannerLanguage=language==='en'?'en':'zh';
+ try{localStorage.setItem('planner-language',plannerLanguage);}catch{}
+ applyPlannerLanguage();
+}
+const languageObserver=new MutationObserver(()=>applyPlannerLanguage());
+applyPlannerLanguage();
+
 </script>
 </body>
 </html>
