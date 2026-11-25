@@ -2588,13 +2588,14 @@ function fitRcPolarPark(s){
  * Single-view estimates are approximate and have uncorrected perspective error.
  * Pure geometry uses planner vector operations; no storage or DOM access.
  */
-/** Calibrate mount base to the equipment mountHeight vertically in polar park.
+/** Return the vertical shift (metres) for an equatorial mount in polar park.
+ * Use the RC10 equipment calibration or the shared 0.230 m saddle height.
  * The upward DEC-axis projection is cos(latitude); this is not a radial length.
  */
 function rcMountLift(s){
- if(s.equipment?.mountHeight===undefined)return 0;
+ const saddleHeight=s.equipment?.mountHeight ?? .230;
  const axis=clockVec(0);
- return s.equipment.mountHeight-G.cube*.65*polar()[2]-(G.cube/2+G.cylLen)*axis[2];
+ return saddleHeight-G.cube*.65*polar()[2]-(G.cube/2+G.cylLen)*axis[2];
 }
 /** Mechanical angles (degrees) for polar pointing with the OTA above the mount.
  * RA aligns the DEC adapter with the upward projection perpendicular to polar().
